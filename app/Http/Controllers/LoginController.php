@@ -28,9 +28,9 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             if ($request['actor_id'] == 1) {
-                return redirect()->intended('/dashboard-petani');
+                return redirect()->intended('/dashboard/petani');
             } elseif ($request['actor_id'] == 2) {
-                return redirect()->intended('/dashboard-produsen');
+                return redirect()->intended('/dashboard/produsen');
             }
         }
 

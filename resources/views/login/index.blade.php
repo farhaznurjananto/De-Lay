@@ -38,7 +38,7 @@
                   <div class="input-group mb-3">
                     <span class="input-group-text"><i class="bi bi-at"></i></span>
                     <div class="form-floating">
-                      <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Username" required />
+                      <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Username" value="{{ old('email') }}" required />
                       <label for="email">Masukkan Email</label>
                     </div>
                     @error('email')

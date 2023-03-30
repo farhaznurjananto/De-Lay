@@ -8,14 +8,14 @@ class DashboardController extends Controller
 {
     public function index_petani()
     {
-        return view('dashboard-petani.index', [
+        return view('dashboard.petani.index', [
             'title' => 'Dashboard Petani',
         ]);
     }
 
     public function index_produsen()
     {
-        return view('dashboard-produsen.index', [
+        return view('dashboard.produsen.index', [
             'title' => 'Dashboard Produsen',
         ]);
     }

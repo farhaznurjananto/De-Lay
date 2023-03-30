@@ -27,6 +27,10 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/dashboard-petani', [DashboardController::class, 'index_petani'])->middleware('auth');
+Route::get('/dashboard/petani', [DashboardController::class, 'index_petani'])->middleware('auth');
 
-Route::get('/dashboard-produsen', [DashboardController::class, 'index_produsen'])->middleware('auth');
+Route::get('/dashboard/produsen', [DashboardController::class, 'index_produsen'])->middleware('auth');
+
+Route::get('/dashboard/forum', function () {
+    return view('dashboard.forum.index', ['title' => 'Forum']);
+})->middleware('auth');
