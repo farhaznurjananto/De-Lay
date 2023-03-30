@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Actor extends Model
+class Forum_Category extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function users()
+    public function forums()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Forum::class);
     }
 }

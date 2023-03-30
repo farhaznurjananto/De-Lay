@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HomeController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,4 @@ Route::get('/dashboard/petani', [DashboardController::class, 'index_petani'])->m
 
 Route::get('/dashboard/produsen', [DashboardController::class, 'index_produsen'])->middleware('auth');
 
-Route::get('/dashboard/forum', function () {
-    return view('dashboard.forum.index', ['title' => 'Forum']);
-})->middleware('auth');
+Route::resource('/dashboard/forum', ForumController::class)->middleware('auth');

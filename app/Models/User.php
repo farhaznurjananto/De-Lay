@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Actor::class);
     }
+
+    public function forums()
+    {
+        return $this->hasMany(Forum::class);
+    }
 }
