@@ -34,9 +34,27 @@
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="#product">Produk</a>
             </li>
-            <li class="nav-item d-grid">
-              <a class="btn btn-outline-success mx-2" href="/login">Masuk</a>
+            <li class="nav-item dropdown justify-center">
+            @auth
+              <a class="nav-link p-0 mx-0 my-2" href="#" data-bs-toggle="dropdown" aria-expanded="false"> {{ auth()->user()->name }} <i class="bi bi-person-circle"></i></a>
+              <ul class="dropdown-menu mt-2">
+                <li><a class="dropdown-item" href="/">Home</a></li>
+                @if (auth()->user()->actor_id == 1)
+                  <li><a class="dropdown-item" href="/dashboard-petani">Dashboard</a></li>
+                @else
+                  <li><a class="dropdown-item" href="/dashboard-produsen">Dashboard</a></li>
+                @endif
+                <li><hr class="dropdown-divider" /></li>
+                <li>                  
+                  <form action="/logout" method="post">
+                    @csrf
+                      <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                  </form></li>
+              </ul>
             </li>
+            @else
+              <a class="btn btn-outline-success mx-2" href="/login">Masuk</a>
+            @endauth
           </ul>
         </div>
       </div>

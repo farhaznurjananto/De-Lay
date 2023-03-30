@@ -28,11 +28,26 @@
         <div class="col">
           <div class="card mb-4 rounded-3 shadow-sm border-success">
             <div class="card-header py-3 text-bg-success border-success">
-              <h4 class="my-0 fw-normal text-center fw-bold">Login</h4>
+              <h4 class="my-0 fw-normal text-center fw-bold">Register</h4>
             </div>
             <div class="card-body">
-              <form action="/login" method="post">
+              <form action="/register" method="post">
                 @csrf
+                <ul class="list-unstyled">
+                  <label for="name" class="form-label">Nama</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <div class="form-floating">
+                      <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Username" required />
+                      <label for="name">Masukkan Nama</label>
+                    </div>
+                    @error('name')
+                      <div class="invalid-feedback">
+                          {{ $message }}
+                      </div>
+                    @enderror
+                  </div>
+                </ul>
                 <ul class="list-unstyled">
                   <label for="email" class="form-label">Email</label>
                   <div class="input-group mb-3">
@@ -91,8 +106,8 @@
                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
                 @endif
-                <button type="submit" class="w-100 btn btn-lg btn-outline-success">Masuk</button>
-                <p class="text-center mt-2">Belum punya akun? <a href="/register" class="text-decoration-none">Daftar</a></p>
+                <button type="submit" class="w-100 btn btn-lg btn-outline-success">Daftar</button>
+                <p class="text-center mt-2">Sudah punya akun? <a href="/login" class="text-decoration-none">Masuk</a></p>
               </form>
             </div>
           </div>
