@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discussion;
 use App\Models\Forum;
 use App\Models\Forum_Category;
 use Illuminate\Http\Request;
@@ -13,9 +14,8 @@ class ForumController extends Controller
      */
     public function index()
     {
-        // return Forum::where('user_id', auth()->user()->id)->get();
         return view('dashboard.forum.index', [
-            'title' => 'Forum Anda',
+            'title' => 'Forum',
             'forum_categories' => Forum_Category::all(),
             'forums' => Forum::where('user_id', auth()->user()->id)->latest()->paginate(5)->withQueryString(),
         ]);
@@ -43,7 +43,7 @@ class ForumController extends Controller
 
         Forum::create($validateData);
 
-        return redirect('/dashboard/forum')->with('success', 'Forum baru berhasil dibuat!');
+        return redirect()->back()->with('success', 'Forum baru berhasil dibuat!');
     }
 
     /**
@@ -51,7 +51,13 @@ class ForumController extends Controller
      */
     public function show(Forum $forum)
     {
-        //
+        // return Discussion::where('forum_id', $forum->id)->latest()->paginate(5)->withQueryString();
+        return view('dashboard.forum.show', [
+            'title' => 'Forum',
+            'forum' => $forum,
+            'discussions' => Discussion::where('forum_id', $forum->id)->latest()->paginate(5)->withQueryString(),
+            'forum_categories' => Forum_Category::all()
+        ]);
     }
 
     /**
@@ -91,6 +97,6 @@ class ForumController extends Controller
     {
         Forum::destroy($forum->id);
 
-        return redirect('/dashboard/forum')->with('success', 'Forum berhasil dihapus!');
+        return redirect()->back()->with('success', 'Forum berhasil dihapus!');
     }
 }

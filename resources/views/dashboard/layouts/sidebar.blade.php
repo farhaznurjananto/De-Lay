@@ -9,7 +9,7 @@
             <a class="nav-link" href="dashboard-petani-pemesanan.html"> <i class="bi bi-file-earmark"></i> Pemesanan </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="dashboard-petani-produk.html"> <i class="bi bi-cart"></i> Produk </a>
+            <a class="nav-link {{ Request::is('dashboard/product*') ? 'text-primary' : '' }}" href="/dashboard/product"> <i class="bi bi-cart"></i> Produk </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="dashboard-petani-monitoring.html"> <i class="bi bi-calendar2-plus"></i> Monitoring </a>
@@ -23,7 +23,7 @@
             <a class="nav-link {{ Request::is('dashboard/forum*') ? 'text-primary' : '' }}" href="/dashboard/forum"> <i class="bi bi-people"></i> Forum Anda </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ Request::is('dashboard/global-forum*') ? 'text-primary' : '' }}" href="/dashboard/global-forum"> <i class="bi bi-globe"></i> Forum Global </a>
+            <a class="nav-link {{ Request::is('dashboard/discussion*') ? 'text-primary' : '' }}" href="/dashboard/discussion"> <i class="bi bi-globe"></i> Forum Global </a>
         </li>
     </ul>
     <ul class="navbar-nav flex-column">

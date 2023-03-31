@@ -6,6 +6,8 @@
 
     <hr class="featurette-divider" />
 
+    <div class="profile-pic"><i class="bi bi-person-circle"></i></div>
+
     <hr class="featurette-divider" />
   </div>
 @endsection

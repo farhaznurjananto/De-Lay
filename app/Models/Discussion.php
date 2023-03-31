@@ -5,24 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Forum extends Model
+class Discussion extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function forum_category()
+    public function forum()
     {
-        return $this->belongsTo(Forum_Category::class);
+        return $this->belongsTo(Forum::class);
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function discussions()
-    {
-        return $this->hasMany(Discussion::class);
     }
 }

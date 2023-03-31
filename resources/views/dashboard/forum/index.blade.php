@@ -3,9 +3,9 @@
 @section('container')
     <div class="container-fluid">
       <div class="top-bar d-flex justify-content-between align-items-center">
-        <h1 class="h2 mt-3">Forum Diskusi Anda</h1>
+        <h1 class="h2 mt-3">Forum Anda</h1>
         <div class="">
-          <button class="btn btn-outline-success btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#createForumModal"><i class="bi bi-plus-circle"></i> Buat Forum</button>
+          <button class="btn btn-outline-success btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#createForumModal"><i class="bi bi-plus-circle"></i> Buat</button>
         </div>
       </div>
 
@@ -52,7 +52,7 @@
                 @endif
               </p>
               <div class="action">
-                <a href="#" class="btn btn-outline-warning btn-sm"><i class="bi bi-door-open"></i> Masuk Forum</a>
+                <a href="/dashboard/forum/{{ $forum->id }}" class="btn btn-outline-warning btn-sm"><i class="bi bi-door-open"></i> Masuk Forum</a>
               </div>
             </div>
           </div>
