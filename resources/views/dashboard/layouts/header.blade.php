@@ -11,11 +11,7 @@
             <a class="nav-link d-inline" data-bs-toggle="dropdown" aria-expanded="false"> {{ auth()->user()->name }} <i class="bi bi-person-circle"></i></a>
             <ul class="dropdown-menu mt-2">
                 <li><a class="dropdown-item" href="/">Home</a></li>
-                @if (auth()->user()->actor_id == 1)
-                    <li><a class="dropdown-item" href="/dashboard/petani">Dashboard</a></li>
-                @else
-                    <li><a class="dropdown-item" href="/dashboard/produsen">Dashboard</a></li>
-                @endif
+                <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>                  
                     <form action="/logout" method="post">

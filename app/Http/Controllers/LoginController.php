@@ -27,11 +27,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            if ($request['actor_id'] == 1) {
-                return redirect()->intended('/dashboard/petani');
-            } elseif ($request['actor_id'] == 2) {
-                return redirect()->intended('/dashboard/produsen');
-            }
+            return redirect()->intended('/dashboard');
         }
 
         return back()->with([

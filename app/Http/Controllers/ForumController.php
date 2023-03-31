@@ -15,9 +15,9 @@ class ForumController extends Controller
     {
         // return Forum::where('user_id', auth()->user()->id)->get();
         return view('dashboard.forum.index', [
-            'title' => 'Forum',
+            'title' => 'Forum Anda',
             'forum_categories' => Forum_Category::all(),
-            'forums' => Forum::where('user_id', auth()->user()->id)->latest()->get(),
+            'forums' => Forum::where('user_id', auth()->user()->id)->latest()->paginate(5)->withQueryString(),
         ]);
     }
 
@@ -43,7 +43,7 @@ class ForumController extends Controller
 
         Forum::create($validateData);
 
-        return redirect('/dashboard/forum')->with('success', 'New forum has been created!');
+        return redirect('/dashboard/forum')->with('success', 'Forum baru berhasil dibuat!');
     }
 
     /**
@@ -59,7 +59,11 @@ class ForumController extends Controller
      */
     public function edit(Forum $forum)
     {
-        //
+        return view('dashboard.forum.edit', [
+            'title' => 'Edit Forum',
+            'forum_categories' => Forum_Category::all(),
+            'forum' => $forum,
+        ]);
     }
 
     /**
@@ -67,7 +71,17 @@ class ForumController extends Controller
      */
     public function update(Request $request, Forum $forum)
     {
-        //
+        $validateData = $request->validate([
+            'question' => 'required|max:255',
+            'forum_category_id' => 'required',
+        ]);
+
+        $validateData['user_id'] = auth()->user()->id;
+
+        Forum::where('id', $forum->id)
+            ->update($validateData);
+
+        return redirect('/dashboard/forum')->with('success', 'Forum berhasil diperbarui!');
     }
 
     /**
@@ -75,6 +89,8 @@ class ForumController extends Controller
      */
     public function destroy(Forum $forum)
     {
-        //
+        Forum::destroy($forum->id);
+
+        return redirect('/dashboard/forum')->with('success', 'Forum berhasil dihapus!');
     }
 }

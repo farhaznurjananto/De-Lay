@@ -3,20 +3,8 @@
 @section('container')
     <div class="container-fluid">
       <div class="top-bar d-flex justify-content-between align-items-center">
-        <h1 class="h2 mt-3">Forum Diskusi Anda</h1>
-        <div class="">
-          <button class="btn btn-outline-success btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#createForumModal"><i class="bi bi-plus-circle"></i> Buat Forum</button>
-        </div>
+        <h1 class="h2 mt-3">Forum Diskusi Global</h1>
       </div>
-
-      {{-- alert --}}        
-      @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{ session('success') }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      @endif
-      {{-- end alert --}}
 
       <hr class="featurette-divider" />
 
@@ -27,21 +15,6 @@
           <div class="card m-1">
             <div class="card-header">
               <i class="bi bi-bookmark-fill"></i> {{ $forum->forum_category->name }}
-              <i class="bi bi-three-dots-vertical float-end" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
-              <div class="dropdown">
-                <ul class="dropdown-menu">
-                  <li>
-                    <form action="/dashboard/forum/{{ $forum->id }}" method="post" class="d-inline">
-                      @method('delete')
-                      @csrf
-                      <button type="submit" class="dropdown-item" href="#" onclick="return confirm('Apa anda yakin untuk menghapus ini?')">Hapus Forum</i></a>
-                    </form>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="/dashboard/forum/{{ $forum->id }}/edit">Edit Forum</a>
-                  </li>
-                </ul>
-              </div>
             </div>
             <div class="card-body">
               <h5 class="card-title fs-5">{{ $forum->question }}</h5>

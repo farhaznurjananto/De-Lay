@@ -2,7 +2,7 @@
 
 @section('container')
   <div class="container-fluid">
-    <h1 class="h2 mt-3">Dashboard Petani</h1>
+    <h1 class="h2 mt-3">Dashboard</h1>
 
     <hr class="featurette-divider" />
 

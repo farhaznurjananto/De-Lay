@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\GlobalForumController;
 use App\Http\Controllers\HomeController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +29,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/dashboard/petani', [DashboardController::class, 'index_petani'])->middleware('auth');
-
-Route::get('/dashboard/produsen', [DashboardController::class, 'index_produsen'])->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 Route::resource('/dashboard/forum', ForumController::class)->middleware('auth');
+Route::get('/dashboard/global-forum', [GlobalForumController::class, 'index'])->middleware('auth');
