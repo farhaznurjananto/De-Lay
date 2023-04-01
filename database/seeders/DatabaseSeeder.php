@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Actor;
 use App\Models\Forum;
 use App\Models\Forum_Category;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(2)->create();
+
+        User::create([
+            'name' => 'farhaz nurjananto',
+            'email' => 'farhaznurjananto052@gmail.com',
+            'actor_id' => 1,
+            'password' => bcrypt('12345')
+        ]);
 
         Actor::create([
             'name' => 'Petani Kedelai',
@@ -37,11 +45,17 @@ class DatabaseSeeder extends Seeder
             'user_id' => 1,
             'forum_category_id' => 2
         ]);
-
         Forum::create([
             'question' => 'Are you sure you want to play',
             'user_id' => 2,
             'forum_category_id' => 1
+        ]);
+
+        Product::create([
+            'name' => 'Kedelai Bagus',
+            'stock' => 50000,
+            'price' => 11500,
+            'owner_id' => 3,
         ]);
     }
 }

@@ -34,16 +34,22 @@ class ForumController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'question' => 'required|max:255',
-            'forum_category_id' => 'required',
-        ]);
+        try {
+            $rules = [
+                'question' => 'required|max:255',
+                'forum_category_id' => 'required',
+            ];
 
-        $validateData['user_id'] = auth()->user()->id;
+            $validateData = request()->validate($rules);
 
-        Forum::create($validateData);
+            $validateData['user_id'] = auth()->user()->id;
 
-        return redirect()->back()->with('success', 'Forum baru berhasil dibuat!');
+            Forum::create($validateData);
+
+            return redirect()->back()->with('success', 'Forum baru berhasil dibuat!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Forum gagal dibuat!') && $validateData = request()->validate($rules);;
+        }
     }
 
     /**
@@ -97,6 +103,6 @@ class ForumController extends Controller
     {
         Forum::destroy($forum->id);
 
-        return redirect()->back()->with('success', 'Forum berhasil dihapus!');
+        return redirect('/dashboard/forum')->with('success', 'Forum berhasil dihapus!');
     }
 }

@@ -14,21 +14,24 @@
                 @csrf
                 <div class="mb-3">
                     <label for="question" class="form-label">Tuliskan pertanyaan anda</label>
-                    <textarea class="form-control @error('question') is-invalid @enderror" name="question" id="question" rows="3" required>{{ $forum->question }}</textarea>
+                    <textarea class="form-control @error('question') is-invalid @enderror" name="question" id="question" rows="3"
+                        required>{{ $forum->question }}</textarea>
                     @error('question')
-                    <p class="text-danger">{{ $message }}</p>
+                        <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label for="forum_category_id" class="form-label">Kategori</label>
-                    <select class="form-select mb-3" id="forum_category" name="forum_category_id" aria-label="Default select example">
-                      @foreach ($forum_categories as $category)
-                          @if ($forum->forum_category_id == $category->id)
-                              <option value="{{ $category->id }}" selected="selected"{{ $category->name }}>{{ $category->name }}</option>
-                          @else
-                              <option value="{{ $category->id }}">{{ $category->name }}</option>
-                          @endif
-                      @endforeach
+                    <select class="form-select mb-3" id="forum_category" name="forum_category_id"
+                        aria-label="Default select example">
+                        @foreach ($forum_categories as $category)
+                            @if ($forum->forum_category_id == $category->id)
+                                <option value="{{ $category->id }}" selected="selected"{{ $category->name }}>
+                                    {{ $category->name }}</option>
+                            @else
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endif
+                        @endforeach
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>

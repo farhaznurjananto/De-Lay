@@ -37,4 +37,4 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 Route::resource('/dashboard/forum', ForumController::class)->middleware('auth');
 Route::resource('/dashboard/discussion', DiscussionController::class)->middleware('auth');
 
-Route::resource('/dashboard/product', ProductController::class)->middleware('auth');
+Route::resource('/dashboard/product', ProductController::class)->middleware('petani');
