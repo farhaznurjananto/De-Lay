@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\DashboardProductController;
+use App\Http\Controllers\TokoController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -40,3 +42,10 @@ Route::resource('/dashboard/discussion', DiscussionController::class, ['except' 
 Route::resource('/dashboard/product', DashboardProductController::class, ['except' => ['create']])->middleware('auth');
 
 Route::resource('/dashboard/monitor', MonitorController::class, ['except' => ['create', 'show', 'edit', 'update']])->middleware('petani');
+
+Route::get('/dashboard/market', [TokoController::class, 'index'])->middleware('auth');
+Route::get('/dashboard/market/{product:id}', [TokoController::class, 'show'])->middleware('auth');
+
+
+
+Route::resource('/dashboard/order', OrderController::class)->middleware('auth');
