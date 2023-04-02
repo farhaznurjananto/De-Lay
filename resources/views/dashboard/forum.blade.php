@@ -80,11 +80,8 @@
                         </form>
             @endif By:
             <span class="fw-bold small text-primary">
-                {{ $discussion->sender_id }}</span>
-            - {{ $discussion->created_at->diffForHumans() }}
-            @if ($discussion->updated_at != $discussion->created_at)
-                <span class="text-muted small">| Edited - {{ $discussion->updated_at->diffForHumans() }}</span>
-            @endif
+                {{ $discussion->name }}</span>
+            - {{ date('d-M-Y', strtotime($discussion->created_at)) }}
     </div>
     </div>
     @endforeach

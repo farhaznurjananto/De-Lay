@@ -36,7 +36,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="dashboard-petani-pemesanan.html">
+                    <a class="nav-link {{ Request::is('dashboard/market*') ? 'text-primary' : '' }}"
+                        href="/dashboard/market">
                         <i class="bi bi-file-earmark"></i> Cari Bahan Baku
                     </a>
                 </li>
@@ -49,13 +50,13 @@
                 </p>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/forum*') ? 'text-primary' : '' }}" href="/dashboard/forum">
+                <a class="nav-link {{ Request::is('dashboard/forum') ? 'text-primary' : '' }}" href="/dashboard/forum">
                     <i class="bi bi-people"></i> Forum Anda
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/discussion*') ? 'text-primary' : '' }}"
-                    href="/dashboard/discussion">
+                <a class="nav-link {{ Request::is('dashboard/forums') ? 'text-primary' : '' }}"
+                    href="/dashboard/forums">
                     <i class="bi bi-globe"></i> Forum Global
                 </a>
             </li>

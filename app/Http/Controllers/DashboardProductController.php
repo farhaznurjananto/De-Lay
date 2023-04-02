@@ -6,7 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ProductController extends Controller
+class DashboardProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -114,7 +114,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        return $product;
         if ($product->image) {
             Storage::delete($product->image);
         }

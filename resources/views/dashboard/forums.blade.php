@@ -46,10 +46,4 @@
 
         <hr class="featurette-divider" />
     </div>
-
-    <script>
-        // setInterval(() => {
-        //   $("#my-forum").load("");
-        // }, 10000);
-    </script>
 @endsection
