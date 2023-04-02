@@ -26,6 +26,13 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('12345')
         ]);
 
+        User::create([
+            'name' => 'Farlin Nurjananti',
+            'email' => 'farlinnurjananti@gmail.com',
+            'actor_id' => 2,
+            'password' => bcrypt('12345')
+        ]);
+
         Actor::create([
             'name' => 'Petani Kedelai',
         ]);

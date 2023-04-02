@@ -20,7 +20,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="dashboard-petani-monitoring.html">
+                    <a class="nav-link {{ Request::is('dashboard/monitor*') ? 'text-primary' : '' }}"
+                        href="/dashboard/monitor">
                         <i class="bi bi-calendar2-plus"></i> Monitoring
                     </a>
                 </li>

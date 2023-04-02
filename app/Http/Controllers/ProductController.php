@@ -114,6 +114,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        return $product;
         if ($product->image) {
             Storage::delete($product->image);
         }
