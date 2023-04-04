@@ -71,13 +71,30 @@
                                 </div>
                             </ul>
                             <ul class="list-unstyled">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control @error('phone') is-invalid @enderror"
+                                            id="phone" name="phone" placeholder="Username"
+                                            value="{{ old('phone') }}" required />
+                                        <label for="phone">Masukkan Nomor Telepon</label>
+                                    </div>
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </ul>
+                            <ul class="list-unstyled">
                                 <label for="password" class="form-label">Password</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
                                     <div class="form-floating">
                                         <input type="password"
                                             class="form-control @error('password') is-invalid @enderror" id="password"
-                                            name="password" placeholder="Username" required />
+                                            name="password" placeholder="Username" required autocomplete="false" />
                                         <label for="password">Masukkan Password</label>
                                     </div>
                                     @error('password')

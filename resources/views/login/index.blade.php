@@ -60,7 +60,7 @@
                                     <div class="form-floating">
                                         <input type="password"
                                             class="form-control @error('password') is-invalid @enderror" id="password"
-                                            name="password" placeholder="Username" required />
+                                            name="password" placeholder="Username" required autocomplete="false" />
                                         <label for="password">Masukkan Password</label>
                                     </div>
                                     @error('password')

@@ -37,7 +37,9 @@ class DashboardProductController extends Controller
                 'image' => 'image|file|max:1024',
                 'name' => 'required|max:255',
                 'stock' => 'required|numeric|min:1',
-                'price' => 'required|numeric|min:1'
+                'price' => 'required|numeric|min:1',
+                'rekening' => 'numeric',
+                'address' => 'max:255'
             ];
 
             $validateData = request()->validate($rules);
@@ -85,7 +87,10 @@ class DashboardProductController extends Controller
             'image' => 'image|file|max:1024',
             'name' => 'required|max:255',
             'stock' => 'required|numeric|min:1',
-            'price' => 'required|numeric|min:1'
+            'price' => 'required|numeric|min:1',
+            'rekening' => 'numeric',
+            'address' => 'max:255',
+            'status' => 'required'
         ];
 
         $validateData = request()->validate($rules);
@@ -106,7 +111,7 @@ class DashboardProductController extends Controller
         Product::where('id', $product->id)
             ->update($validateData);
 
-        return redirect('/dashboard/product')->with('success', 'Pruduk baru berhasil ditambahkan!');
+        return redirect('/dashboard/product')->with('success', 'Pr0duk berhasil diperbaruhi!');
     }
 
     /**

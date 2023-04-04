@@ -48,16 +48,20 @@
                                     Harga : {{ $product->price }} / kg
                                 </p>
                                 <div class="action">
-                                    <form action="/dashboard/product/{{ $product->id }}" method="post" class="d-inline">
+                                    {{-- <form action="/dashboard/product/{{ $product->id }}" method="post" class="d-inline">
                                         @method('delete') @csrf
                                         <button type="submit" class="btn btn-outline-danger btn-sm float-end"
-                                            onclick="return confirm('Apa anda yakin untuk menghapus ini?')">
-                                            <i class="bi bi-trash3-fill"></i>
-                                        </button>
-                                    </form>
+                                        onclick="return confirm('Apa anda yakin untuk menghapus ini?')">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </form> --}}
                                     <a href="/dashboard/product/{{ $product->id }}/edit"
-                                        class="btn btn-outline-primary btn-sm align-self-end"><i
-                                            class="bi bi-pencil-square"></i> Edit</a>
+                                        class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                                    @if ($product->status == 1)
+                                        <span class="badge text-bg-success float-end">Open</span>
+                                    @else
+                                        <span class="badge text-bg-danger float-end">Close</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -85,7 +89,7 @@
                                         <img class="img-preview img-fluid mb-3" style="max-height: 150px" />
                                     </div>
                                     <input type="file" class="form-control @error('image') is-invalid @enderror"
-                                        id="image" name="image" placeholder="Gambar Produk" required
+                                        id="image" name="image" placeholder="Gambar produk" required
                                         onchange="previewImage()" />
                                     <div id="stockHelp" class="form-text">
                                         Upload gambar produk max 1mb.
@@ -97,9 +101,10 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Nama Produk</label>
+                                    <label for="name" class="form-label">Nama Produk<span
+                                            class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                        id="name" name="name" placeholder="Nama Produk" value="{{ old('name') }}"
+                                        id="name" name="name" placeholder="Nama produk" value="{{ old('name') }}"
                                         required />
                                     @error('name')
                                         <div class="invalid-feedback">
@@ -108,9 +113,10 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="stock" class="form-label">Stok Produk</label>
+                                    <label for="stock" class="form-label">Stok Produk<span
+                                            class="text-danger">*</span></label>
                                     <input type="number" class="form-control @error('stock') is-invalid @enderror"
-                                        id="stock" name="stock" placeholder="Stok Produk" value="{{ old('stock') }}"
+                                        id="stock" name="stock" placeholder="Stok produk" value="{{ old('stock') }}"
                                         required />
                                     <div id="stockHelp" class="form-text">
                                         Masukkan jumlah stok dalam satuan kg.
@@ -122,9 +128,10 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="price" class="form-label">Harga Produk</label>
+                                    <label for="price" class="form-label">Harga Produk<span
+                                            class="text-danger">*</span></label>
                                     <input type="number" class="form-control @error('price') is-invalid @enderror"
-                                        id="price" name="price" placeholder="Harga Produk"
+                                        id="price" name="price" placeholder="Harga produk"
                                         value="{{ old('price') }}" required />
                                     <div id="priceHelp" class="form-text">
                                         Masukkan harga per-kg.
@@ -134,6 +141,57 @@
                                             {{ $message }}
                                         </div>
                                     @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="rekening" class="form-label">Nomor Rekening</label>
+                                    <input type="number" class="form-control @error('rekening') is-invalid @enderror"
+                                        id="rekening" name="rekening" placeholder="Nomor rekening anda"
+                                        value="0" />
+                                    <div id="rekeningHelp" class="form-text">
+                                        Masukkan nomor rekening anda sebagai alternatif pembayaran transfer. <span
+                                            class="fw-semibold">Default 0</span> untuk
+                                        tidak memilih alternatif pembayaran transfer.
+                                    </div>
+                                    @error('rekening')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Alamat Pengambilan Produk</label>
+                                    <input type="text" class="form-control @error('address') is-invalid @enderror"
+                                        id="address" name="address" placeholder="Alamat anda"
+                                        value="{{ old('address') }}" />
+                                    <div id="addressHelp" class="form-text">
+                                        Alamat ini sebagai alternatif pengiriman non-delivery.
+                                    </div>
+                                    @error('address')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Nomor Telepon<span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" class="form-control @error('phone') is-invalid @enderror"
+                                        id="phone" name="phone" placeholder="Nomor telepon anda"
+                                        value="{{ auth()->user()->phone }}" required readonly disabled />
+                                    <div id="phoneHelp" class="form-text">
+                                        Nomor telephon anda akan digunakan oleh calon pembeli untuk menghubungi anda.
+                                    </div>
+                                    @error('phone')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <div id="priceHelp" class="form-text text-danger fw-bold">
+                                        Aplikasi kami tidak melayani sistem pendistribusian produk harap komunikasikan hal
+                                        pendistribusian produk bersama pembeli.
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

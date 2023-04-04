@@ -67,6 +67,65 @@
                         </div>
                     @enderror
                 </div>
+                <div class="mb-3">
+                    <label for="rekening" class="form-label">Nomor Rekening</label>
+                    <input type="number" class="form-control @error('rekening') is-invalid @enderror" id="rekening"
+                        name="rekening" placeholder="Nomor rekening anda" value="{{ $product->rekening }}" />
+                    <div id="rekeningHelp" class="form-text">
+                        Masukkan nomor rekening anda sebagai alternatif pembayaran transfer. <span
+                            class="fw-semibold">Default 0</span> untuk
+                        tidak memilih alternatif pembayaran transfer.
+                    </div>
+                    @error('rekening')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Alamat Pengambilan Produk</label>
+                    <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
+                        name="address" placeholder="Alamat anda" value="{{ old('address', $product->address) }}" />
+                    <div id="addressHelp" class="form-text">
+                        Alamat ini sebagai alternatif pengiriman non-delivery.
+                    </div>
+                    @error('address')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Nomor Telepon<span class="text-danger">*</span></label>
+                    <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone"
+                        name="phone" placeholder="Nomor telepon anda" value="{{ auth()->user()->phone }}" required
+                        readonly disabled />
+                    <div id="phoneHelp" class="form-text">
+                        Nomor telephon anda akan digunakan oleh calon pembeli untuk menghubungi anda.
+                    </div>
+                    @error('phone')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-info-circle-fill"></i></i></span>
+                        <select class="form-select" aria-label="Default select example" name="status">
+                            @if ($product->status == 1)
+                                <option value="{{ $product->status }}" selected="selected">
+                                    Open</option>
+                                <option value="2">Close</option>
+                            @else
+                                <option value="1">Open</option>
+                                <option value="{{ $product->status }}" selected="selected">
+                                    Close</option>
+                            @endif
+                        </select>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>

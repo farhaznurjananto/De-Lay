@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'farhaz nurjananto',
             'email' => 'farhaznurjananto052@gmail.com',
+            'phone' => '081331611696',
             'actor_id' => 1,
             'password' => bcrypt('12345')
         ]);
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Farlin Nurjananti',
             'email' => 'farlinnurjananti@gmail.com',
+            'phone' => '081331611698',
             'actor_id' => 2,
             'password' => bcrypt('12345')
         ]);
@@ -56,13 +58,6 @@ class DatabaseSeeder extends Seeder
             'question' => 'Are you sure you want to play',
             'user_id' => 2,
             'forum_category_id' => 1
-        ]);
-
-        Product::create([
-            'name' => 'Kedelai Bagus',
-            'stock' => 50000,
-            'price' => 11500,
-            'owner_id' => 3,
         ]);
     }
 }

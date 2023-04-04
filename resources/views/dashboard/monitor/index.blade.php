@@ -6,11 +6,6 @@
 
         <hr class="featurette-divider" />
 
-        <form class="d-flex mb-3" role="search">
-            <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Cari</button>
-        </form>
-
         <!-- weather-information -->
         <div class="container-fluid border rounded p-3">
             <div class="rounded-3 bg-light shadow-sm">
@@ -18,29 +13,22 @@
                     <div class="weather__card my-4">
                         <div class="d-flex flex-row justify-content-center align-items-center">
                             <div class="p-3">
-                                <h2>15&deg;</h2>
+                                <img id="Icon" alt="weather-image" style="width:150px">
                             </div>
                             <div class="p-3">
-                                <i class="bi bi-brightness-low-fill fs-2"></i>
-                            </div>
-                            <div class="p-3">
-                                <h5>Tuesday, 10 AM</h5>
-                                <h3>San Francisco</h3>
-                                <span class="weather__description">Mostly Cloudy</span>
+                                <h5 id="Date">Tuesday, 10 AM</h5>
+                                {{-- <h3>San Francisco</h3> --}}
+                                <span class="weather__description" id="IconPhrase">Mostly Cloudy</span>
                             </div>
                         </div>
                         <div class="weather__status d-flex flex-row justify-content-center align-items-center mt-3">
                             <div class="p-4 d-flex justify-content-center align-items-center">
-                                <i class="bi bi-brightness-low-fill fs-2"></i>
-                                <span>10%</span>
+                                <i class="bi bi-thermometer-high"></i>
+                                <span id="Maximum">10%</span>
                             </div>
                             <div class="p-4 d-flex justify-content-center align-items-center">
-                                <i class="bi bi-brightness-low-fill fs-2"></i>
-                                <span>0.53 mB</span>
-                            </div>
-                            <div class="p-4 d-flex justify-content-center align-items-center">
-                                <i class="bi bi-brightness-low-fill fs-2"></i>
-                                <span>10 km/h</span>
+                                <i class="bi bi-thermometer-low"></i>
+                                <span id="Minimum">10 km/h</span>
                             </div>
                         </div>
                     </div>
@@ -48,54 +36,43 @@
             </div>
 
             <!-- Weather Forecast -->
-            <div class="weather__forecast d-flex flex-row overflow-x-auto justify-content-around align-items-center mt-3">
-                <div class="px-4 mx-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                    <span>Wed</span>
-                    <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                    <span>13&deg;</span>
-                </div>
-
-                <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                    <span>Thu</span>
-                    <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                    <span>15&deg;</span>
-                </div>
-
-                <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                    <span>Wed</span>
-                    <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                    <span>15&deg;</span>
-                </div>
-
-                <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                    <span>Fri</span>
-                    <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                    <span>13&deg;</span>
-                </div>
-
-                <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                    <span>Sat</span>
-                    <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                    <span>13&deg;</span>
-                </div>
-
-                <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
+            <div class="weather__forecast d-flex flex-row overflow-x-auto justify-content-around align-items-center mt-3"
+                id="weather-forecast">
+                {{-- <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
                     <span>Sun</span>
                     <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
                     <span>11&deg;</span>
                 </div>
-
                 <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
                     <span>Mon</span>
                     <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
                     <span>11&deg;</span>
                 </div>
-
                 <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
                     <span>Tue</span>
                     <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
                     <span>6&deg;</span>
                 </div>
+                <div class="px-4 mx-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
+                    <span>Wed</span>
+                    <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
+                    <span>13&deg;</span>
+                </div>
+                <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
+                    <span>Thu</span>
+                    <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
+                    <span>15&deg;</span>
+                </div>
+                <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
+                    <span>Fri</span>
+                    <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
+                    <span>13&deg;</span>
+                </div>
+                <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
+                    <span>Sat</span>
+                    <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
+                    <span>13&deg;</span>
+                </div> --}}
             </div>
         </div>
         <!-- end-weather-information -->
@@ -128,9 +105,8 @@
             {{-- end alert --}}
 
             <div class="container-fluid my-4">
+                <p class="h5 text-center my-3">Penanaman Terkini</p>
                 @if ($monitors->count())
-                    <p class="h5 text-center my-3">Penanaman Terkini</p>
-
                     <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
                         aria-valuemin="0" aria-valuemax="100">
                         @if (now() >= $monitors[0]->pemanenan)
@@ -165,7 +141,6 @@
                         sampai pemanenan<span class="text-danger fw-bold">*</span></p>
             </div>
 
-
             <div class="container-fluid overflow-auto">
                 <table class="table overflow-auto text-center">
                     <thead>
@@ -187,8 +162,7 @@
                                 <td>{{ $monitor->pemupukan_2 }}</td>
                                 <td>{{ $monitor->pemanenan }}</td>
                                 <td>
-                                    <form action="/dashboard/monitor/{{ $monitor->id }}" method="post"
-                                        class="d-inline">
+                                    <form action="/dashboard/monitor/{{ $monitor->id }}" method="post" class="d-inline">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger btn-sm float-end"
@@ -215,4 +189,75 @@
 
         <hr class="featurette-divider" />
     </div>
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var apiKey = "oYMrZ3A0dJBJmH63hIepb5AokXE8ING3";
+            // var apiKey = "ifr6M9mhjh4HzWSWVxIMFU102OwG6LDz";
+
+            var url = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=" + apiKey + "&q=" +
+                latitude + "%2C" + longitude;
+
+            $.get(url, function(data) {
+                var locationKey = data.Key;
+                // var forecastUrl = "http://dataservice.accuweather.com/forecasts/v1/daily/10day/" + locationKey +
+                //     "?apikey=" + apiKey;
+                var forecastUrl = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" + locationKey +
+                    "?apikey=" + apiKey;
+
+                $.get(forecastUrl, function(data) {
+                    var dailyForecasts = data.DailyForecasts;
+
+                    // headline weather
+                    document.getElementById('Date').innerHTML = new Date(dailyForecasts[0]['Date'])
+                        .toDateString();
+                    document.getElementById('IconPhrase').innerHTML = dailyForecasts[0]['Day'][
+                        'IconPhrase'
+                    ];
+                    document.getElementById('Icon').src =
+                        'https://developer.accuweather.com/sites/default/files/' + (dailyForecasts[0]['Day']
+                            ['Icon'] < 10 ? "0" + dailyForecasts[0]['Day']['Icon'] : dailyForecasts[0][
+                                'Day'
+                            ]['Icon']) + '-s.png';
+                    document.getElementById('Maximum').innerHTML = dailyForecasts[0]['Temperature'][
+                        'Maximum'
+                    ]['Value'] + '°' + dailyForecasts[0]['Temperature'][
+                        'Maximum'
+                    ]['Unit'];
+                    document.getElementById('Minimum').innerHTML = dailyForecasts[0]['Temperature'][
+                        'Minimum'
+                    ]['Value'] + '°' + dailyForecasts[0]['Temperature'][
+                        'Minimum'
+                    ]['Unit'];
+                    // end headline weather
+
+                    // forecasts weather
+                    var forecastHtml =
+                        '<div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">';
+                    forecastHtml += '<span>Sun</span>';
+
+                    dailyForecasts.forEach(function(forecast) {
+                        var weatherIcon = forecast.Day.Icon < 10 ? "0" + forecast.Day.Icon :
+                            forecast.Day.Icon;
+                        var minTemp = forecast.Temperature.Minimum.Value;
+
+                        forecastHtml +=
+                            "<img src='https://developer.accuweather.com/sites/default/files/" +
+                            weatherIcon + "-s.png'>";
+                    });
+
+                    forecastHtml += "</div>";
+                    $("#weather-forecast").html(forecastHtml);
+                    // end forecasts weather
+                });
+            });
+        }
+    </script>
 @endsection

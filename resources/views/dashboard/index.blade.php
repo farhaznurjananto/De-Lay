@@ -197,56 +197,91 @@
 
                 <!-- Weather Forecast -->
                 <div class="weather__forecast d-flex flex-row overflow-x-auto justify-content-around align-items-center mt-3">
-                    <div class="px-4 mx-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Wed</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>13&deg;</span>
-                    </div>
-
-                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Thu</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>15&deg;</span>
-                    </div>
-
-                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Wed</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>15&deg;</span>
-                    </div>
-
-                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Fri</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>13&deg;</span>
-                    </div>
-
-                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Sat</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>13&deg;</span>
-                    </div>
-
                     <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
                         <span>Sun</span>
                         <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
                         <span>11&deg;</span>
                     </div>
-
                     <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
                         <span>Mon</span>
                         <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
                         <span>11&deg;</span>
                     </div>
-
                     <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
                         <span>Tue</span>
                         <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
                         <span>6&deg;</span>
                     </div>
+                    <div class="px-4 mx-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
+                        <span>Wed</span>
+                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
+                        <span>13&deg;</span>
+                    </div>
+                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
+                        <span>Thu</span>
+                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
+                        <span>15&deg;</span>
+                    </div>
+                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
+                        <span>Fri</span>
+                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
+                        <span>13&deg;</span>
+                    </div>
+                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
+                        <span>Sat</span>
+                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
+                        <span>13&deg;</span>
+                    </div>
                 </div>
             </div>
             <!-- end-weather-information -->
+
+            {{-- penjadwalan --}}
+            <div class="container-fluid my-4">
+                <p class="h5 text-center my-3">Penanaman Terkini</p>
+                @if ($monitors->count())
+                    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
+                        aria-valuemin="0" aria-valuemax="100">
+                        @if (now() >= $monitors[0]->pemanenan)
+                            <div class="progress-bar align-items-end bg-success" style="width: 100%"></div>
+                        @endif
+                        @if (now() >= $monitors[0]->pemupukan_2 && now() <= $monitors[0]->pemanenan)
+                            <div class="progress-bar align-items-end bg-success" style="width: 65%"></div>
+                        @endif
+                        @if (now() >= $monitors[0]->pemupukan_1 && now() <= $monitors[0]->pemupukan_2)
+                            <div class="progress-bar align-items-end bg-success" style="width: 35%"></div>
+                        @endif
+                        @if (now() >= $monitors[0]->penanaman && now() <= $monitors[0]->pemupukan_1)
+                            <div class="progress-bar align-items-end bg-success" style="width: 15%"></div>
+                        @endif
+                    </div>
+                    <div class="row align-items-center text-center small">
+                        <div class="col">
+                            {{ $monitors[0]->penanaman }} <p class="fw-semibold">(Penanaman)</p>
+                        </div>
+                        <div class="col">
+                            {{ $monitors[0]->pemupukan_1 }} <p class="fw-semibold">(Pemupukan 1)</p>
+                        </div>
+                        <div class="col">
+                            {{ $monitors[0]->pemupukan_2 }} <p class="fw-semibold">(Pemupukan 2)</p>
+                        </div>
+                        <div class="col">
+                            {{ $monitors[0]->pemanenan }} <p class="fw-semibold">(Pemanenan)</p>
+                        </div>
+                    </div>
+                    <p class="small text-muted my-2"><span tex></span> Penjadwalan ini hanya sebagai gambaran mulai proses
+                        penanaman
+                        sampai pemanenan<span class="text-danger fw-bold">*</span></p>
+                @else
+                    <td colspan="6">
+                        <p class="text-center">Tidak ada jadwal penanaman</p>
+                    </td>
+                @endif
+            </div>
+
+
+
+            {{-- end-penjadwalan --}}
         @endcan
 
         <hr class="featurette-divider" />

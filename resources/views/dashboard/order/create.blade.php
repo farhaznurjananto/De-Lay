@@ -46,8 +46,9 @@
                             </div>
                             <div id="div-address-seller" style="display: none">
                                 <label for="address" class="form-label">Alamat Kami</label>
-                                <p class="text-danger small">Mawar merah 11
-                                    Probolinggo, Jawa Timur</p>
+                                <p class="text-danger small">
+                                    {{ $product->address == null ? 'Tidak menerima pengiriman produk Non-Delivery' : $product->address }}
+                                </p>
                             </div>
                         </div>
                         <div class="mb-3 text-center fw-semibold">
@@ -63,7 +64,9 @@
                         </div>
                         <div class="mb-3 text-center fw-semibold" id="div-metode-transfer" style="display: none">
                             <label for="bukti" class="form-label">No Rekening</label>
-                            <p class="text-danger small">XXXXX</p>
+                            <p class="text-danger small">
+                                {{ $product->rekening == 0 ? 'Tidak menerima pembayaran transfer' : $product->rekening }}
+                            </p>
                             <label for="bukti" class="form-label">Bukti Pembayaran</label>
                             <input type="file" class="form-control" id="bukti" placeholder="bukti pembelian">
                         </div>
