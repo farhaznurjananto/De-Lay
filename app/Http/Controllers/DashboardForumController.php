@@ -67,6 +67,7 @@ class DashboardForumController extends Controller
         return view('dashboard.forum', [
             'title' => 'Forum',
             'forum' => $forum,
+            // 'discussions' => Discussion::where('forum_id', $forum->id)->latest()->paginate(5)->withQueryString(),
             'discussions' => $discussions,
             'forum_categories' => Forum_Category::all()
         ]);

@@ -135,7 +135,8 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <button type="submit" class="w-100 btn btn-lg btn-outline-success">Daftar</button>
+                            <button type="submit" class="w-100 btn btn-lg btn-outline-success"
+                                onclick="return confirm('Apa data yang dimasukkan sudah benar?')">Daftar</button>
                             <p class="text-center mt-2">Sudah punya akun? <a href="/login"
                                     class="text-decoration-none">Masuk</a></p>
                         </form>

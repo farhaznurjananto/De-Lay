@@ -17,23 +17,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(2)->create();
+        // User::factory(2)->create();
 
-        User::create([
-            'name' => 'farhaz nurjananto',
-            'email' => 'farhaznurjananto052@gmail.com',
-            'phone' => '081331611696',
-            'actor_id' => 1,
-            'password' => bcrypt('12345')
-        ]);
+        // User::create([
+        //     'name' => 'farhaz nurjananto',
+        //     'email' => 'farhaznurjananto052@gmail.com',
+        //     'phone' => '081331611696',
+        //     'actor_id' => 1,
+        //     'password' => bcrypt('12345')
+        // ]);
 
-        User::create([
-            'name' => 'Farlin Nurjananti',
-            'email' => 'farlinnurjananti@gmail.com',
-            'phone' => '081331611698',
-            'actor_id' => 2,
-            'password' => bcrypt('12345')
-        ]);
+        // User::create([
+        //     'name' => 'Farlin Nurjananti',
+        //     'email' => 'farlinnurjananti@gmail.com',
+        //     'phone' => '081331611698',
+        //     'actor_id' => 2,
+        //     'password' => bcrypt('12345')
+        // ]);
 
         Actor::create([
             'name' => 'Petani Kedelai',
@@ -47,17 +47,6 @@ class DatabaseSeeder extends Seeder
         ]);
         Forum_Category::create([
             'name' => 'Susu Kedelai'
-        ]);
-
-        Forum::create([
-            'question' => 'Are you sure you want to play',
-            'user_id' => 1,
-            'forum_category_id' => 2
-        ]);
-        Forum::create([
-            'question' => 'Are you sure you want to play',
-            'user_id' => 2,
-            'forum_category_id' => 1
         ]);
     }
 }

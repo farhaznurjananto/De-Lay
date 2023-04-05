@@ -26,26 +26,38 @@
 
                     <hr class="featurette-divider" />
 
-                    <form action="" enctype="multipart/form-data">
+                    <form action="/dashboard/order" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div class="mb-3 text-center fw-semibold">
-                            <label for="kwantitas" class="form-label">Kwantitas</label>
-                            <input type="number" class="form-control" id="kwantitas" placeholder="kwantitas pembelian"
-                                oninput="totalHarga()">
+                            <label for="quantity" class="form-label">Kwantitas</label>
+                            <input type="number" class="form-control @error('quantity') is-invalid @enderror"
+                                id="quantity" placeholder="kwantitas pembelian" oninput="totalHarga()" required>
+                            @error('quantity')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-3 text-center fw-semibold">
-                            <label for="kwantitas" class="form-label">Metode Pengiriman</label>
-                            <select class="form-select" aria-label="Default select example" id="pengiriman">
+                            <label for="metode_delivery" class="form-label">Metode Pengiriman</label>
+                            <select class="form-select" aria-label="Default select example" id="metode_delivery">
                                 <option value="1">Delivery (Diantar)</option>
                                 <option value="2">Non Delivery (Ambil ditempat)</option>
                             </select>
                         </div>
                         <div class="mb-3 text-center fw-semibold">
-                            <div id="div-address-input" style="display: none">
-                                <label for="address" class="form-label">Alamat Anda</label>
-                                <input type="text" class="form-control" id="address" placeholder="alamat pembeli">
+                            <div id="customer_address" style="display: none">
+                                <label for="customer_address" class="form-label">Alamat Anda</label>
+                                <input type="text" class="form-control @error('customer_address') is-invalid @enderror"
+                                    id="customer_address" placeholder="alamat pembeli">
+                                @error('customer_address')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            <div id="div-address-seller" style="display: none">
-                                <label for="address" class="form-label">Alamat Kami</label>
+                            <div id="seller_address" style="display: none">
+                                <label for="seller_address" class="form-label">Alamat Kami</label>
                                 <p class="text-danger small">
                                     {{ $product->address == null ? 'Tidak menerima pengiriman produk Non-Delivery' : $product->address }}
                                 </p>
@@ -56,26 +68,31 @@
                             <p class="text-danger small">Rp. <span id="price"></span></p>
                         </div>
                         <div class="mb-3 text-center fw-semibold">
-                            <label for="kwantitas" class="form-label">Metode Pembayaran</label>
-                            <select class="form-select" aria-label="Default select example" id="metode-pembayaran">
+                            <label for="metode_payment" class="form-label">Metode Pembayaran</label>
+                            <select class="form-select" aria-label="Default select example" id="metode_payment">
                                 <option value="1">Cash</option>
                                 <option value="2">Transfer</option>
                             </select>
                         </div>
-                        <div class="mb-3 text-center fw-semibold" id="div-metode-transfer" style="display: none">
-                            <label for="bukti" class="form-label">No Rekening</label>
+                        <div class="mb-3 text-center fw-semibold" id="div_metode_payment" style="display: none">
+                            <label for="nomor_rekening" class="form-label">No Rekening</label>
                             <p class="text-danger small">
                                 {{ $product->rekening == 0 ? 'Tidak menerima pembayaran transfer' : $product->rekening }}
                             </p>
-                            <label for="bukti" class="form-label">Bukti Pembayaran</label>
-                            <input type="file" class="form-control" id="bukti" placeholder="bukti pembelian">
+                            <label for="proof_of_payment" class="form-label">Bukti Pembayaran</label>
+                            <input type="file" class="form-control @error('proof_of_payment') is-invalid @enderror"
+                                id="proof_of_payment" placeholder="bukti pembelian">
+                            @error('proof_of_payment')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="action d-grid">
+                            <button type="submit" class="btn btn-outline-success btn-sm"><i class="bi bi-basket"></i>
+                                Beli</button>
                         </div>
                     </form>
-                    <div class="action d-grid">
-                        <a href="/dashboard/market/{{ $product->id }}" class="btn btn-outline-success btn-sm"><i
-                                class="bi bi-basket"></i>
-                            Beli</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -88,9 +105,9 @@
         let deliveryPrice = 0;
 
         // untuk metode pengiriman
-        var eSelect1 = document.getElementById('pengiriman');
-        var optDeliver1 = document.getElementById('div-address-input');
-        var optDeliver2 = document.getElementById('div-address-seller');
+        var eSelect1 = document.getElementById('metode_delivery');
+        var optDeliver1 = document.getElementById('customer_address');
+        var optDeliver2 = document.getElementById('seller_address');
         eSelect1.onchange = function() {
             if (eSelect1.selectedIndex === 0) {
                 optDeliver1.style.display = 'block';
@@ -104,8 +121,8 @@
         }
 
         // untuk metode pembayaran
-        var eSelect2 = document.getElementById('metode-pembayaran');
-        var optPayment = document.getElementById('div-metode-transfer');
+        var eSelect2 = document.getElementById('metode_payment');
+        var optPayment = document.getElementById('div_metode_payment');
         eSelect2.onchange = function() {
             if (eSelect2.selectedIndex === 1) {
                 optPayment.style.display = 'block';
@@ -115,7 +132,7 @@
         }
 
         function totalHarga() {
-            price = document.getElementById("kwantitas").value;
+            price = document.getElementById("quantity").value;
             document.getElementById("price").innerHTML = (price * {{ $product->price }}) + deliveryPrice;
         }
     </script>

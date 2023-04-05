@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TokoController extends Controller
+class MarketController extends Controller
 {
     public function index()
     {
@@ -19,11 +17,9 @@ class TokoController extends Controller
 
     public function show(Product $product)
     {
-        // return $product->owner_id;
         return view('dashboard.order.create', [
             'title' => 'Order',
             'product' => $product,
-            // 'user' => User::where('id', $product->owner_id)->get(),
         ]);
     }
 }

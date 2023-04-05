@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('price')->required();
             $table->integer('rekening')->nullable()->default(0);
             $table->string('address')->nullable();
-            $table->foreignId('owner_id');
+            $table->foreignId('owner_id')->references('id')->on('users');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

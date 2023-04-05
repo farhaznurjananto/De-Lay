@@ -53,6 +53,9 @@
                                     <a class="dropdown-item" href="/dashboard">Dashboard</a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item" href="/profile">Profile</a>
+                                </li>
+                                <li>
                                     <hr class="dropdown-divider" />
                                 </li>
                                 <li>

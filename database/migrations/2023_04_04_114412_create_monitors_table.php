@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('discussions', function (Blueprint $table) {
+        Schema::create('monitors', function (Blueprint $table) {
             $table->id();
-            $table->text('message')->required();
-            $table->foreignId('forum_id')->required();
-            $table->foreignId('sender_id')->required();
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->date('penanaman')->required();
+            $table->date('pemupukan_1');
+            $table->date('pemupukan_2');
+            $table->date('pemanenan');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('discussions');
+        Schema::dropIfExists('monitors');
     }
 };

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->references('id')->on('products');
+            $table->foreignId('customer_id')->references('id')->on('users');
+            $table->bigInteger('quantity')->required();
+            $table->bigInteger('customer_address')->nullable();
+            $table->string('proof_of_payment')->nullable();
             $table->timestamps();
         });
     }
