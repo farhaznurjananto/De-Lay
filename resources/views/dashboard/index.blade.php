@@ -166,71 +166,25 @@
                         <div class="weather__card my-4">
                             <div class="d-flex flex-row justify-content-center align-items-center">
                                 <div class="p-3">
-                                    <h2>15&deg;</h2>
+                                    <img id="Icon" alt="weather-image" style="width:150px">
                                 </div>
                                 <div class="p-3">
-                                    <i class="bi bi-brightness-low-fill fs-2"></i>
-                                </div>
-                                <div class="p-3">
-                                    <h5>Tuesday, 10 AM</h5>
-                                    <h3>San Francisco</h3>
-                                    <span class="weather__description">Mostly Cloudy</span>
+                                    <h5 id="Date">Tuesday, 10 AM</h5>
+                                    {{-- <h3>San Francisco</h3> --}}
+                                    <span class="weather__description" id="IconPhrase">Mostly Cloudy</span>
                                 </div>
                             </div>
                             <div class="weather__status d-flex flex-row justify-content-center align-items-center mt-3">
                                 <div class="p-4 d-flex justify-content-center align-items-center">
-                                    <i class="bi bi-brightness-low-fill fs-2"></i>
-                                    <span>10%</span>
+                                    <i class="bi bi-thermometer-high"></i>
+                                    <span id="Maximum">10%</span>
                                 </div>
                                 <div class="p-4 d-flex justify-content-center align-items-center">
-                                    <i class="bi bi-brightness-low-fill fs-2"></i>
-                                    <span>0.53 mB</span>
-                                </div>
-                                <div class="p-4 d-flex justify-content-center align-items-center">
-                                    <i class="bi bi-brightness-low-fill fs-2"></i>
-                                    <span>10 km/h</span>
+                                    <i class="bi bi-thermometer-low"></i>
+                                    <span id="Minimum">10 km/h</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Weather Forecast -->
-                <div class="weather__forecast d-flex flex-row overflow-x-auto justify-content-around align-items-center mt-3">
-                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Sun</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>11&deg;</span>
-                    </div>
-                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Mon</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>11&deg;</span>
-                    </div>
-                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Tue</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>6&deg;</span>
-                    </div>
-                    <div class="px-4 mx-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Wed</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>13&deg;</span>
-                    </div>
-                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Thu</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>15&deg;</span>
-                    </div>
-                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Fri</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>13&deg;</span>
-                    </div>
-                    <div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3">
-                        <span>Sat</span>
-                        <i class="bi bi-brightness-low-fill text-muted fs-4"></i>
-                        <span>13&deg;</span>
                     </div>
                 </div>
             </div>
@@ -286,4 +240,7 @@
 
         <hr class="featurette-divider" />
     </div>
+
+    {{-- weather js --}}
+    <script src="/js/weather.js"></script>
 @endsection

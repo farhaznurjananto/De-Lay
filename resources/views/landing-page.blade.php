@@ -90,40 +90,34 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="img-fluid w-100" src="https://source.unsplash.com/1600x400?soya-bean" alt=""
-                        style="height: 400px" />
+                    <img class="img-fluid w-100" src="/img/kedelai_1.png" alt="kedelai-1" />
                     <div class="container">
                         <div class="carousel-caption text-start">
-                            <h1>Example headline.</h1>
+                            <h1 class="fw-bold">Website Monitoring.</h1>
                             <p>
-                                Some representative placeholder content for
-                                the first slide of the carousel.
+                                Menyediakan fitur monitoring penjadwalan penanaman kedelai.
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="img-fluid w-100" src="https://source.unsplash.com/1600x400?soya-bean" alt=""
-                        style="height: 400px" />
+                    <img class="img-fluid w-100" src="/img/kedelai_2.png" alt="kedelai_2" />
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>Another example headline.</h1>
+                            <h1 class="fw-bold">Website Pencatatan Laba Rugi.</h1>
                             <p>
-                                Some representative placeholder content for
-                                the second slide of the carousel.
+                                Meyediakan fitur pencatatan keuangan laba rugi.
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="img-fluid w-100" src="https://source.unsplash.com/1600x400?soya-bean" alt=""
-                        style="height: 400px" />
+                    <img class="img-fluid w-100" src="/img/kedelai_3.png" alt="kedelai-3" />
                     <div class="container">
                         <div class="carousel-caption text-end">
-                            <h1>One more for good measure.</h1>
+                            <h1 class="fw-bold">Website Dikusi.</h1>
                             <p>
-                                Some representative placeholder content for
-                                the third slide of this carousel.
+                                Menyediakan fitur forum diskusi untuk berbagi ilmu dan pengalaman.
                             </p>
                         </div>
                     </div>
@@ -153,15 +147,8 @@
                     </p>
                 </div>
                 <div class="col-md-5">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-                        width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
-                        aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#eee" />
-                        <text x="50%" y="50%" fill="#aaa" dy=".3em">
-                            500x500
-                        </text>
-                    </svg>
+                    <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                        src="/img/landing-img_1.png" alt="landing-img_1" style="width:500px height:500px">
                 </div>
             </div>
             <!-- end-about -->
@@ -184,7 +171,8 @@
                 </p>
                 <div class="d-flex justify-content-around flex-wrap">
                     <div class="col-lg-3 d-flex flex-column align-items-center justify-content-between">
-                        <img class="rounded-circle my-5" src="https://source.unsplash.com/150x150?" alt="" />
+                        <img class="rounded-circle my-3" src="/img/farmer-avatar.png" alt="farmer-avatar"
+                            style="width:200px" />
                         <h2 class="fw-normal">Petani Kedelai</h2>
                         <p>
                             Some representative placeholder content for the
@@ -193,7 +181,8 @@
                         </p>
                     </div>
                     <div class="col-lg-3 d-flex flex-column align-items-center">
-                        <img class="rounded-circle my-5" src="https://source.unsplash.com/150x150?" alt="" />
+                        <img class="rounded-circle my-3" src="/img/produsen-avatar.png" alt="produsen-avatar"
+                            style="width:200px" />
                         <h2 class="fw-normal">Produsen Susu Kedelai</h2>
                         <p>
                             Another exciting bit of representative
@@ -211,8 +200,7 @@
             <div class="row featurette">
                 <div class="col-md-7 order-md-2">
                     <h2 class="featurette-heading fw-normal lh-1">
-                        Oh yeah, it’s that good.
-                        <span class="text-muted">See for yourself.</span>
+                        Monitoring Penjadwalan Pertanian Kedelai.
                     </h2>
                     <p class="lead">
                         Another featurette? Of course. More placeholder
@@ -222,15 +210,8 @@
                     </p>
                 </div>
                 <div class="col-md-5 order-md-1">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-                        width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
-                        aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#eee" />
-                        <text x="50%" y="50%" fill="#aaa" dy=".3em">
-                            500x500
-                        </text>
-                    </svg>
+                    <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                        src="/img/monitoring.png" alt="monitoring" style="width:500px">
                 </div>
             </div>
             <!-- end-weather -->
@@ -241,7 +222,7 @@
             <div class="row featurette">
                 <div class="col-md-7">
                     <h2 class="featurette-heading fw-normal lh-1">
-                        De-Lay
+                        Pencatatan Keuangan Laba Rugi.
                     </h2>
                     <p class="lead">
                         Some great placeholder content for the first
@@ -249,15 +230,8 @@
                     </p>
                 </div>
                 <div class="col-md-5">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-                        width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img"
-                        aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#eee" />
-                        <text x="50%" y="50%" fill="#aaa" dy=".3em">
-                            500x500
-                        </text>
-                    </svg>
+                    <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                        src="/img/keuangan.png" alt="keuangan" style="width:500px">
                 </div>
             </div>
             <!-- end-menejemen -->
@@ -281,20 +255,15 @@
                 <div class="card my-3 mx-3 p-0" style="max-width: 1080px">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img class="img-fluid rounded-start h-100"
-                                src="https://source.unsplash.com/500x500?soya-bean-milk" alt="" />
+                            <img class="img-fluid rounded-start h-100" src="/img/susu_kedelai.webp"
+                                alt="susu_kedelai" />
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
+                                <h5 class="card-title">Susu Kedelai</h5>
                                 <p class="card-text">
-                                    This is a wider card with supporting
-                                    text below as a natural lead-in to
-                                    additional content. This content is a
-                                    little bit longer.
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-body-secondary">Last updated 3 mins ago</small>
+                                    Sari kedelai atau susu kedelai adalah sari nabati yang diproses dengan cara merendam
+                                    dan menggiling kedelai, merebus campuran, dan menyaring partikel yang tersisa.
                                 </p>
                             </div>
                         </div>
@@ -384,7 +353,7 @@
             </div>
 
             <div class="d-flex flex-column flex-sm-row justify-content-between pt-3 border-top align-items-center">
-                <p>&copy; 2022 Company, Inc. All rights reserved.</p>
+                <p>&copy; 2023 De-Lay, All rights reserved.</p>
                 <ul class="list-unstyled d-flex">
                     <li class="ms-3">
                         <a class="link-dark" href="#"><i class="bi bi-twitter"></i></a>
