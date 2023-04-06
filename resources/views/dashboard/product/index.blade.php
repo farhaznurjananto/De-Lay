@@ -72,6 +72,12 @@
                 <p class="text-center text-muted fs-4">No Product Found.</p>
             @endif
 
+            <div class="mt-3">
+                {{ $products->links() }}
+            </div>
+
+            <hr class="featurette-divider" />
+
             {{-- create forum modal --}}
             <div class="modal" id="createProductModal" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
@@ -206,8 +212,6 @@
                     </div>
                 </div>
                 {{-- end create forum modal --}}
-
-                <hr class="featurette-divider" />
             </div>
     </div>
     <script>

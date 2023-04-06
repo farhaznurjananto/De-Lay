@@ -120,7 +120,7 @@
                     </thead>
                     <tbody>
                         @foreach ($monitors as $monitor)
-                            <tr>
+                            <tr valign="middle">
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $monitor->penanaman }}</td>
                                 <td>{{ $monitor->pemupukan_1 }}</td>

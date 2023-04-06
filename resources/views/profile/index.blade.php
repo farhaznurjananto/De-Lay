@@ -16,8 +16,9 @@
         {{-- end alert --}}
 
         <div class="d-flex justify-content-center">
-            <div class="border rounded p-3 col-lg-6">
-                <div class="profile-pic text-muted text-center" style="font-size: 100px"><i class="bi bi-person-circle"></i>
+            <div class="border rounded p-3 col-lg-6 col-12">
+                <div class="profile-pic text-muted text-center" style="font-size: 100px">
+                    <img class="rounded-circle" src="/img/farmer-avatar.png" alt="farmer-avatar" style="width:200px">
                 </div>
                 <form action="/profile/{{ $user[0]->id }}" method="post">
                     @method('put')

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Discussion;
 use App\Models\Forum;
 use App\Models\Forum_Category;
 use Illuminate\Http\Request;

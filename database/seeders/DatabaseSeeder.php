@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
         // User::factory(2)->create();
 
         // User::create([
-        //     'name' => 'farhaz nurjananto',
+        //     'name' => 'Farhaz Nurjananto',
         //     'email' => 'farhaznurjananto052@gmail.com',
         //     'phone' => '081331611696',
         //     'actor_id' => 1,
-        //     'password' => bcrypt('12345')
+        //     'password' => bcrypt('farhaz')
         // ]);
 
         // User::create([
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'farlinnurjananti@gmail.com',
         //     'phone' => '081331611698',
         //     'actor_id' => 2,
-        //     'password' => bcrypt('12345')
+        //     'password' => bcrypt('farlin')
         // ]);
 
         Actor::create([

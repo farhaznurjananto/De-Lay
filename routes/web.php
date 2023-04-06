@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\cobaController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardForumController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\DashboardProductController;
@@ -69,7 +68,6 @@ Route::resource('/dashboard/product', DashboardProductController::class, ['excep
 
 // Market Controller
 Route::get('/dashboard/market', [MarketController::class, 'index'])->middleware('auth');
-Route::get('/dashboard/market/{product:id}', [MarketController::class, 'show'])->middleware('auth');
 
 // Order Controller
 Route::resource('/dashboard/order', OrderController::class)->middleware('auth'); //masih kaga bisa

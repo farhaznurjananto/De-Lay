@@ -170,7 +170,6 @@
                                 </div>
                                 <div class="p-3">
                                     <h5 id="Date">Tuesday, 10 AM</h5>
-                                    {{-- <h3>San Francisco</h3> --}}
                                     <span class="weather__description" id="IconPhrase">Mostly Cloudy</span>
                                 </div>
                             </div>

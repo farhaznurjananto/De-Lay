@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class DashboardProductController extends Controller
@@ -15,7 +16,7 @@ class DashboardProductController extends Controller
     {
         return view('dashboard.product.index', [
             'title' => 'Produk',
-            'products' => Product::where('owner_id', auth()->user()->id)->latest()->paginate(5)->withQueryString(),
+            'products' => Product::where('owner_id', auth()->user()->id)->latest()->paginate(6)->withQueryString(),
         ]);
     }
 
@@ -63,7 +64,10 @@ class DashboardProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('dashboard.order.create', [
+            'title' => 'Order',
+            'product' => $product,
+        ]);
     }
 
     /**

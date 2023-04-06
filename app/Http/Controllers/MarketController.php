@@ -15,11 +15,11 @@ class MarketController extends Controller
         ]);
     }
 
-    public function show(Product $product)
-    {
-        return view('dashboard.order.create', [
-            'title' => 'Order',
-            'product' => $product,
-        ]);
-    }
+    // public function show(Product $product)
+    // {
+    //     return view('dashboard.order.create', [
+    //         'title' => 'Order',
+    //         'product' => $product,
+    //     ]);
+    // }
 }

@@ -16,8 +16,9 @@ return new class extends Migration
             $table->foreignId('product_id')->references('id')->on('products');
             $table->foreignId('customer_id')->references('id')->on('users');
             $table->bigInteger('quantity')->required();
-            $table->bigInteger('customer_address')->nullable();
+            $table->string('customer_address')->nullable();
             $table->string('proof_of_payment')->nullable();
+            $table->string('status')->default("pending");
             $table->timestamps();
         });
     }
