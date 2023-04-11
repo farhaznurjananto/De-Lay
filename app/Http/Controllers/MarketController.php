@@ -14,12 +14,4 @@ class MarketController extends Controller
             'products' => Product::where('status', 1)->latest()->paginate(10)->withQueryString(),
         ]);
     }
-
-    // public function show(Product $product)
-    // {
-    //     return view('dashboard.order.create', [
-    //         'title' => 'Order',
-    //         'product' => $product,
-    //     ]);
-    // }
 }

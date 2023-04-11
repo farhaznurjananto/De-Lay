@@ -1,35 +1,35 @@
 @extends('dashboard.layouts.main') @section('container')
     <div class="container-fluid">
         <div class="top-bar d-flex justify-content-between align-items-center">
-            <h1 class="h2 mt-3">Pemesanan Kedelai</h1>
+            <h1 class="h2 mt-3">Edit Pemesanan Kedelai</h1>
         </div>
 
         <hr class="featurette-divider" />
 
         <div class="container-fluid d-flex justify-content-center">
             <div class="card m-2" style="width: 25rem">
-                @if ($product->image)
-                    <img class="img-fluid d-inline rounded-top" src="{{ asset('storage/' . $product->image) }}"
+                @if ($order->product->image)
+                    <img class="img-fluid d-inline rounded-top" src="{{ asset('storage/' . $order->product->image) }}"
                         alt="product-image" style="height: 150px" />
                 @else
                     <img class="img-fluid d-inline rounded-top" src="https://source.unsplash.com/300x150?soya-bean"
                         alt="product-image" style="height: 150px" />
                 @endif
                 <div class="card-body">
-                    <h5 class="card-title fw-semibold text-center mb-3">{{ $product->name }}</h5>
+                    <h5 class="card-title fw-semibold text-center mb-3">{{ $order->product->name }}</h5>
                     <p class="card-text mb-2 small">
-                        Stok : {{ $product->stock }} kg
+                        Stok : {{ $order->product->stock }} kg
                     </p>
                     <p class="card-text mb-2 small">
-                        Harga : {{ $product->price }} / kg
+                        Harga : {{ $order->product->price }} / kg
                     </p>
 
                     <hr class="featurette-divider" />
 
                     <form action="/dashboard/order" method="post" enctype="multipart/form-data">
                         @csrf
-                        <input type="number" class="form-control" id="product_id" name="product_id"
-                            value="{{ $product->id }}" required hidden>
+                        {{-- <input type="number" class="form-control" id="product_id" name="product_id"
+                            value="{{ $product->id }}" required hidden> --}}
                         <div class="mb-3 text-center fw-semibold">
                             <label for="quantity" class="form-label">Kwantitas</label>
                             <input type="number" class="form-control @error('quantity') is-invalid @enderror"
@@ -62,7 +62,7 @@
                             <div id="seller_address" style="display: none">
                                 <label for="seller_address" class="form-label">Alamat Kami</label>
                                 <p class="text-danger small">
-                                    {{ $product->address == null ? 'Tidak menerima pengiriman produk Non-Delivery' : $product->address }}
+                                    {{ $order->product->address == null ? 'Tidak menerima pengiriman produk Non-Delivery' : $order->product->address }}
                                 </p>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                         <div class="mb-3 text-center fw-semibold" id="div_metode_payment" style="display: none">
                             <label for="nomor_rekening" class="form-label">No Rekening</label>
                             <p class="text-danger small">
-                                {{ $product->rekening == 0 ? 'Tidak menerima pembayaran transfer' : $product->rekening }}
+                                {{ $order->product->rekening == 0 ? 'Tidak menerima pembayaran transfer' : $order->product->rekening }}
                             </p>
                             <label for="proof_of_payment" class="form-label">Bukti Pembayaran</label>
                             <input type="file" class="form-control @error('proof_of_payment') is-invalid @enderror"
@@ -137,7 +137,7 @@
 
         function totalHarga() {
             price = document.getElementById("quantity").value;
-            document.getElementById("price").innerHTML = (price * {{ $product->price }}) + deliveryPrice;
+            document.getElementById("price").innerHTML = (price * {{ $order->product->price }}) + deliveryPrice;
         }
     </script>
 @endsection

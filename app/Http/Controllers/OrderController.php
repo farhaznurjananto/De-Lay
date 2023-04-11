@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -14,10 +15,24 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('dashboard.order.index', [
-            'title' => 'Pemesanan',
-            'orders' => Order::where([['customer_id', '=', auth()->user()->id], ['status', '<>', 'accepted']])->latest()->paginate(10)->withQueryString(),
-        ]);
+        if (auth()->user()->actor_id == 1) {
+            $orders = DB::table('orders')
+                ->join('products', 'orders.product_id', '=', 'products.id')
+                ->join('users', 'products.owner_id', '=', 'users.id')
+                ->where([['products.owner_id', '=', auth()->user()->id], ['orders.status', '<>', 'accepted']])
+                ->select('orders.*', 'products.name')
+                ->latest()->paginate(5);
+
+            return view('dashboard.order.indexPetani', [
+                'title' => 'Pemesanan',
+                'orders' => $orders,
+            ]);
+        } elseif (auth()->user()->actor_id == 2) {
+            return view('dashboard.order.indexProdusen', [
+                'title' => 'Pemesanan',
+                'orders' => Order::with('product')->where([['customer_id', '=', auth()->user()->id], ['status', '<>', 'accepted']])->latest()->paginate(10),
+            ]);
+        }
     }
 
     /**
@@ -65,27 +80,38 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return 'show';
         return view('dashboard.order.show', [
             'title' => 'Detail Pemesanan',
-            'order' => $order,
+            'order' => $order->load(['user']),
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Order $order)
     {
-        //
+        return view('dashboard.order.edit', [
+            'title' => 'Edit Pemesanan',
+            'order' => $order
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Order $order)
     {
-        //
+        if (auth()->user()->actor_id == 1) {
+            $validatedData = $request->validate([
+                'status' => 'required|max:255',
+            ]);
+
+            Order::where('id', $order->id)
+                ->update($validatedData);
+
+            return redirect('/dashboard/order')->with('success', 'Order berhasil direject!');
+        }
     }
 
     /**
@@ -106,6 +132,6 @@ class OrderController extends Controller
 
         Order::destroy($order->id);
 
-        return redirect()->back()->with('success', 'Produk berhasil dihapus!');
+        return redirect('/dashboard/order')->with('success', 'Produk berhasil dihapus!');
     }
 }

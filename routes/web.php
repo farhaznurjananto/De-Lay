@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,4 +71,8 @@ Route::resource('/dashboard/product', DashboardProductController::class, ['excep
 Route::get('/dashboard/market', [MarketController::class, 'index'])->middleware('auth');
 
 // Order Controller
-Route::resource('/dashboard/order', OrderController::class)->middleware('auth'); //masih kaga bisa
+Route::resource('/dashboard/order', OrderController::class)->middleware('auth');
+
+// Transaction Controller
+Route::get('/dashboard/transaction', [TransactionController::class, 'index'])->middleware('auth');
+Route::get('/dashboard/transaction/{order: id}', [RegisterController::class, 'show'])->middleware('auth');

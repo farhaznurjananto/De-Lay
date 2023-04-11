@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discussion;
 use App\Models\Forum;
 use App\Models\Forum_Category;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class DashboardForumController extends Controller
         return view('dashboard.forum.index', [
             'title' => 'Forum',
             'forum_categories' => Forum_Category::all(),
-            'forums' => Forum::where('user_id', auth()->user()->id)->latest()->paginate(5)->withQueryString(),
+            'forums' => Forum::with(['user', 'forum_category'])->where('user_id', auth()->user()->id)->latest()->paginate(5),
         ]);
     }
 
@@ -32,7 +33,7 @@ class DashboardForumController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
         try {
             $rules = [
@@ -57,18 +58,10 @@ class DashboardForumController extends Controller
      */
     public function show(Forum $forum)
     {
-        $discussions = DB::table('discussions')
-            ->join('users', 'users.id', '=', 'discussions.sender_id')
-            ->select('discussions.*', 'users.name')
-            ->where('forum_id', $forum->id)
-            ->latest()->paginate(5);
-
         return view('dashboard.forum', [
             'title' => 'Forum',
             'forum' => $forum,
-            // 'discussions' => Discussion::where('forum_id', $forum->id)->latest()->paginate(5)->withQueryString(),
-            'discussions' => $discussions,
-            'forum_categories' => Forum_Category::all()
+            'discussions' => Discussion::with(['user'])->where('forum_id', $forum->id)->latest()->paginate(5),
         ]);
     }
 

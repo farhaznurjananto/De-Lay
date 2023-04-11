@@ -9,9 +9,20 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="dashboard-petani-pemesanan.html">
-                        <i class="bi bi-file-earmark"></i> Pemesanan
+                    <p class="nav-link fs-5 p-0 mb-0 mt-3 fw-bold text-muted">
+                        Monitoring
+                    </p>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/monitor*') ? 'text-success' : '' }}"
+                        href="/dashboard/monitor">
+                        <i class="bi bi-calendar2-plus"></i> Penjadwalan
                     </a>
+                </li>
+                <li class="nav-item">
+                    <p class="nav-link fs-5 p-0 mb-0 mt-3 fw-bold text-muted">
+                        Pemesanan
+                    </p>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('dashboard/product*') ? 'text-success' : '' }}"
@@ -20,9 +31,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard/monitor*') ? 'text-success' : '' }}"
-                        href="/dashboard/monitor">
-                        <i class="bi bi-calendar2-plus"></i> Monitoring
+                    <a class="nav-link" href="/dashboard/order">
+                        <i class="bi bi-file-earmark"></i> Pemesanan
                     </a>
                 </li>
             </ul>
@@ -78,7 +88,7 @@
                 </p>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="dashboard-petani-transaksi.html">
+                <a class="nav-link" href="/dashboard/transaction">
                     <i class="bi bi-file-earmark-check"></i> Transaksi
                 </a>
             </li>

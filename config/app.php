@@ -58,6 +58,8 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'accuweather' => env('ACCU_API_KEY'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

@@ -12,9 +12,25 @@ class MonitorController extends Controller
      */
     public function index()
     {
+        // // Mendapatkan koordinat pengguna dari geolocation HTML5 API
+        // $latitude = $_GET['latitude'];
+        // $longitude = $_GET['longitude'];
+
+        // // Mengirim permintaan ke API AccuWeather untuk mendapatkan data cuaca
+        // $apiKey = config('app.accuweather.api_key');
+        // $url = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=$apiKey&q=$latitude%2C$longitude";
+        // $response = file_get_contents($url);
+        // $data = json_decode($response, true);
+        // $locationKey = $data['Key'];
+
+        // $url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/$locationKey?apikey=$apiKey&metric=true";
+        // $response = file_get_contents($url);
+        // $data = json_decode($response, true);
+
         return view('dashboard.monitor.index', [
             'title' => 'Monitoring',
             'monitors' => Monitor::where('user_id', auth()->user()->id)->latest()->paginate(5)->withQueryString(),
+            // 'cuaca' => $data['DailyForecasts'][0]
         ]);
     }
 

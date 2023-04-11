@@ -15,8 +15,7 @@ class ForumController extends Controller
         // return 'forum global';
         return view('dashboard.forums', [
             'title' => 'Forums',
-            'forum_categories' => Forum_Category::all(),
-            'forums' => Forum::latest()->paginate(5)->withQueryString(),
+            'forums' => Forum::with('user', 'forum_category')->latest()->paginate(5),
         ]);
     }
 }
