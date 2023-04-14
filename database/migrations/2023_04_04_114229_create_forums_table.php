@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('question')->required();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('forum_category_id')->references('id')->on('forum__categories');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

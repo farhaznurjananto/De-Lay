@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('forum__categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->required();
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

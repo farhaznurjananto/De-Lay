@@ -2,13 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DashboardForumController;
 use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonitorController;
-use App\Http\Controllers\DashboardProductController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\ProfileController;
@@ -26,53 +25,120 @@ use App\Http\Controllers\TransactionController;
 |
 */
 
-// INI ZONA ROUTE YANG BISA KEDUANYA
-
-// Home Controller
+// FOR GUEST
 Route::get('/', [HomeController::class, 'index']);
 
-// Login Controller
-Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout']);
+// LOGIN
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
-// Register Controller
-Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+// LOGIN - VALIDATE
+Route::post('/login', [LoginController::class, 'authenticate']);
+
+// REGISTER
+Route::get('/register', [RegisterController::class, 'index']);
+
+// REGISTER - VALIDATE
 Route::post('/register', [RegisterController::class, 'store']);
 
-// Profile Controller
-Route::resource('/profile', ProfileController::class, ['except' => ['create', 'store', 'show', 'edit', 'destroy']])->middleware('auth');
+// FOR ALL USER
+Route::middleware('auth')->group(function () {
+    // PROFILE
+    Route::get('/profile', [ProfileController::class, 'index']);
 
-// Dashboard Controller
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+    // PROFILE - UPDATE
+    Route::put('/profile/{user}', [ProfileController::class, 'update']);
 
-// Forum Controller
-Route::get('/dashboard/forums', [ForumController::class, 'index'])->middleware('auth');
+    // DASHBOARD
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 
-// Dashboard Forum Controller
-Route::resource('/dashboard/forum', DashboardForumController::class, ['except' => ['create']])->middleware('auth');
+    // LOGOUT
+    Route::post('/logout', [LoginController::class, 'logout']);
 
-// Discussion Controller
-Route::resource('/dashboard/discussion', DiscussionController::class, ['except' => ['create', 'show', 'edit', 'update']])->middleware('auth');
+    // FORUM
+    Route::get('/dashboard/forums', [ForumController::class, 'index']);
 
-// INI KUSUS PETANI
+    // FORUM - USER
+    Route::get('/dashboard/forum', [ForumController::class, 'index_user']);
 
-// Monitor Controller
-Route::resource('/dashboard/monitor', MonitorController::class, ['except' => ['create', 'show', 'edit', 'update']])->middleware('petani');
+    // FORUM - STORE
+    Route::post('/dashboard/forum', [ForumController::class, 'store']);
 
-// INI KUSUS PRODUSEN
+    // FORUM - SHOW
+    Route::get('/dashboard/forum/{forum}', [ForumController::class, 'show']);
 
-// INI ZONA BELUM DI CEK BUAT ROUTE YANG TIDAK BERGUNA
+    // FORUM - EDIT
+    Route::get('/dashboard/forum/{forum}/edit', [ForumController::class, 'edit']);
 
-// Dashboard Product Controller
-Route::resource('/dashboard/product', DashboardProductController::class, ['except' => ['create']])->middleware('auth');
+    // FORUM - UPDATE
+    Route::put('/dashboard/forum/{forum}', [ForumController::class, 'update']);
 
-// Market Controller
-Route::get('/dashboard/market', [MarketController::class, 'index'])->middleware('auth');
+    // FORUM - DESTROY
+    Route::delete('/dashboard/forum/{forum}', [ForumController::class, 'destroy']);
 
-// Order Controller
-Route::resource('/dashboard/order', OrderController::class)->middleware('auth');
+    // DISCUSSION - STORE
+    Route::post('/dashboard/discussion', [DiscussionController::class, 'store']);
 
-// Transaction Controller
-Route::get('/dashboard/transaction', [TransactionController::class, 'index'])->middleware('auth');
-Route::get('/dashboard/transaction/{order: id}', [RegisterController::class, 'show'])->middleware('auth');
+    // DISCUSSION - DESTROY
+    Route::delete('/dashboard/discussion/{discussion}', [DiscussionController::class, 'destroy']);
+
+    // ORDER
+    Route::get('/dashboard/order', [OrderController::class, 'index']);
+
+    // ORDER - HISTORIES
+    Route::get('/dashboard/history', [OrderController::class, 'history']);
+});
+
+// FOR FARMER
+Route::middleware('farmer')->group(function () {
+    // MONITOR
+    Route::get('/dashboard/monitor', [MonitorController::class, 'index']);
+
+    // MONITOR - STORE
+    Route::post('/dashboard/monitor', [MonitorController::class, 'store']);
+
+    // MONITOR - DESTROY
+    Route::delete('/dashboard/monitor/{monitor}', [MonitorController::class, 'destroy']);
+
+    // PRODUCT
+    Route::get('/dashboard/product', [ProductController::class, 'index']);
+
+    // PRODUCT - STORE
+    Route::post('/dashboard/product', [ProductController::class, 'store']);
+
+    // PRODUCT - EDIT
+    Route::get('/dashboard/product/{product}/edit', [ProductController::class, 'edit']);
+
+    // PRODUCT - UPDATE
+    Route::put('/dashboard/product/{product}', [ProductController::class, 'update']);
+
+    // PRODUCT - DESTROY
+    Route::delete('/dashboard/product/{product}', [ProductController::class, 'destroy']);
+});
+
+// FOR PRODUSEN
+Route::middleware('produsen')->group(function () {
+    // PRODUCT - MARKET
+    Route::get('/dashboard/market', [ProductController::class, 'market']);
+
+    // ORDER - SHOW
+    Route::get('/dashboard/order/{order}', [OrderController::class, 'show']);
+
+    // ORDER - CREATE
+    Route::get('/dashboard/market/{product}', [OrderController::class, 'create']);
+
+    // ORDER - STORE
+    Route::post('/dashboard/market', [OrderController::class, 'store']);
+
+    // ORDER - EDIT
+    Route::get('/dashboard/order/{order}/edit', [OrderController::class, 'edit']);
+
+    // ORDER - DESTROY
+    Route::delete('/dashboard/order/{order}', [OrderController::class, 'destroy']);
+});
+
+
+
+// Route::resource('/dashboard/order', OrderController::class)->middleware('auth');
+
+// Route::get('/dashboard/transaction', [TransactionController::class, 'index'])->middleware('auth');
+// Route::get('/dashboard/transaction/{order: id}', [RegisterController::class, 'show'])->middleware('auth');

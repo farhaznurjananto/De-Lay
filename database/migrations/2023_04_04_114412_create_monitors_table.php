@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('pemupukan_1');
             $table->date('pemupukan_2');
             $table->date('pemanenan');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

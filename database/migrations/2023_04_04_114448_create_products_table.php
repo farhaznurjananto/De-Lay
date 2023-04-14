@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->foreignId('owner_id')->references('id')->on('users');
             $table->boolean('status')->default(true);
+            $table->datetime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

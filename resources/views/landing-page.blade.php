@@ -7,19 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>De-Lay</title>
 
-    <!-- bootstrap css -->
+    {{-- BOOTSTRAP CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous" />
 
-    <!-- bootstrap icons -->
+    {{-- BOOTSTRAP ICONS --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
 
-    <!-- custom css -->
+    {{-- CUSTOM CSS --}}
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body id="page-top">
-    <!-- navbar -->
+    {{-- NAVBAR --}}
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">De-Lay</a>
@@ -76,11 +76,11 @@
             </div>
         </div>
     </nav>
-    <!-- end-navbar -->
+    {{-- END-NAVBAR --}}
 
-    <!-- main -->
+    {{-- MAIN --}}
     <main>
-        <!-- carousel -->
+        {{-- CAROUSEL --}}
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"
@@ -132,18 +132,24 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <!-- end-carousel -->
+        {{-- END-CAROUSEL --}}
 
+        {{-- CONTAINER --}}
         <div class="container my-5">
-            <!-- about -->
+            {{-- ABOUT --}}
             <div class="row featurette">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading fw-normal lh-1">
+                    <h2 class="featurette-heading fw-normal lh-1 mb-5">
                         De-Lay
                     </h2>
                     <p class="lead">
-                        Some great placeholder content for the first
-                        featurette here. Imagine some exciting prose here.
+                        Program kami menyediakan berbagai fitur yang sangat bermanfaat bagi petani kedelai dan produsen
+                        susu kedelai, seperti sistem penjadwalan pertanian untuk merencanakan kegiatan pertanian, fitur
+                        penjualan untuk membantu petani mendapatkan keuntungan maksimal dan produsen susu untuk
+                        mendapatkan stok kedelai dengan mudah, serta fitur perhitungan analisis raba rugi yang
+                        memudahkan petani dan produsen susu kedelai dalam menghitung dan menganalisis modal dan
+                        keuntungan yang didapat pada usaha mereka.
+
                     </p>
                 </div>
                 <div class="col-md-5">
@@ -151,62 +157,52 @@
                         src="/img/landing-img_1.png" alt="landing-img_1" style="width:500px height:500px">
                 </div>
             </div>
-            <!-- end-about -->
+            {{-- ABOUT --}}
 
             <hr class="featurette-divider my-5" />
 
-            <!-- user -->
+            {{-- SERVICE --}}
             <div class="row text-center" id="services">
-                <h1 class="">Layanan</h1>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Inventore neque voluptatem possimus asperiores! At
-                    nihil, nostrum aperiam cum tempora voluptatum maiores
-                    nemo, voluptate voluptatem vero reprehenderit, maxime
-                    laudantium officia suscipit numquam molestiae libero
-                    totam quisquam qui magnam ut! Hic porro nisi error nobis
-                    et amet! Voluptatibus odit minima repudiandae beatae
-                    quisquam rerum alias. Voluptatum, ullam voluptatibus
-                    aliquam doloremque voluptas natus?
+                <h1 class="mb-5">Layanan</h1>
+                <p class="lead">
+                    Website ini memberikan layanan bagi produsen susu kedelai dan petani kedelai dengan menyediakan
+                    fitur-fitur seperti sistem penjadwalan pertanian, penjualan, dan perhitungan analisis raba rugi.
+                    Layanan tersebut membantu mereka mencapai tujuan bisnis dengan lebih mudah dan efektif.
                 </p>
                 <div class="d-flex justify-content-around flex-wrap">
-                    <div class="col-lg-3 d-flex flex-column align-items-center justify-content-between">
+                    <div class="col-lg-4 d-flex flex-column align-items-center justify-content-between">
                         <img class="rounded-circle my-3" src="/img/farmer-avatar.png" alt="farmer-avatar"
                             style="width:200px" />
                         <h2 class="fw-normal">Petani Kedelai</h2>
                         <p>
-                            Some representative placeholder content for the
-                            three columns of text below the carousel. This
-                            is the first column.
+                            Membantu petani melakukan penjadwalan serta penjualan kedelai
+                            dan membantu dalam perhitungan analisis laba dan rugi.
                         </p>
                     </div>
-                    <div class="col-lg-3 d-flex flex-column align-items-center">
+                    <div class="col-lg-4 d-flex flex-column align-items-center">
                         <img class="rounded-circle my-3" src="/img/produsen-avatar.png" alt="produsen-avatar"
                             style="width:200px" />
                         <h2 class="fw-normal">Produsen Susu Kedelai</h2>
                         <p>
-                            Another exciting bit of representative
-                            placeholder content. This time, we've moved on
-                            to the second column.
+                            Membantu produsen susu kedelai dalam mendapatkan stok kedelai yang berkwalitas serta
+                            perhitungan penjualan analisis laba dan rugi.
                         </p>
                     </div>
                 </div>
             </div>
-            <!-- end-user -->
+            {{-- END-SERVICE --}}
 
             <hr class="featurette-divider my-5" />
 
-            <!-- weather -->
+            {{-- FITUR 1 --}}
             <div class="row featurette">
                 <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading fw-normal lh-1">
+                    <h2 class="featurette-heading fw-normal lh-1 mb-5">
                         Monitoring Penjadwalan Pertanian Kedelai.
                     </h2>
                     <p class="lead">
-                        Another featurette? Of course. More placeholder
-                        content here to give you an idea of how this layout
-                        would work with some actual real-world content in
-                        place.
+                        Fitur ungulan kami bagi petani yaitu penjadwalan pertanian dengan membantu memberikan informasi
+                        cuaca serta menentukan tanggal pemupukan serta pemanenan pertaniaan kedelai.
                     </p>
                 </div>
                 <div class="col-md-5 order-md-1">
@@ -214,19 +210,19 @@
                         src="/img/monitoring.png" alt="monitoring" style="width:500px">
                 </div>
             </div>
-            <!-- end-weather -->
+            {{-- END-FITUR 1 --}}
 
             <hr class="featurette-divider my-5" />
 
-            <!-- menejemen -->
+            {{-- FITUR 2 --}}
             <div class="row featurette">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading fw-normal lh-1">
+                    <h2 class="featurette-heading fw-normal lh-1 mb-5">
                         Pencatatan Keuangan Laba Rugi.
                     </h2>
                     <p class="lead">
-                        Some great placeholder content for the first
-                        featurette here. Imagine some exciting prose here.
+                        Fitur unggulan kami bagi produsen susu kedelai yaitu pencatatan keuangan laba dan rugi membantu
+                        produsen susu kedelai dalam menggitungn keuntungan dan kerugian penjualan.
                     </p>
                 </div>
                 <div class="col-md-5">
@@ -234,23 +230,15 @@
                         src="/img/keuangan.png" alt="keuangan" style="width:500px">
                 </div>
             </div>
-            <!-- end-menejemen -->
+            {{-- END-FITUR 2 --}}
 
             <hr class="featurette-divider my-5" />
 
-            <!-- product -->
+            {{-- PRODUCT --}}
             <div class="row d-flex justify-content-center" id="product">
-                <h1 class="text-center">Produk</h1>
-                <p class="text-center">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Inventore neque voluptatem possimus asperiores! At
-                    nihil, nostrum aperiam cum tempora voluptatum maiores
-                    nemo, voluptate voluptatem vero reprehenderit, maxime
-                    laudantium officia suscipit numquam molestiae libero
-                    totam quisquam qui magnam ut! Hic porro nisi error nobis
-                    et amet! Voluptatibus odit minima repudiandae beatae
-                    quisquam rerum alias. Voluptatum, ullam voluptatibus
-                    aliquam doloremque voluptas natus?
+                <h1 class="text-center mb-5">Produk</h1>
+                <p class="text-center lead">
+                    Produk unggulan yang dapat dihasilkan salah satunya susu kedelai yang sehat bagi semua kalangan.
                 </p>
                 <div class="card my-3 mx-3 p-0" style="max-width: 1080px">
                     <div class="row g-0">
@@ -270,14 +258,14 @@
                     </div>
                 </div>
             </div>
-            <!-- end-product -->
+            {{-- END-PRODUCT --}}
 
             <hr class="featurette-divider mt-5" />
         </div>
     </main>
-    <!-- end-main -->
+    {{-- END-MAIN --}}
 
-    <!-- footer -->
+    {{-- FOOTER --}}
     <footer>
         <div class="container">
             <div class="row">
@@ -345,9 +333,9 @@
                 </div>
 
                 <div class="col-md-5 offset-md-1 mb-3">
-                    <h5>Subscribe to our newsletter</h5>
+                    <h5>Ikuti secara berkala perkembangan De-Lay</h5>
                     <p>
-                        Monthly digest of what's new and exciting from us.
+                        Bantu industri pertanian dan agrobisnis Indonesia lebih maju!
                     </p>
                 </div>
             </div>
@@ -368,23 +356,24 @@
             </div>
         </div>
     </footer>
-    <!-- end-footer -->
+    {{-- END-FOOTER --}}
 
-    <!-- Scroll to Top Button-->
+    {{-- SCROOL TOP --}}
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="bi bi-caret-up-fill"></i>
     </a>
+    {{-- END-SCOR --}}
 
-    <!-- bootstrap js -->
+    {{-- BOOTSTRAP JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
     </script>
 
-    <!-- jquery -->
+    {{-- JQUERY --}}
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
         crossorigin="anonymous"></script>
 
-    <!-- custom js -->
+    {{-- CUSTOM JS --}}
     <script src="js/script.js"></script>
 </body>
 

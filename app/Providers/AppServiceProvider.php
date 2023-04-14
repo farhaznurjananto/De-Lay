@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
 
+        Gate::define('auth', function () {
+            return auth()->user();
+        });
+
         Gate::define('admin', function (User $user) {
             return $user->actor_id === 3;
         });
@@ -32,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
             return $user->actor_id === 2;
         });
 
-        Gate::define('petani', function (User $user) {
+        Gate::define('farmer', function (User $user) {
             return $user->actor_id === 1;
         });
     }

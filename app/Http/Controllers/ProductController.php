@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class DashboardProductController extends Controller
+class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // FARMER
+
     public function index()
     {
         return view('dashboard.product.index', [
@@ -20,17 +18,6 @@ class DashboardProductController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try {
@@ -52,39 +39,21 @@ class DashboardProductController extends Controller
 
             Product::create($validateData);
 
-            return redirect()->back()->with('success', 'Pruduk baru berhasil ditambahkan!');
+            return back()->with('success', 'Pruduk baru berhasil ditambahkan!');
         } catch (\Throwable $th) {
 
-            return redirect()->back()->with('error', 'Pruduk gagal ditambahkan!') && $validateData = request()->validate($rules);
+            return back()->with('error', 'Pruduk gagal ditambahkan!') && $validateData = request()->validate($rules);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        return view('dashboard.order.create', [
-            'title' => 'Order',
-            'product' => $product,
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Product $product)
     {
-        // return $product;
         return view('dashboard.product.edit', [
             'title' => 'Edit Product',
             'product' => $product
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Product $product)
     {
         $rules = [
@@ -118,9 +87,6 @@ class DashboardProductController extends Controller
         return redirect('/dashboard/product')->with('success', 'Pr0duk berhasil diperbaruhi!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
         if ($product->image) {
@@ -128,6 +94,16 @@ class DashboardProductController extends Controller
         }
         Product::destroy($product->id);
 
-        return redirect()->back()->with('success', 'Produk berhasil dihapus!');
+        return back()->with('success', 'Produk berhasil dihapus!');
+    }
+
+    // PRODUSEN
+
+    public function market()
+    {
+        return view('dashboard.market.index', [
+            'title' => 'Market',
+            'products' => Product::where([['status', 1], ['stock', '<>', 0]])->latest()->paginate(10)->withQueryString(),
+        ]);
     }
 }

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class isPetani
+class isFarmer
 {
     /**
      * Handle an incoming request.

@@ -32,8 +32,15 @@
                                 <td>{{ $order->name }}</td>
                                 <td>{{ date('d-M-Y', strtotime($order->created_at)) }}</td>
                                 <td>
-                                    <span
-                                        class="badge text-bg-{{ $order->status == 'pending' ? 'warning' : 'danger' }}">{{ $order->status }}</span>
+                                    @if ($order->status == 'pending')
+                                        <span class="badge text-bg-warning">{{ $order->status }}</span>
+                                    @endif
+                                    @if ($order->status == 'rejected')
+                                        <span class="badge text-bg-danger">{{ $order->status }}</span>
+                                    @endif
+                                    @if ($order->status == 'accepted')
+                                        <span class="badge text-bg-success">{{ $order->status }}</span>
+                                    @endif
                                 </td>
                                 <td>
                                     @can('produsen')

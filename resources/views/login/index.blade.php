@@ -7,24 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>De-Lay | {{ $title }}</title>
 
-    <!-- bootstrap css -->
+    {{-- BOOTSTRAP CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous" />
 
-    <!-- bootstrap icons -->
+    {{-- BOOTSTRAP ICON --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
 
-    <!-- custom css -->
+    {{-- CUSTOM CSS --}}
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body class="h-100 d-flex justify-content-center align-content-center">
     <div class="container m-auto d-flex justify-content-around flex-wrap">
-        <!-- header -->
+        {{-- IMG --}}
         <img class="img-fluid" src="/img/login.png" alt="login" style="width:500px" />
-        <!-- end-header -->
+        {{-- END-IMG --}}
 
-        <!-- main -->
+        {{-- CARD LOGIN --}}
         <div class="card mb-4 rounded-3 shadow-sm border-success" style="width:500px">
             <div class="card-header py-3 text-bg-success border-success">
                 <h4 class="my-0 fw-normal text-center fw-bold">Login</h4>
@@ -42,12 +42,12 @@
                                     required />
                                 <label for="email">Masukkan Email</label>
                             </div>
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         </div>
+                        @error('email')
+                            <p class="text-danger m-0">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </ul>
                     <ul class="list-unstyled">
                         <label for="password" class="form-label">Password</label>
@@ -59,12 +59,12 @@
                                     autocomplete="false" />
                                 <label for="password">Masukkan Password</label>
                             </div>
-                            @error('password')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         </div>
+                        @error('password')
+                            <p class="text-danger m-0">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </ul>
                     <ul class="list-unstyled">
                         <label for="actor" class="form-label">Actor</label>
@@ -103,10 +103,10 @@
                 </form>
             </div>
         </div>
-        <!-- end-main -->
+        {{-- END-CARD LOGIN --}}
     </div>
 
-    <!-- bootstrap js -->
+    {{-- BOOTSTRAP JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
     </script>

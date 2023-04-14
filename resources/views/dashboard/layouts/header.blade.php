@@ -1,4 +1,3 @@
-<!-- navbar -->
 <header class="navbar navbar-expand-md navbar-dark bg-success sticky-top shadow-sm">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">De-Lay</a>
@@ -37,4 +36,3 @@
         </div>
     </div>
 </header>
-<!-- end-navbar -->

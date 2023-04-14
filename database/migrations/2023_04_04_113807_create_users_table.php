@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->foreignId('actor_id')->references('id')->on('actors');
             $table->string('password');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
@@ -7,62 +7,48 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>De-Lay | {{ $title }}</title>
 
-    <!-- bootstrap css -->
+    {{-- BOOTSTRAP CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous" />
 
-    <!-- bootstrap icons -->
+    {{-- BOOTSTRAP ICON --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
 
-    <!-- custom css -->
+    {{-- CUSTOM CSS --}}
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body id="page-top">
     @include('dashboard.layouts.header')
 
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container-fluid main-wrapper">
+        <div class="row main-wrapper">
             @include('dashboard.layouts.sidebar')
 
-            <!-- main -->
+            {{-- MAIN --}}
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 @yield('container')
             </main>
         </div>
     </div>
-    <!-- end-main -->
 
-    <!-- Scroll to Top Button-->
+    {{-- SCROLL TOP --}}
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="bi bi-caret-up-fill"></i>
     </a>
+    {{-- END-SCROLL TOP --}}
 
-    <!-- bootstrap js -->
+    {{-- BOOTSTRAP JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
     </script>
 
-    <!-- jquery -->
+    {{-- JQUERY --}}
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
         crossorigin="anonymous"></script>
 
-    <!-- custom js -->
+    {{-- CUSTOM JS --}}
     <script src="/js/script.js"></script>
-
-    <script>
-        // toast
-        const toastTrigger = document.getElementById("liveToastBtn");
-        const toastLiveExample = document.getElementById("liveToast");
-
-        if (toastTrigger) {
-            const toastBootstrap =
-                bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-            toastTrigger.addEventListener("click", () => {
-                toastBootstrap.show();
-            });
-        }
-    </script>
 </body>
 
 </html>
