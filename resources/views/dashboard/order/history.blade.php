@@ -15,7 +15,7 @@
     {{-- END-ALERT --}}
 
     <div class="container-fluid overflow-auto">
-        <table class="table">
+        <table class="table text-center">
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -31,10 +31,8 @@
                         <tr valign="middle">
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $order->product->name }}</td>
-                            <td>{{ $order->created_at->format('d-M-Y') }}</td>
-                            <td>
-                                <span class="badge text-bg-success">{{ $order->status }}</span>
-                            </td>
+                            <td>{{ $order->created_at->format('d M Y') }}</td>
+                            <td>{{ date_format(date_create($order->acc_date), 'd M Y') }}</td>
                             <td>
                                 <a href="/dashboard/order/{{ $order->id }}" class="btn btn-outline-warning m-1 btn-sm"><i
                                         class="bi bi-eye"></i></a>

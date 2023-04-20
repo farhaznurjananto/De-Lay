@@ -41,7 +41,6 @@ class ProductController extends Controller
 
             return back()->with('success', 'Pruduk baru berhasil ditambahkan!');
         } catch (\Throwable $th) {
-
             return back()->with('error', 'Pruduk gagal ditambahkan!') && $validateData = request()->validate($rules);
         }
     }

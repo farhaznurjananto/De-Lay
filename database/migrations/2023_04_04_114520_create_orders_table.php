@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('customer_address')->nullable();
             $table->string('proof_of_payment')->nullable();
             $table->string('status')->default("pending");
+            $table->dateTime('acc_date')->nullable();
+            $table->text('feedback')->nullable();
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });

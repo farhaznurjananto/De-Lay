@@ -6,7 +6,6 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -14,33 +13,29 @@ class OrderController extends Controller
     public function index()
     {
         if (auth()->user()->actor_id == 1) {
-            $orders = DB::table('orders')
-                ->join('products', 'orders.product_id', '=', 'products.id')
-                ->join('users', 'products.owner_id', '=', 'users.id')
-                ->where('products.owner_id', '=', auth()->user()->id)
-                ->select('orders.*', 'products.name')
-                ->latest()->paginate(10);
+            $value = auth()->user()->id;
 
-            return view('dashboard.order.indexPetani', [
-                'title' => 'Pemesanan',
-                'orders' => $orders,
-            ]);
+            $orders = Order::with(['product' => function ($q) use ($value) {
+                $q->where('owner_id', '=', $value);
+            }])->where('status', '<>', 'accepted')->latest()->paginate(10);
         } elseif (auth()->user()->actor_id == 2) {
-            return view('dashboard.order.index', [
-                'title' => 'Pemesanan',
-                'orders' => Order::with('product')->where([['customer_id', '=', auth()->user()->id], ['status', '<>', 'accepted']])->latest()->paginate(10),
-            ]);
+            $orders = Order::with('product')->where([['customer_id', '=', auth()->user()->id], ['status', '<>', 'accepted']])->latest()->paginate(10);
         }
+
+        return view('dashboard.order.index', [
+            'title' => 'Pemesanan',
+            'orders' => $orders
+        ]);
     }
+
     public function history()
     {
         if (auth()->user()->actor_id == 1) {
-            $orders = DB::table('orders')
-                ->join('products', 'orders.product_id', '=', 'products.id')
-                ->join('users', 'products.owner_id', '=', 'users.id')
-                ->where('products.owner_id', '=', auth()->user()->id)
-                ->select('orders.*', 'products.name')
-                ->latest()->paginate(10);
+            $value = auth()->user()->id;
+
+            $orders = Order::with(['product' => function ($q) use ($value) {
+                $q->where('owner_id', '=', $value);
+            }])->where('status', '=', 'accepted')->latest()->paginate(10);
         } elseif (auth()->user()->actor_id == 2) {
             $orders = Order::with('product')->where([['customer_id', '=', auth()->user()->id], ['status', '=', 'accepted']])->latest()->paginate(10);
         }
@@ -55,7 +50,7 @@ class OrderController extends Controller
     {
         return view('dashboard.order.show', [
             'title' => 'Detail Pemesanan',
-            'order' => $order->load(['user']),
+            'order' => $order->load(['user', 'product']),
         ]);
     }
 
@@ -66,14 +61,25 @@ class OrderController extends Controller
         if (auth()->user()->actor_id == 1) {
             $validatedData = $request->validate([
                 'status' => 'required|max:255',
+                'feedback' => 'required|max:255'
             ]);
+
+            if ($request->status == 'accepted') {
+                $validatedData['acc_date'] = now();
+            }
+
+            // return $validatedData;
 
             Order::where('id', $order->id)
                 ->update($validatedData);
 
-            // ini productnya belum bertambah kalau direject
+            // INI PRODUCTNYA BELUM NAMBAH KALAU DI REJECT
 
-            return redirect('/dashboard/order')->with('success', 'Order berhasil direject!');
+            if ($validatedData['status'] == 'rejected') {
+                return redirect('/dashboard/order')->with('success', 'Order berhasil ditolak!');
+            } else {
+                return redirect('/dashboard/order')->with('success', 'Order berhasil diterima!');
+            }
         }
     }
 
@@ -118,20 +124,23 @@ class OrderController extends Controller
 
         $validatedData['customer_id'] = auth()->user()->id;
 
-        if ($request->file('proof_of_payment')) {
-            $validatedData['proof_of_payment'] = $request->file('proof_of_payment')->store('proof-of-payment-images');
-        }
-
-        Order::create($validatedData);
-
         // UPDATE STOCK PRODUCT
         $product = Product::where('id', $request['product_id'])->get();
         $tmp_stock = $product[0]['stock'] - $validatedData['quantity'];
 
-        Product::where('id', $request->product_id)
-            ->update(['stock' => $tmp_stock]);
+        if ($tmp_stock < 0) {
+            return back()->with('error', 'Inputkan data dengan benar!');
+        } else {
+            if ($request->file('proof_of_payment')) {
+                $validatedData['proof_of_payment'] = $request->file('proof_of_payment')->store('proof-of-payment-images');
+            }
 
-        return redirect('/dashboard/market')->with('success', 'Pemesanan baru berhasil ditambahkan. Menunggu konfirmasi dari penjual!');
+            Order::create($validatedData);
+            Product::where('id', $request->product_id)
+                ->update(['stock' => $tmp_stock]);
+
+            return redirect('/dashboard/market')->with('success', 'Pemesanan baru berhasil ditambahkan. Menunggu konfirmasi dari penjual!');
+        }
     }
 
     public function edit(Order $order)

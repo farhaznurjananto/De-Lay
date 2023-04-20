@@ -15,7 +15,7 @@
     {{-- END-ALERT --}}
 
     <div class="container-fluid overflow-auto">
-        <table class="table">
+        <table class="table text-center">
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -50,7 +50,7 @@
                                             <i class="bi bi-x-square"></i>
                                         </button>
                                     </form>
-                                @elsecan('petani')
+                                @elsecan('farmer')
                                     <a href="/dashboard/order/{{ $order->id }}" class="btn btn-outline-warning m-1 btn-sm"><i
                                             class="bi bi-eye"></i></a>
                                 @endcan

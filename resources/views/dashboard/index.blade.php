@@ -192,7 +192,7 @@
 
         {{-- SCHEDULING --}}
         <div class="container-fluid my-4">
-            <p class="h5 text-center my-3">Penanaman Terkini</p>
+            <p class="fs-3 text-center my-3">Penanaman Terkini</p>
             @if ($monitors->count())
                 <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
                     aria-valuemin="0" aria-valuemax="100">

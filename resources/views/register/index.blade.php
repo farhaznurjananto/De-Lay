@@ -101,7 +101,7 @@
                         @enderror
                     </ul>
                     <ul class="list-unstyled">
-                        <label for="actor" class="form-label">Actor</label>
+                        <label for="actor" class="form-label">Daftar Sebagai</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-link"></i></span>
                             <select class="form-select" aria-label="Default select example" name="actor_id">

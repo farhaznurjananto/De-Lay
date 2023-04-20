@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalysisController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscussionController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\MarketController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TransactionController;
@@ -84,8 +84,17 @@ Route::middleware('auth')->group(function () {
     // ORDER
     Route::get('/dashboard/order', [OrderController::class, 'index']);
 
+    // ORDER - SHOW
+    Route::get('/dashboard/order/{order}', [OrderController::class, 'show']);
+
+    // ORDER - UPDATE
+    Route::put('/dashboard/order/{order}', [OrderController::class, 'update']);
+
     // ORDER - HISTORIES
     Route::get('/dashboard/history', [OrderController::class, 'history']);
+
+    // ANALYSIS
+    Route::get('/analysis', [AnalysisController::class, 'index']);
 });
 
 // FOR FARMER
@@ -120,9 +129,6 @@ Route::middleware('produsen')->group(function () {
     // PRODUCT - MARKET
     Route::get('/dashboard/market', [ProductController::class, 'market']);
 
-    // ORDER - SHOW
-    Route::get('/dashboard/order/{order}', [OrderController::class, 'show']);
-
     // ORDER - CREATE
     Route::get('/dashboard/market/{product}', [OrderController::class, 'create']);
 
@@ -135,10 +141,3 @@ Route::middleware('produsen')->group(function () {
     // ORDER - DESTROY
     Route::delete('/dashboard/order/{order}', [OrderController::class, 'destroy']);
 });
-
-
-
-// Route::resource('/dashboard/order', OrderController::class)->middleware('auth');
-
-// Route::get('/dashboard/transaction', [TransactionController::class, 'index'])->middleware('auth');
-// Route::get('/dashboard/transaction/{order: id}', [RegisterController::class, 'show'])->middleware('auth');

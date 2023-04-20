@@ -5,11 +5,20 @@
 
     <hr class="featurette-divider" />
 
+    {{-- ALERT --}}
+    @if (session()->has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    {{-- END-ALERT --}}
+
     <div class="container-fluid d-flex justify-content-center">
         <div class="card m-2" style="width: 25rem">
             @if ($product->image)
-                <img class="img-fluid d-inline rounded-top" src="{{ asset('storage/' . $product->image) }}" alt="product-image"
-                    style="height: 150px" />
+                <img class="img-fluid d-inline rounded-top" src="{{ asset('storage/' . $product->image) }}"
+                    alt="product-image" style="height: 150px" />
             @else
                 <img class="img-fluid d-inline rounded-top" src="https://source.unsplash.com/300x150?soya-bean"
                     alt="product-image" style="height: 150px" />
@@ -32,7 +41,8 @@
                     <div class="mb-3 text-center fw-semibold">
                         <label for="quantity" class="form-label">Kwantitas</label>
                         <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity"
-                            name="quantity" placeholder="Kwantitas pembelian (kg)" oninput="totalHarga()" required>
+                            name="quantity" placeholder="Kwantitas pembelian (kg)" oninput="totalHarga()"
+                            value="{{ old('quantity') }}" required>
                         @error('quantity')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -50,7 +60,8 @@
                         <div id="customer_address">
                             <label for="customer_address" class="form-label">Alamat Anda</label>
                             <input type="text" class="form-control @error('customer_address') is-invalid @enderror"
-                                id="customer_address" name="customer_address" placeholder="alamat pembeli">
+                                id="customer_address" name="customer_address" placeholder="Alamat pembeli"
+                                value="{{ old('customer_address') }}">
                             @error('customer_address')
                                 <div class="invalid-feedback">
                                     {{ $message }}

@@ -53,6 +53,13 @@
                     @endif
                 </tr>
                 <tr>
+                    <td scope="row"><span class="fw-bold">Nomor Telepon Pembeli :</span> {{ $order->user->phone }}
+                    </td>
+                    <td scope="row"><span class="fw-bold">Nomor Telepon Penjual :</span>
+                        {{ $order->product->user->phone }}
+                    </td>
+                </tr>
+                <tr>
                     <th colspan="2">
                         <hr>
                     </th>
@@ -71,35 +78,64 @@
                 </tr>
             </tbody>
         </table>
+
     </div>
 
     {{-- FARMER ACTION --}}
     @can('farmer')
         @if ($order->status == 'pending')
-            <div class="action my-3 text-end">
+            <div class="action my-3">
                 <form action="/dashboard/order/{{ $order->id }}" method="post" class="d-inline">
-                    @method('put') @csrf
-                    <input type="text" name="status" id="status" value="accepted" hidden>
-                    <button type="submit" class="btn btn-outline-success"
-                        onclick="return confirm('Apa anda yakin untuk menerima pemesanan ini?')">
-                        Accept
-                    </button>
+                    @method('put')
+                    @csrf
+                    <div class="feedback my-3">
+                        <label for="feedback" class="form-label fw-bold">Tanggapan</label>
+                        <textarea class="form-control @error('feedback') is-invalid @enderror" id="feedback" name="feedback" rows="3"
+                            {{ $order->status == 'pending' ? '' : 'readonly' }} required></textarea>
+                        @error('feedback')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <input type="text" name="status" id="status" hidden>
+                    <div class="action text-end">
+                        <button type="submit" class="btn btn-outline-success" onclick="accept()">
+                            Terima Pemesanan
+                        </button>
+                        <button type="submit" class="btn btn-outline-danger" onclick="reject()">
+                            Tolak Pemesanan
+                        </button>
+                    </div>
                 </form>
-                <form action="/dashboard/order/{{ $order->id }}" method="post" class="d-inline">
-                    @method('put') @csrf
-                    <input type="text" name="status" id="status" value="rejected" hidden>
-                    <button type="submit" class="btn btn-outline-danger"
-                        onclick="return confirm('Apa anda yakin untuk menolak pemesanan ini?')">
-                        Cancel
-                    </button>
-                </form>
+            </div>
+        @else
+            <div class="feedback my-3">
+                <label for="feedback" class="form-label fw-bold">Tanggapan</label>
+                <textarea class="form-control text-muted" id="feedback" name="feedback" rows="3" readonly>{{ $order->feedback != null ? $order->feedback : 'Belum ada tanggapan' }}</textarea>
             </div>
         @endif
     @endcan
+
+    <script>
+        function accept() {
+            document.getElementById('status').value = 'accepted'
+            return confirm('Apa anda yakin untuk menerima pemesanan ini?')
+        }
+
+        function reject() {
+            document.getElementById('status').value = 'rejected'
+            return confirm('Apa anda yakin untuk menolak pemesanan ini?')
+        }
+    </script>
     {{-- END-FARMENR ACTION --}}
 
     {{-- PRODUSEN ACTION --}}
     @can('produsen')
+        <div class="feedback my-3">
+            <label for="feedback" class="form-label fw-bold">Tanggapan</label>
+            <textarea class="form-control text-muted" id="feedback" name="feedback" rows="3" readonly>{{ $order->feedback != null ? $order->feedback : 'Belum ada tanggapan' }}</textarea>
+        </div>
         @if ($order->status != 'accepted')
             <div class="action my-3 text-end">
                 <a href="/dashboard/order/{{ $order->id }}/edit"class="btn btn-outline-primary m-1"><i

@@ -16,10 +16,9 @@
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    @endif
-    @if (session()->has('error'))
+    @elseif(session()->has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('danger') }}
+            {{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -145,6 +144,21 @@
                                 </div>
                             @enderror
                         </div>
+                        {{-- <div class="mb-3">
+                            <label for="rekening" class="form-label">Metode Pengiriman<span
+                                    class="text-danger">*</span></label>
+                            <div class="d-block">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1">
+                                    <label class="form-check-label" for="inlineCheckbox1">Delivery (Diantar)</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="1">
+                                    <label class="form-check-label" for="inlineCheckbox2">Non-Delivery (Diambil
+                                        ditempat)</label>
+                                </div>
+                            </div>
+                        </div> --}}
                         <div class="mb-3">
                             <label for="rekening" class="form-label">Nomor Rekening</label>
                             <input type="number" class="form-control @error('rekening') is-invalid @enderror"
@@ -199,7 +213,7 @@
                                 Batal
                             </button>
                             <button type="submit" class="btn btn-primary">
-                                Tambah
+                                Simpan
                             </button>
                         </div>
                     </form>

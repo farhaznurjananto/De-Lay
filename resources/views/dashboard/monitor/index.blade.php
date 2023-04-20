@@ -133,7 +133,7 @@
                                 <form action="/dashboard/monitor/{{ $monitor->id }}" method="post" class="d-inline">
                                     @method('delete')
                                     @csrf
-                                    <button type="submit" class="btn btn-outline-danger btn-sm float-end"
+                                    <button type="submit" class="btn btn-outline-danger btn-sm"
                                         onclick="return confirm('Apa anda yakin untuk menghapus ini?')">
                                         <i class="bi bi-trash3-fill"></i>
                                     </button>

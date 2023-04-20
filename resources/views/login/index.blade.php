@@ -29,79 +29,58 @@
             <div class="card-header py-3 text-bg-success border-success">
                 <h4 class="my-0 fw-normal text-center fw-bold">Login</h4>
             </div>
-            <div class="card-body">
-                <form action="/login" method="post">
-                    @csrf
-                    <ul class="list-unstyled">
-                        <label for="email" class="form-label">Email</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="bi bi-at"></i></span>
-                            <div class="form-floating">
-                                <input type="text" class="form-control @error('email') is-invalid @enderror"
-                                    id="email" name="email" placeholder="Username" value="{{ old('email') }}"
-                                    required />
-                                <label for="email">Masukkan Email</label>
-                            </div>
+            <form action="/login" method="post" class="card-body d-flex flex-column justify-content-around">
+                @csrf
+                <ul class="list-unstyled">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-at"></i></span>
+                        <div class="form-floating">
+                            <input type="text" class="form-control @error('email') is-invalid @enderror"
+                                id="email" name="email" placeholder="Username" value="{{ old('email') }}"
+                                required />
+                            <label for="email">Masukkan Email</label>
                         </div>
-                        @error('email')
-                            <p class="text-danger m-0">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </ul>
-                    <ul class="list-unstyled">
-                        <label for="password" class="form-label">Password</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                            <div class="form-floating">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password" placeholder="Username" required
-                                    autocomplete="false" />
-                                <label for="password">Masukkan Password</label>
-                            </div>
+                    </div>
+                    @error('email')
+                        <p class="text-danger m-0">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </ul>
+                <ul class="list-unstyled">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                        <div class="form-floating">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                id="password" name="password" placeholder="Username" required autocomplete="false" />
+                            <label for="password">Masukkan Password</label>
                         </div>
-                        @error('password')
-                            <p class="text-danger m-0">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </ul>
-                    <ul class="list-unstyled">
-                        <label for="actor" class="form-label">Actor</label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="bi bi-link"></i></span>
-                            <select class="form-select" aria-label="Default select example" name="actor_id">
-                                @foreach ($actors as $actor)
-                                    @if (old('actor_id') == $actor->id)
-                                        <option value="{{ $actor->id }}" selected="selected"{{ $actor->name }}>
-                                            {{ $actor->name }}</option>
-                                    @else
-                                        <option value="{{ $actor->id }}">{{ $actor->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </ul>
-                    @if (session()->has('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    @endif
+                    </div>
+                    @error('password')
+                        <p class="text-danger m-0">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </ul>
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
-                    @if (session()->has('loginError'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session('loginError') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    @endif
-                    <button type="submit" class="w-100 btn btn-lg btn-outline-success">Masuk</button>
-                    <p class="text-center mt-2">Belum punya akun? <a href="/register"
-                            class="text-decoration-none">Daftar</a></p>
-                </form>
-            </div>
+                @if (session()->has('loginError'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('loginError') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                <button type="submit" class="w-100 btn btn-lg btn-outline-success">Masuk</button>
+                <p class="text-center mt-2">Belum punya akun? <a href="/register"
+                        class="text-decoration-none">Daftar</a></p>
+            </form>
         </div>
         {{-- END-CARD LOGIN --}}
     </div>

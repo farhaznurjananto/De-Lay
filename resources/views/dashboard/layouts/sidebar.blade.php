@@ -30,7 +30,7 @@
                         <i class="bi bi-cart"></i> Produk
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('dashboard/order') ? 'text-success' : '' }}">
                     <a class="nav-link" href="/dashboard/order">
                         <i class="bi bi-file-earmark"></i> Pemesanan
                     </a>
@@ -62,7 +62,7 @@
                         <i class="bi bi-boxes"></i> Cari Bahan Baku
                     </a>
                 </li>
-                <li class="nav-item {{ Request::is('dashboard/order') ? 'text-success' : '' }}">
+                <li class="nav-item {{ Request::is('dashboard/order*') ? 'text-success' : '' }}">
                     <a class="nav-link" href="/dashboard/order">
                         <i class="bi bi-file-earmark"></i> Pemesanan
                     </a>
