@@ -86,7 +86,7 @@
                         <div class="mb-3">
                             <label for="question" class="form-label">Tuliskan pertanyaan anda</label>
                             <textarea class="form-control @error('question') is-invalid @enderror" name="question" id="question" rows="3"
-                                value="{{ old('question') }}" required></textarea>
+                                value="{{ old('question') }}" placeholder="Berikan pertanyaan anda...." required></textarea>
                             @error('question')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror

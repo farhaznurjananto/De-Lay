@@ -58,7 +58,7 @@
                 <label for="message" class="form-label">Tuliskan jawaban anda</label>
                 <input type="hidden" name="forum_id" id="forum_id" value="{{ $forum->id }}" />
                 <textarea class="form-control @error('message') is-invalid @enderror" name="message" id="message" rows="2"
-                    required></textarea>
+                    placeholder="Berikan jawaban anda...." required></textarea>
                 @error('message')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror

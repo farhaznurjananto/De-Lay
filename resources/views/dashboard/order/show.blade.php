@@ -91,7 +91,7 @@
                     <div class="feedback my-3">
                         <label for="feedback" class="form-label fw-bold">Tanggapan</label>
                         <textarea class="form-control @error('feedback') is-invalid @enderror" id="feedback" name="feedback" rows="3"
-                            {{ $order->status == 'pending' ? '' : 'readonly' }} required></textarea>
+                            {{ $order->status == 'pending' ? '' : 'readonly' }} placeholder="Berikan tanggapan anda...." required></textarea>
                         @error('feedback')
                             <div class="invalid-feedback">
                                 {{ $message }}

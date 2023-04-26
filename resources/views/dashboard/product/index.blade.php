@@ -109,7 +109,7 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama Produk<span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                name="name" placeholder="Nama produk" value="{{ old('name') }}" required />
+                                name="name" placeholder="Nama produk anda...." value="{{ old('name') }}" required />
                             @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -119,7 +119,8 @@
                         <div class="mb-3">
                             <label for="stock" class="form-label">Stok Produk<span class="text-danger">*</span></label>
                             <input type="number" class="form-control @error('stock') is-invalid @enderror" id="stock"
-                                name="stock" placeholder="Stok produk" value="{{ old('stock') }}" required />
+                                name="stock" placeholder="Stok produk anda...." value="{{ old('stock') }}"
+                                required />
                             <div id="stockHelp" class="form-text">
                                 Masukkan jumlah stok dalam satuan kg.
                             </div>
@@ -133,8 +134,8 @@
                             <label for="price" class="form-label">Harga Produk<span
                                     class="text-danger">*</span></label>
                             <input type="number" class="form-control @error('price') is-invalid @enderror"
-                                id="price" name="price" placeholder="Harga produk" value="{{ old('price') }}"
-                                required />
+                                id="price" name="price" placeholder="Harga produk anda...."
+                                value="{{ old('price') }}" required />
                             <div id="priceHelp" class="form-text">
                                 Masukkan harga per-kg.
                             </div>
@@ -162,7 +163,7 @@
                         <div class="mb-3">
                             <label for="rekening" class="form-label">Nomor Rekening</label>
                             <input type="number" class="form-control @error('rekening') is-invalid @enderror"
-                                id="rekening" name="rekening" placeholder="Nomor rekening anda" value="0" />
+                                id="rekening" name="rekening" placeholder="Nomor rekening anda...." value="0" />
                             <div id="rekeningHelp" class="form-text">
                                 Masukkan nomor rekening anda sebagai alternatif pembayaran transfer. <span
                                     class="fw-semibold">Default 0</span> untuk
@@ -177,7 +178,8 @@
                         <div class="mb-3">
                             <label for="address" class="form-label">Alamat Pengambilan Produk</label>
                             <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                id="address" name="address" placeholder="Alamat anda" value="{{ old('address') }}" />
+                                id="address" name="address" placeholder="Alamat anda...."
+                                value="{{ old('address') }}" />
                             <div id="addressHelp" class="form-text">
                                 Alamat ini sebagai alternatif pengiriman non-delivery.
                             </div>

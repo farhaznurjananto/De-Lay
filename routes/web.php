@@ -12,7 +12,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,7 +93,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/history', [OrderController::class, 'history']);
 
     // ANALYSIS
-    Route::get('/analysis', [AnalysisController::class, 'index']);
+    Route::get('/dashboard/analysis', [AnalysisController::class, 'index']);
+
+    // ANALYSIS
+    Route::post('/dashboard/analysis', [AnalysisController::class, 'store']);
 });
 
 // FOR FARMER

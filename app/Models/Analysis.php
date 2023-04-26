@@ -15,5 +15,8 @@ class Analysis extends Model
 
     protected $dates = ['deleted_at'];
 
-    // belum di has many dan belong to
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

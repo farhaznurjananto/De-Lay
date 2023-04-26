@@ -7,7 +7,8 @@ if (navigator.geolocation) {
 function showPosition(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
-    var apiKey = "GQAv3wAJZN1d2Np91Yb8krRDvaHZj7B8";
+    console.log(latitude, longitude);
+    var apiKey = "5sjax25qE2xy7YT153ZshTaY7ED6blSO";
 
     var url =
         "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=" +

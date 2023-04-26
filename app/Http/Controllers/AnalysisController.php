@@ -3,61 +3,61 @@
 namespace App\Http\Controllers;
 
 use App\Models\Analysis;
+use GuzzleHttp\Promise\Create;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 
 class AnalysisController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('dashboard.analysis.index', [
+            'title' => 'Analysis',
+            'datas' => Analysis::with('user')->where('user_id', '=', auth()->user()->id)->latest()->paginate(10)
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        try {
+            $rules = [
+                'initial_capital' => 'required|numeric|min:1',
+                'total_income' => 'required|numeric|min:1',
+                'description' => 'max:255'
+            ];
+
+            $validatedData = request()->validate($rules);
+
+            $validatedData['user_id'] = auth()->user()->id;
+
+            Analysis::create($validatedData);
+
+            return back()->with('success', 'Data baru berhasil dibuat!');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Data gagal dibuat!') && $validatedData = request()->validate($rules);;
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Analysis $analysis)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Analysis $analysis)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Analysis $analysis)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Analysis $analysis)
     {
         //

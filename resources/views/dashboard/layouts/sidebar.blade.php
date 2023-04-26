@@ -98,12 +98,13 @@
             <ul class="navbar-nav flex-column">
                 <li class="nav-item">
                     <p class="nav-link fs-5 p-0 mb-0 mt-3 fw-bold text-muted">
-                        Save Report
+                        Laporan Keuangan
                     </p>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard/transaction">
-                        <i class="bi bi-file-earmark-check"></i> Transaksi
+                    <a class="nav-link {{ Request::is('dashboard/analysis') ? 'text-success' : '' }}"
+                        href="/dashboard/analysis">
+                        <i class="bi bi-file-earmark-check"></i> laba Lugi
                     </a>
                 </li>
             </ul>

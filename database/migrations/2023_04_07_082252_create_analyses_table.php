@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->bigInteger('initial_capital');
             $table->bigInteger('total_income');
+            $table->text('description')->nullable();
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
