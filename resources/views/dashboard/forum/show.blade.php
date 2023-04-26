@@ -63,7 +63,9 @@
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Kirim <i class="bi bi-send"></i></button>
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">Kirim <i class="bi bi-send"></i></button>
+            </div>
         </form>
     </div>
     {{-- REPLAY FORM  --}}

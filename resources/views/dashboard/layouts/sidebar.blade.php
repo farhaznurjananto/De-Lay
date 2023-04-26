@@ -102,7 +102,7 @@
                     </p>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard/analysis') ? 'text-success' : '' }}"
+                    <a class="nav-link {{ Request::is('dashboard/analysis*') ? 'text-success' : '' }}"
                         href="/dashboard/analysis">
                         <i class="bi bi-file-earmark-check"></i> laba Lugi
                     </a>

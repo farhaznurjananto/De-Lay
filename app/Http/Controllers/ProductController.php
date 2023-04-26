@@ -75,10 +75,6 @@ class ProductController extends Controller
         }
 
         $validateData['owner_id'] = auth()->user()->id;
-        if ($request->file('image')) {
-            $validateData['image'] = $request->file('image')->store('product-images');
-        }
-
 
         Product::where('id', $product->id)
             ->update($validateData);

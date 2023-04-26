@@ -32,7 +32,7 @@
                             Stok : {{ $product->stock }} kg
                         </p>
                         <p class="card-text mb-2 small">
-                            Harga : {{ $product->price }} / kg
+                            Harga : Rp. {{ number_format($product->price) }} / kg
                         </p>
                         <div class="action">
                             <a href="/dashboard/market/{{ $product->id }}"

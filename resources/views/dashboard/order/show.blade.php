@@ -28,7 +28,7 @@
             <tbody>
                 <tr>
                     <td scope="row" colspan="2"><span class="fw-bold">Tanggal :</span>
-                        {{ $order->created_at->format('d-M-Y') }}</td>
+                        {{ $order->created_at->format('d M Y') }}</td>
                 </tr>
                 <tr valign="middle">
                     <td scope="row"><span class="fw-bold">Metode Pembayaran :</span>
@@ -74,7 +74,7 @@
                 </tr>
                 <tr>
                     <th class="text-end" scope="col" colspan="2">Total : Rp.
-                        {{ $order->quantity * $order->product->price }}</th>
+                        {{ number_format($order->quantity * $order->product->price) }}</th>
                 </tr>
             </tbody>
         </table>
@@ -91,7 +91,7 @@
                     <div class="feedback my-3">
                         <label for="feedback" class="form-label fw-bold">Tanggapan</label>
                         <textarea class="form-control @error('feedback') is-invalid @enderror" id="feedback" name="feedback" rows="3"
-                            {{ $order->status == 'pending' ? '' : 'readonly' }} placeholder="Berikan tanggapan anda...." required></textarea>
+                            {{ $order->status == 'pending' ? '' : 'readonly' }} placeholder="Berikan tanggapan anda...."></textarea>
                         @error('feedback')
                             <div class="invalid-feedback">
                                 {{ $message }}

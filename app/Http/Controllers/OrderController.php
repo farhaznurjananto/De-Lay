@@ -54,8 +54,6 @@ class OrderController extends Controller
         ]);
     }
 
-    // FARMER
-
     public function update(Request $request, Order $order)
     {
         if (auth()->user()->actor_id == 1) {
@@ -80,26 +78,41 @@ class OrderController extends Controller
             } else {
                 return redirect('/dashboard/order')->with('success', 'Order berhasil diterima!');
             }
+        } else if (auth()->user()->actor_id == 2) {
+            $rules = [
+                'quantity' => 'required|numeric|min:1',
+                'proof_of_payment' => 'image|file|max:1024',
+                'customer_address' => 'max:255'
+            ];
+
+            $validatedData = request()->validate($rules);
+
+            // UPDATE STOCK PRODUCT
+            $product = Product::where('id', $order->product_id)->get();
+            $tmp_stock = ($product[0]['stock'] +  $order['quantity']) - $validatedData['quantity'];
+
+            if ($tmp_stock < 0) {
+                return back()->with('error', 'Inputkan data dengan benar!');
+            } else {
+                if ($request->file('proof_of_payment')) {
+                    if ($request->oldImage) {
+                        Storage::delete($request->oldImage);
+                    }
+                    $validatedData['proof_of_payment'] = $request->file('proof_of_payment')->store('proof-of-payment-images');
+                }
+
+                Order::where('id', $order->id)
+                    ->update($validatedData);
+
+                Product::where('id', $order->product_id)
+                    ->update(['stock' => $tmp_stock]);
+
+                return redirect('/dashboard/order')->with('success', 'Pemesanan berhasil diperbarui!');
+            }
         }
     }
 
-    public function destroy(Order $order)
-    {
-        $tmp_stock = $order->product->stock + $order['quantity'];
-
-        // DELETE PROOF OF PAYMENT IMG
-        if ($order->proof_of_payment) {
-            Storage::delete($order->proof_of_payment);
-        }
-
-        // UPDATE PRODUCT STOCK
-        Product::where('id', $order->product->id)
-            ->update(['stock' => $tmp_stock]);
-
-        Order::destroy($order->id);
-
-        return redirect('/dashboard/order')->with('success', 'Pemesanan berhasil dibatalkan!');
-    }
+    // FARMER
 
     // PRODUSEN
 
@@ -149,5 +162,23 @@ class OrderController extends Controller
             'title' => 'Edit Pemesanan',
             'order' => $order
         ]);
+    }
+
+    public function destroy(Order $order)
+    {
+        $tmp_stock = $order->product->stock + $order['quantity'];
+
+        // DELETE PROOF OF PAYMENT IMG
+        if ($order->proof_of_payment) {
+            Storage::delete($order->proof_of_payment);
+        }
+
+        // UPDATE PRODUCT STOCK
+        Product::where('id', $order->product->id)
+            ->update(['stock' => $tmp_stock]);
+
+        Order::destroy($order->id);
+
+        return redirect('/dashboard/order')->with('success', 'Pemesanan berhasil dibatalkan!');
     }
 }

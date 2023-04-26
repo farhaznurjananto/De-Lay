@@ -3,17 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Analysis;
-use GuzzleHttp\Promise\Create;
-use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 
 class AnalysisController extends Controller
 {
     public function index()
     {
+        $transaction = Analysis::with('user')->where('user_id', '=', auth()->user()->id)->latest()->paginate(10);
+        $labels = [];
+        $modal = [];
+        $income = [];
+        foreach ($transaction as $data) {
+            array_push($labels, $data->created_at->format('d M Y'));
+            array_push($modal, $data->initial_capital);
+            array_push($income, $data->total_income);
+        }
         return view('dashboard.analysis.index', [
             'title' => 'Analysis',
-            'datas' => Analysis::with('user')->where('user_id', '=', auth()->user()->id)->latest()->paginate(10)
+            'datas' => Analysis::with('user')->where('user_id', '=', auth()->user()->id)->latest()->paginate(10),
+            'labels' => $labels,
+            'modal' => $modal,
+            'income' => $income
         ]);
     }
 
@@ -43,23 +53,27 @@ class AnalysisController extends Controller
         }
     }
 
-    public function show(Analysis $analysis)
-    {
-        //
-    }
-
     public function edit(Analysis $analysis)
     {
-        //
+        return view('dashboard.analysis.edit', [
+            'title' => 'Edit Analysis',
+            'data' => $analysis,
+        ]);
     }
 
     public function update(Request $request, Analysis $analysis)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'initial_capital' => 'required|numeric|min:1',
+            'total_income' => 'required|numeric|min:1',
+            'description' => 'max:255'
+        ]);
 
-    public function destroy(Analysis $analysis)
-    {
-        //
+        $validatedData['user_id'] = auth()->user()->id;
+
+        Analysis::where('id', $analysis->id)
+            ->update($validatedData);
+
+        return redirect('/dashboard/analysis')->with('success', 'Data berhasil diperbarui!');
     }
 }

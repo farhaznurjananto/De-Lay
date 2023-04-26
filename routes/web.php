@@ -95,8 +95,14 @@ Route::middleware('auth')->group(function () {
     // ANALYSIS
     Route::get('/dashboard/analysis', [AnalysisController::class, 'index']);
 
-    // ANALYSIS
+    // ANALYSIS - STORE
     Route::post('/dashboard/analysis', [AnalysisController::class, 'store']);
+
+    // ANALYSIS - EDIT
+    Route::get('/dashboard/analysis/{analysis}/edit', [AnalysisController::class, 'edit']);
+
+    // ANALYSIS - UPDATE
+    Route::put('/dashboard/analysis/{analysis}', [AnalysisController::class, 'update']);
 });
 
 // FOR FARMER

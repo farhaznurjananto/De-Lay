@@ -20,15 +20,13 @@
                     Stok : {{ $order->product->stock }} kg
                 </p>
                 <p class="card-text mb-2 small">
-                    Harga : {{ $order->product->price }} / kg
+                    Harga : Rp. {{ number_format($order->product->price) }} / kg
                 </p>
 
                 <hr class="featurette-divider" />
 
-                <form action="/dashboard/order" method="post" enctype="multipart/form-data">
-                    @csrf
-                    {{-- <input type="number" class="form-control" id="product_id" name="product_id"
-                            value="{{ $product->id }}" required hidden> --}}
+                <form action="/dashboard/order/{{ $order->id }}" method="post" enctype="multipart/form-data">
+                    @method('put') @csrf
                     <div class="mb-3 text-center fw-semibold">
                         <label for="quantity" class="form-label">Kwantitas</label>
                         <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity"
@@ -104,9 +102,14 @@
                         @enderror
                     </div>
                     <div class="action d-grid">
-                        <a class="btn btn-outline-warning btn-sm mb-3" data-bs-toggle="modal"
-                            data-bs-target="#proof_of_payment_modal"><i class="bi bi-file-earmark-image"></i> Lihat Bukti
-                            Pembayaran</a>
+                        @if ($order->proof_of_payment != null)
+                            <input type="hidden" name="oldImage"
+                                value="{{ asset('storage/' . $order->proof_of_payment) }}">
+                            <a class="btn btn-outline-warning btn-sm mb-3" data-bs-toggle="modal"
+                                data-bs-target="#proof_of_payment_modal"><i class="bi bi-file-earmark-image"></i> Lihat
+                                Bukti
+                                Pembayaran</a>
+                        @endif
                         <button type="submit" class="btn btn-outline-primary btn-sm"
                             onclick="return confirm('Apakah anda yakin ingin membeli?')"><i class="bi bi-basket"></i>
                             Perbarui Pemesanan</button>
