@@ -106,8 +106,9 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nama Produk<span class="text-danger">*</span></label>
+                        <label for="name" class="form-label">Nama Produk<span class="text-danger">*</span></label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text text-muted"><i class="bi bi-braces"></i></span>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" placeholder="Nama produk anda...." value="{{ old('name') }}" required />
                             @error('name')
@@ -118,32 +119,38 @@
                         </div>
                         <div class="mb-3">
                             <label for="stock" class="form-label">Stok Produk<span class="text-danger">*</span></label>
-                            <input type="number" class="form-control @error('stock') is-invalid @enderror" id="stock"
-                                name="stock" placeholder="Stok produk anda...." value="{{ old('stock') }}"
-                                required />
+                            <div class="input-group">
+                                <span class="input-group-text text-muted"><i class="bi bi-boxes"></i></span>
+                                <input type="number" class="form-control @error('stock') is-invalid @enderror"
+                                    id="stock" name="stock" placeholder="Stok produk anda...."
+                                    value="{{ old('stock') }}" required />
+                                @error('stock')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div id="stockHelp" class="form-text">
                                 Masukkan jumlah stok dalam satuan kg.
                             </div>
-                            @error('stock')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Harga Produk<span
                                     class="text-danger">*</span></label>
-                            <input type="number" class="form-control @error('price') is-invalid @enderror"
-                                id="price" name="price" placeholder="Harga produk anda...."
-                                value="{{ old('price') }}" required />
+                            <div class="input-group">
+                                <span class="input-group-text">Rp.</span>
+                                <input type="number" class="form-control @error('price') is-invalid @enderror"
+                                    id="price" name="price" placeholder="Harga produk anda...."
+                                    value="{{ old('price') }}" required />
+                                @error('price')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div id="priceHelp" class="form-text">
                                 Masukkan harga per-kg.
                             </div>
-                            @error('price')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         </div>
                         {{-- <div class="mb-3">
                             <label for="rekening" class="form-label">Metode Pengiriman<span
@@ -162,47 +169,57 @@
                         </div> --}}
                         <div class="mb-3">
                             <label for="rekening" class="form-label">Nomor Rekening</label>
-                            <input type="number" class="form-control @error('rekening') is-invalid @enderror"
-                                id="rekening" name="rekening" placeholder="Nomor rekening anda...." value="0" />
+                            <div class="input-group">
+                                <span class="input-group-text text-muted"><i class="bi bi-credit-card"></i></span>
+                                <input type="number" class="form-control @error('rekening') is-invalid @enderror"
+                                    id="rekening" name="rekening" placeholder="Nomor rekening anda...."
+                                    value="0" />
+                                @error('rekening')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div id="rekeningHelp" class="form-text">
                                 Masukkan nomor rekening anda sebagai alternatif pembayaran transfer. <span
                                     class="fw-semibold">Default 0</span> untuk
                                 tidak memilih alternatif pembayaran transfer.
                             </div>
-                            @error('rekening')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Alamat Pengambilan Produk</label>
-                            <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                id="address" name="address" placeholder="Alamat anda...."
-                                value="{{ old('address') }}" />
+                            <div class="input-group">
+                                <span class="input-group-text text-muted"><i class="bi bi-house"></i></span>
+                                <input type="text" class="form-control @error('address') is-invalid @enderror"
+                                    id="address" name="address" placeholder="Alamat anda...."
+                                    value="{{ old('address') }}" />
+                                @error('address')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div id="addressHelp" class="form-text">
                                 Alamat ini sebagai alternatif pengiriman non-delivery.
                             </div>
-                            @error('address')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Nomor Telepon<span
                                     class="text-danger">*</span></label>
-                            <input type="number" class="form-control @error('phone') is-invalid @enderror"
-                                id="phone" name="phone" placeholder="Nomor telepon anda"
-                                value="{{ auth()->user()->phone }}" required readonly disabled />
+                            <div class="input-group">
+                                <span class="input-group-text text-muted"><i class="bi bi-telephone"></i></span>
+                                <input type="number" class="form-control @error('phone') is-invalid @enderror"
+                                    id="phone" name="phone" placeholder="Nomor telepon anda"
+                                    value="{{ auth()->user()->phone }}" required readonly disabled />
+                                @error('phone')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div id="phoneHelp" class="form-text">
                                 Nomor telephon anda akan digunakan oleh calon pembeli untuk menghubungi anda.
                             </div>
-                            @error('phone')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                         </div>
                         <div class="mb-3">
                             <div id="priceHelp" class="form-text text-danger fw-bold">

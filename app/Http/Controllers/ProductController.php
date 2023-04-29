@@ -79,7 +79,7 @@ class ProductController extends Controller
         Product::where('id', $product->id)
             ->update($validateData);
 
-        return redirect('/dashboard/product')->with('success', 'Pr0duk berhasil diperbaruhi!');
+        return redirect('/dashboard/product')->with('success', 'Produk berhasil diperbaruhi!');
     }
 
     public function destroy(Product $product)

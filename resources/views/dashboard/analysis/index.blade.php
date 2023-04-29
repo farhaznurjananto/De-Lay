@@ -105,9 +105,10 @@
                 <div class="modal-body">
                     <form action="/dashboard/analysis" method="post">
                         @csrf
-                        <div class="mb-3">
-                            <label for="initial_capital" class="form-label">Modal Usaha<span
-                                    class="text-danger">*</span></label>
+                        <label for="initial_capital" class="form-label">Modal Usaha<span
+                                class="text-danger">*</span></label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Rp.</span>
                             <input type="number" class="form-control @error('initial_capital') is-invalid @enderror"
                                 id="initial_capital" name="initial_capital" placeholder="Modal anda...."
                                 value="{{ old('initial_capital') }}">
@@ -115,9 +116,10 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label for="total_income" class="form-label">Pendapatan Usaha<span
-                                    class="text-danger">*</span></label>
+                        <label for="total_income" class="form-label">Pendapatan Usaha<span
+                                class="text-danger">*</span></label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Rp.</span>
                             <input type="number" class="form-control @error('total_income') is-invalid @enderror"
                                 id="total_income" name="total_income" placeholder="Pendapatan anda...."
                                 value="{{ old('total_income') }}">
@@ -153,36 +155,41 @@
             // eslint-disable-next-line no-unused-vars
 
             const labels = {!! json_encode($labels) !!};
-            const modal = {!! json_encode($modal) !!};
-            const pendapatan = {!! json_encode($income) !!};
+            const keuntungan = {!! json_encode($profit) !!};
 
             const data = {
                 labels: labels,
                 datasets: [{
-                        label: "Modal",
-                        data: modal,
-                        backgroundColor: "rgba(255, 99, 132, 0.2)",
-                        borderColor: "rgba(255, 99, 132, 1)",
-                        borderWidth: 1,
+                    label: "Keuntungan",
+                    data: keuntungan,
+                    backgroundColor: "rgba(25, 135, 84, 0.2)",
+                    borderColor: "rgba(25, 135, 84, 1)",
+                    borderWidth: 1,
+                    pointRadius: 5,
+                    pointBackgroundColor: function(context) {
+                        var value = context.dataset.data[context.dataIndex];
+                        return value >= 0 ? "rgba(25, 135, 84, 1)" : "rgba(220, 53, 87, 1)";
                     },
-                    {
-                        label: "Pendapatan",
-                        data: pendapatan,
-                        backgroundColor: "rgba(54, 162, 235, 0.2)",
-                        borderColor: "rgba(54, 162, 235, 1)",
-                        borderWidth: 1,
+                    pointBorderColor: '#fff',
+                    pointHoverRadius: 7,
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: function(context) {
+                        var value = context.dataset.data[context.dataIndex];
+                        return value >= 0 ? "rgba(25, 135, 84, 1)" : "rgba(220, 53, 87, 1)";
                     },
-                ],
+                }, ],
             };
 
             const config = {
-                type: "bar",
+                type: "line",
                 data: data,
                 options: {
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                        },
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
                     },
                 },
             };

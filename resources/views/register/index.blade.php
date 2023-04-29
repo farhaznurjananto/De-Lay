@@ -39,7 +39,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
                                     id="name" name="name" placeholder="Username" value="{{ old('name') }}"
-                                    required />
+                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" />
                                 <label for="name">Masukkan Nama</label>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control @error('email') is-invalid @enderror"
                                     id="email" name="email" placeholder="Username" value="{{ old('email') }}"
-                                    required />
+                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" />
                                 <label for="email">Masukkan Email</label>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                             <div class="form-floating">
                                 <input type="number" class="form-control @error('phone') is-invalid @enderror"
                                     id="phone" name="phone" placeholder="Username" value="{{ old('phone') }}"
-                                    required />
+                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" />
                                 <label for="phone">Masukkan Nomor Telepon</label>
                             </div>
                         </div>
@@ -90,6 +90,7 @@
                             <div class="form-floating">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                     id="password" name="password" placeholder="Username" required
+                                    oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
                                     autocomplete="false" />
                                 <label for="password">Masukkan Password</label>
                             </div>

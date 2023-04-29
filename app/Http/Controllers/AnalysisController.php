@@ -9,21 +9,18 @@ class AnalysisController extends Controller
 {
     public function index()
     {
-        $transaction = Analysis::with('user')->where('user_id', '=', auth()->user()->id)->latest()->paginate(10);
+        $transaction = Analysis::with('user')->where('user_id', '=', auth()->user()->id)->paginate(10);
         $labels = [];
-        $modal = [];
-        $income = [];
+        $provit = [];
         foreach ($transaction as $data) {
             array_push($labels, $data->created_at->format('d M Y'));
-            array_push($modal, $data->initial_capital);
-            array_push($income, $data->total_income);
+            array_push($provit, ($data->total_income - $data->initial_capital));
         }
         return view('dashboard.analysis.index', [
             'title' => 'Analysis',
             'datas' => Analysis::with('user')->where('user_id', '=', auth()->user()->id)->latest()->paginate(10),
             'labels' => $labels,
-            'modal' => $modal,
-            'income' => $income
+            'profit' => $provit
         ]);
     }
 
@@ -55,9 +52,21 @@ class AnalysisController extends Controller
 
     public function edit(Analysis $analysis)
     {
+        $transaction = Analysis::with('user')->where('id', '=', $analysis->id)->paginate(10);
+        $labels = [];
+        $modal = [];
+        $income = [];
+        foreach ($transaction as $data) {
+            array_push($labels, $data->created_at->format('d M Y'));
+            array_push($modal, $data->initial_capital);
+            array_push($income, $data->total_income);
+        }
         return view('dashboard.analysis.edit', [
             'title' => 'Edit Analysis',
             'data' => $analysis,
+            'labels' => $labels,
+            'modal' => $modal,
+            'income' => $income,
         ]);
     }
 

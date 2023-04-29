@@ -29,14 +29,17 @@
                     @method('put') @csrf
                     <div class="mb-3 text-center fw-semibold">
                         <label for="quantity" class="form-label">Kwantitas</label>
-                        <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity"
-                            name="quantity" placeholder="kwantitas pembelian" oninput="totalHarga()"
-                            value="{{ $order->quantity }}" required>
-                        @error('quantity')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <div class="input-group">
+                            <span class="input-group-text text-muted">Kg</span>
+                            <input type="number" class="form-control @error('quantity') is-invalid @enderror"
+                                id="quantity" name="quantity" placeholder="kwantitas pembelian" oninput="totalHarga()"
+                                value="{{ $order->quantity }}" required>
+                            @error('quantity')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="mb-3 text-center fw-semibold">
                         <label for="metode_delivery" class="form-label">Metode Pengiriman</label>
@@ -55,14 +58,17 @@
                     <div class="mb-3 text-center fw-semibold">
                         <div id="customer_address" style="display: none">
                             <label for="customer_address" class="form-label">Alamat Anda</label>
-                            <input type="text" class="form-control @error('customer_address') is-invalid @enderror"
-                                id="customer_address" name="customer_address" placeholder="Alamat pembeli"
-                                value="{{ $order->customer_address }}">
-                            @error('customer_address')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <div class="input-group">
+                                <span class="input-group-text text-muted"><i class="bi bi-house"></i></span>
+                                <input type="text" class="form-control @error('customer_address') is-invalid @enderror"
+                                    id="customer_address" name="customer_address" placeholder="Alamat pembeli"
+                                    value="{{ $order->customer_address }}">
+                                @error('customer_address')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                         </div>
                         <div id="seller_address" style="display: none">
                             <label for="seller_address" class="form-label">Alamat Kami</label>

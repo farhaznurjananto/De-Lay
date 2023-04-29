@@ -109,7 +109,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary"
-                                onclick="confirm('apakah ingin membuat forum?')">Buat Forum</button>
+                                onclick="return confirm('apakah ingin membuat forum?')">Buat Forum</button>
                         </div>
                     </form>
                 </div>
