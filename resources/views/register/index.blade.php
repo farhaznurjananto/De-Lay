@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="id" class="h-100">
 
 <head>
     <meta charset="UTF-8" />
@@ -33,13 +33,14 @@
                 <form action="/register" method="post">
                     @csrf
                     <ul class="list-unstyled">
-                        <label for="name" class="form-label">Nama</label>
+                        <label for="name" class="form-label">Nama<span class="text-danger">*</span></label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
                             <div class="form-floating">
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
                                     id="name" name="name" placeholder="Username" value="{{ old('name') }}"
-                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" />
+                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                    oninput="setCustomValidity('')" />
                                 <label for="name">Masukkan Nama</label>
                             </div>
                         </div>
@@ -50,13 +51,14 @@
                         @enderror
                     </ul>
                     <ul class="list-unstyled">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-at"></i></span>
                             <div class="form-floating">
                                 <input type="text" class="form-control @error('email') is-invalid @enderror"
                                     id="email" name="email" placeholder="Username" value="{{ old('email') }}"
-                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" />
+                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                    oninput="setCustomValidity('')" />
                                 <label for="email">Masukkan Email</label>
                             </div>
                         </div>
@@ -67,13 +69,14 @@
                         @enderror
                     </ul>
                     <ul class="list-unstyled">
-                        <label for="phone" class="form-label">Phone Number</label>
+                        <label for="phone" class="form-label">Nomor Telepon<span class="text-danger">*</span></label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
                             <div class="form-floating">
                                 <input type="number" class="form-control @error('phone') is-invalid @enderror"
                                     id="phone" name="phone" placeholder="Username" value="{{ old('phone') }}"
-                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" />
+                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                    oninput="setCustomValidity('')" />
                                 <label for="phone">Masukkan Nomor Telepon</label>
                             </div>
                         </div>
@@ -84,14 +87,14 @@
                         @enderror
                     </ul>
                     <ul class="list-unstyled">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
                             <div class="form-floating">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
                                     id="password" name="password" placeholder="Username" required
                                     oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                                    autocomplete="false" />
+                                    oninput="setCustomValidity('')" autocomplete="false" />
                                 <label for="password">Masukkan Password</label>
                             </div>
                         </div>
@@ -102,7 +105,8 @@
                         @enderror
                     </ul>
                     <ul class="list-unstyled">
-                        <label for="actor" class="form-label">Daftar Sebagai</label>
+                        <label for="actor" class="form-label">Daftar Sebagai<span
+                                class="text-danger">*</span></label>
                         <div class="input-group mb-3">
                             <span class="input-group-text"><i class="bi bi-link"></i></span>
                             <select class="form-select" aria-label="Default select example" name="actor_id">
@@ -133,7 +137,7 @@
                         </div>
                     @endif
                     <button type="submit" class="w-100 btn btn-lg btn-outline-success"
-                        onclick="return confirm('Apa data yang dimasukkan sudah benar?')">Daftar</button>
+                        onclick="return confirm('Apakah data yang dimasukkan sudah benar?')">Daftar</button>
                     <p class="text-center mt-2">Sudah punya akun? <a href="/login"
                             class="text-decoration-none">Masuk</a></p>
                 </form>

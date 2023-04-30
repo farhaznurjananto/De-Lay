@@ -1,11 +1,10 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-    <div class="top-bar d-flex justify-content-between align-items-center">
+    <div class="header">
         <h1 class="h2 mt-3 fw-bold text-success">Analisis Laba Rugi</h1>
+        <hr class="featurette-divider" />
     </div>
-
-    <hr class="featurette-divider" />
 
     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
@@ -29,6 +28,13 @@
         @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
@@ -111,34 +117,38 @@
                             <span class="input-group-text">Rp.</span>
                             <input type="number" class="form-control @error('initial_capital') is-invalid @enderror"
                                 id="initial_capital" name="initial_capital" placeholder="Modal anda...."
-                                value="{{ old('initial_capital') }}">
-                            @error('initial_capital')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
+                                value="{{ old('initial_capital') }}" required
+                                oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                oninput="setCustomValidity('')">
                         </div>
+                        @error('initial_capital')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <label for="total_income" class="form-label">Pendapatan Usaha<span
                                 class="text-danger">*</span></label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">Rp.</span>
                             <input type="number" class="form-control @error('total_income') is-invalid @enderror"
                                 id="total_income" name="total_income" placeholder="Pendapatan anda...."
-                                value="{{ old('total_income') }}">
-                            @error('total_income')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
+                                value="{{ old('total_income') }}" required
+                                oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                oninput="setCustomValidity('')">
                         </div>
+                        @error('total_income')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <div class="mb-3">
                             <label for="description" class="form-label">Keterangan</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"
                                 rows="3" placeholder="Keterangan....">{{ old('description') }}</textarea>
-                            @error('description')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
                         </div>
+                        @error('description')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary"
-                                onclick="return confirm('Apakah data sudah benar?')">Buat Analisis</button>
+                                onclick="return confirm('Apakah data yang dimasukkan sudah benar?')">Buat Analisis</button>
                         </div>
                     </form>
                 </div>

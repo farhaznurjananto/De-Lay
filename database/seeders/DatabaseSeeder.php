@@ -20,14 +20,6 @@ class DatabaseSeeder extends Seeder
         // User::factory(2)->create();
 
         // User::create([
-        //     'name' => 'Farhaz Nurjananto',
-        //     'email' => 'farhaznurjananto052@gmail.com',
-        //     'phone' => '081331611696',
-        //     'actor_id' => 1,
-        //     'password' => bcrypt('farhaz')
-        // ]);
-
-        // User::create([
         //     'name' => 'Wiwik',
         //     'email' => 'wiwik@gmail.com',
         //     'phone' => '081331611690',
@@ -63,6 +55,15 @@ class DatabaseSeeder extends Seeder
         ]);
         Forum_Category::create([
             'name' => 'Susu Kedelai'
+        ]);
+
+        User::create([
+            'name' => 'ADMIN',
+            'email' => 'adminDeLay@gmail.com',
+            'phone' => '081331611691',
+            'is_admin' => true,
+            'actor_id' => 1,
+            'password' => bcrypt('admin')
         ]);
     }
 }

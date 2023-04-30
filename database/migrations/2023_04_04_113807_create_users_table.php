@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->unique();
+            $table->boolean('is_admin')->default(false);
             $table->foreignId('actor_id')->references('id')->on('actors');
             $table->string('password');
             $table->dateTime('deleted_at')->nullable();

@@ -7,7 +7,6 @@ if (navigator.geolocation) {
 function showPosition(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
-    console.log(latitude, longitude);
     var apiKey = "5sjax25qE2xy7YT153ZshTaY7ED6blSO";
 
     var url =
@@ -28,8 +27,6 @@ function showPosition(position) {
 
         $.get(forecastUrl, function (data) {
             var dailyForecasts = data.DailyForecasts;
-
-            console.log(dailyForecasts);
 
             // headline weather
             document.getElementById("Date").innerHTML = new Date(
@@ -58,13 +55,13 @@ function showPosition(position) {
             dailyForecasts.forEach(function (forecast) {
                 var date = new Date(forecast.Date);
                 var dayOfWeek = [
-                    "Sunday",
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
+                    "Minggu",
+                    "Senin",
+                    "Selasa",
+                    "Rabu",
+                    "Kamis",
+                    "Jum'at",
+                    "Sabtu",
                 ][date.getDay()];
                 var weatherDescription = forecast.Day.IconPhrase;
                 var weatherIcon =

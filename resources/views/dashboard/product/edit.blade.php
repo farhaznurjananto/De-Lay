@@ -1,10 +1,9 @@
 @extends('dashboard.layouts.main') @section('container')
     <div class="container-fluid">
-        <div class="top-bar d-flex justify-content-between align-items-center">
+        <div class="header">
             <h1 class="h2 mt-3">Produk | Edit</h1>
+            <hr class="featurette-divider" />
         </div>
-
-        <hr class="featurette-divider" />
 
         <div class="form-edit my-3">
             <form action="/dashboard/product/{{ $product->id }}" method="post" enctype="multipart/form-data">
@@ -36,7 +35,9 @@
                     <div class="input-group">
                         <span class="input-group-text text-muted"><i class="bi bi-braces"></i></span>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                            name="name" placeholder="Nama Produk" value="{{ old('name', $product->name) }}" required />
+                            name="name" placeholder="Nama Produk" value="{{ old('name', $product->name) }}" required
+                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                            oninput="setCustomValidity('')" />
                         @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -49,7 +50,9 @@
                     <div class="input-group">
                         <span class="input-group-text text-muted"><i class="bi bi-boxes"></i></span>
                         <input type="number" class="form-control @error('stock') is-invalid @enderror" id="stock"
-                            name="stock" placeholder="Stok Produk" value="{{ old('stock', $product->stock) }}" required />
+                            name="stock" placeholder="Stok Produk" value="{{ old('stock', $product->stock) }}" required
+                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                            oninput="setCustomValidity('')" />
                         @error('stock')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -65,8 +68,9 @@
                     <div class="input-group">
                         <span class="input-group-text">Rp.</span>
                         <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
-                            name="price" placeholder="Harga Produk" value="{{ old('price', $product->price) }}"
-                            required />
+                            name="price" placeholder="Harga Produk" value="{{ old('price', $product->price) }}" required
+                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                            oninput="setCustomValidity('')" />
                         @error('price')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -126,7 +130,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="status" class="form-label">Status</label>
+                    <label for="status" class="form-label">Status<span class="text-danger">*</span></label>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="bi bi-info-circle-fill"></i></i></span>
                         <select class="form-select" aria-label="Default select example" name="status">
@@ -142,7 +146,8 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary"
+                    onclick="return confirm('Apakah ingin memperbarui data?')">Update</button>
             </form>
         </div>
 

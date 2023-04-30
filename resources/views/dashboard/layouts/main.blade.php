@@ -26,7 +26,7 @@
             @include('dashboard.layouts.sidebar')
 
             {{-- MAIN --}}
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column justify-content-between">
                 @yield('container')
             </main>
         </div>

@@ -29,15 +29,15 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::define('admin', function (User $user) {
-            return $user->actor_id === 3;
+            return $user->is_admin === 1;
         });
 
         Gate::define('produsen', function (User $user) {
-            return $user->actor_id === 2;
+            return $user->actor_id === 2 && $user->is_admin === 0;
         });
 
         Gate::define('farmer', function (User $user) {
-            return $user->actor_id === 1;
+            return $user->actor_id === 1 && $user->is_admin === 0;
         });
     }
 }

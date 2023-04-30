@@ -1,9 +1,11 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-    <h1 class="h2 mt-3 fw-bold text-success">Profile</h1>
+    <div class="header">
+        <h1 class="h2 mt-3 fw-bold text-success">Profile</h1>
 
-    <hr class="featurette-divider" />
+        <hr class="featurette-divider" />
+    </div>
 
     {{-- ALERT --}}
     @if (session()->has('success'))
@@ -25,33 +27,48 @@
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Nama<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                        name="name" placeholder="Nama anda" value="{{ old('name', $user[0]->name) }}" required />
-                    @error('name')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                            name="name" placeholder="Nama anda" value="{{ old('name', $user[0]->name) }}" required
+                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                            oninput="setCustomValidity('')" />
+                        @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                        name="email" placeholder="Nama anda" value="{{ old('email', $user[0]->email) }}" required />
-                    @error('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-at"></i></span>
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                            name="email" placeholder="Nama anda" value="{{ old('email', $user[0]->email) }}" required
+                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                            oninput="setCustomValidity('')" />
+                        @error('email')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="phone" class="form-label">Phone<span class="text-danger">*</span></label>
-                    <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone"
-                        name="phone" placeholder="Nama anda" value="{{ old('phone', $user[0]->phone) }}" required />
-                    @error('phone')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                    <label for="phone" class="form-label">Nomor Telepon<span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                        <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone"
+                            name="phone" placeholder="Nama anda" value="{{ old('phone', $user[0]->phone) }}" required
+                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                            oninput="setCustomValidity('')" />
+                        @error('phone')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                 </div>
                 <div class="action d-grid">
                     <button class="btn btn-primary" type="submit"

@@ -1,13 +1,40 @@
 <nav id="navbarSupportedContent" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse shadow-sm">
     <div class="position-sticky py-3">
+
+        {{-- ALL --}}
+        <ul class="navbar-nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard') ? 'text-success' : '' }}" href="/dashboard">
+                    <i class="bi bi-house"></i> Dashboard
+                </a>
+            </li>
+        </ul>
+
+        {{-- ADMIN --}}
+        @can('admin')
+            <ul class="navbar-nav flex-column">
+                <li class="nav-item">
+                    <p class="nav-link fs-5 p-0 mb-0 mt-3 fw-bold text-muted">
+                        Forum Diskusi
+                    </p>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/forums') ? 'text-success' : '' }}"
+                        href="/dashboard/forums">
+                        <i class="bi bi-globe"></i> Forum Global
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/forum') ? 'text-success' : '' }}" href="/dashboard/forum">
+                        <i class="bi bi-people"></i> Forum Suspended
+                    </a>
+                </li>
+            </ul>
+        @endcan
+
         {{-- FARMER SIDEBAR --}}
         @can('farmer')
             <ul class="navbar-nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard') ? 'text-success' : '' }}" href="/dashboard">
-                        <i class="bi bi-house"></i> Dashboard
-                    </a>
-                </li>
                 <li class="nav-item">
                     <p class="nav-link fs-5 p-0 mb-0 mt-3 fw-bold text-muted">
                         Monitoring
@@ -47,11 +74,6 @@
         @can('produsen')
             <ul class="navbar-nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard') ? 'text-success' : '' }}" href="/dashboard">
-                        <i class="bi bi-house"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
                     <p class="nav-link fs-5 p-0 mb-0 mt-3 fw-bold text-muted">
                         Bahan Baku
                     </p>
@@ -75,8 +97,8 @@
             </ul>
         @endcan
 
-        {{-- SIDEBAR FOR ALL USER --}}
-        @can('auth')
+        {{-- FARMET && PRODUSEN --}}
+        @canany(['farmer', 'produsen'])
             <ul class="navbar-nav flex-column">
                 <li class="nav-item">
                     <p class="nav-link fs-5 p-0 mb-0 mt-3 fw-bold text-muted">
@@ -108,6 +130,6 @@
                     </a>
                 </li>
             </ul>
-        @endcan
+        @endcanany
     </div>
 </nav>

@@ -1,9 +1,8 @@
 @extends('dashboard.layouts.main') @section('container')
-    <div class="top-bar d-flex justify-content-between align-items-center">
+    <div class="header">
         <h1 class="h2 mt-3 fw-bold text-success">Pemesanan Kedelai</h1>
+        <hr class="featurette-divider" />
     </div>
-
-    <hr class="featurette-divider" />
 
     {{-- ALERT --}}
     @if (session()->has('error'))
@@ -39,12 +38,14 @@
                     <input type="number" class="form-control" id="product_id" name="product_id" value="{{ $product->id }}"
                         required hidden>
                     <div class="mb-3 text-center fw-semibold">
-                        <label for="quantity" class="form-label">Kwantitas</label>
+                        <label for="quantity" class="form-label">Kwantitas<span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text text-muted">Kg</span>
                             <input type="number" class="form-control @error('quantity') is-invalid @enderror"
-                                id="quantity" name="quantity" placeholder="Kwantitas pembelian" oninput="totalHarga()"
-                                value="{{ old('quantity') }}" required>
+                                id="quantity" name="quantity" placeholder="Kwantitas pembelian"
+                                value="{{ old('quantity') }}" required
+                                oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                oninput="totalHarga(); setCustomValidity('')">
                             @error('quantity')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -64,9 +65,19 @@
                             <label for="customer_address" class="form-label">Alamat Anda</label>
                             <div class="input-group">
                                 <span class="input-group-text text-muted"><i class="bi bi-house"></i></span>
-                                <input type="text" class="form-control @error('customer_address') is-invalid @enderror"
-                                    id="customer_address" name="customer_address" placeholder="Alamat pembeli"
-                                    value="{{ old('customer_address') }}">
+                                @if ($product->address == null)
+                                    <input type="text"
+                                        class="form-control @error('customer_address') is-invalid @enderror"
+                                        id="customer_address" name="customer_address" placeholder="Alamat pembeli"
+                                        value="{{ old('customer_address') }}" required
+                                        oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                        oninput="setCustomValidity('')">
+                                @else
+                                    <input type="text"
+                                        class="form-control @error('customer_address') is-invalid @enderror"
+                                        id="customer_address" name="customer_address" placeholder="Alamat pembeli"
+                                        value="{{ old('customer_address') }}">
+                                @endif
                                 @error('customer_address')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -98,8 +109,15 @@
                             {{ $product->rekening == 0 ? 'Tidak menerima pembayaran transfer' : $product->rekening }}
                         </p>
                         <label for="proof_of_payment" class="form-label">Bukti Pembayaran</label>
-                        <input type="file" class="form-control @error('proof_of_payment') is-invalid @enderror"
-                            id="proof_of_payment" name="proof_of_payment" placeholder="bukti pembelian">
+                        @if ($product->rekening == null)
+                            <input type="file" class="form-control @error('proof_of_payment') is-invalid @enderror"
+                                id="proof_of_payment" name="proof_of_payment" placeholder="bukti pembelian">
+                        @else
+                            <input type="file" class="form-control @error('proof_of_payment') is-invalid @enderror"
+                                id="proof_of_payment" name="proof_of_payment" placeholder="bukti pembelian" required
+                                oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                oninput="setCustomValidity('')">
+                        @endif
                         @error('proof_of_payment')
                             <div class="invalid-feedback">
                                 {{ $message }}

@@ -1,9 +1,9 @@
 @extends('dashboard.layouts.main') @section('container')
-    <div class="top-bar d-flex justify-content-between align-items-center">
+    <div class="header">
         <h1 class="h2 mt-3 fw-bold text-success">Monitoring Pertanian</h1>
+        <hr class="featurette-divider" />
     </div>
 
-    <hr class="featurette-divider" />
 
     {{-- WEATHER INFORMATION --}}
     <div class="container-fluid border rounded p-3">
@@ -52,8 +52,12 @@
             <form class="d-flex" action="/dashboard/monitor" method="post">
                 @csrf
                 <input class="form-control me-2 @error('penanaman') is-invalid @enderror" type="date"
-                    placeholder="penanaman" aria-label="penanaman" name="penanaman" id="penanaman" required>
+                    placeholder="penanaman" aria-label="penanaman" name="penanaman" id="penanaman" required
+                    oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" oninput="setCustomValidity('')">
                 <button class="btn btn-outline-success" type="submit">Tambah</button>
+                {{-- UNCOMMENT AJA BUAT PEMBENANARANNYA --}}
+                {{-- <button class="btn btn-outline-success" type="submit"
+                    onclick="return confirm('Apa data yang dimasukkan sudah benar?')">Tambah</button> --}}
             </form>
         </div>
 

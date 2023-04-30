@@ -1,9 +1,8 @@
 @extends('dashboard.layouts.main') @section('container')
-    <div class="top-bar d-flex justify-content-between align-items-center">
+    <div class="header">
         <h1 class="h2 mt-3 fw-bold text-success">Edit Pemesanan Kedelai</h1>
+        <hr class="featurette-divider" />
     </div>
-
-    <hr class="featurette-divider" />
 
     <div class="container-fluid d-flex justify-content-center">
         <div class="card m-2" style="width: 25rem">

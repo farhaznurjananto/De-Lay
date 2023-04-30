@@ -1,131 +1,133 @@
 @extends('dashboard.layouts.main') @section('container')
-    <div class="top-bar d-flex justify-content-between align-items-center">
+    <div class="header">
         <h1 class="h2 mt-3 fw-bold text-success">Detai Pemesanan Kedelai</h1>
+        <hr class="featurette-divider" />
     </div>
 
-    <hr class="featurette-divider" />
-
-    <div class="container-fluid border rounded p-3">
-        <p class="text-center fw-bold fs-4">Detail Pemesanan</p>
-        <table class="table table-borderless">
-            <thead>
-                <tr>
-                    <td class="text-start" scope="col"><span class="fw-bold">Pemesan :</span>
-                        {{ $order->user->name }}</td>
-                    <th class="text-end" scope="col">Status :
-                        @if ($order->status == 'pending')
-                            <span class="badge text-bg-warning">{{ $order->status }}</span>
+    <div class="main-wrapper">
+        <div class="container-fluid border rounded p-3">
+            <p class="text-center fw-bold fs-4">Detail Pemesanan</p>
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <td class="text-start" scope="col"><span class="fw-bold">Pemesan :</span>
+                            {{ $order->user->name }}</td>
+                        <th class="text-end" scope="col">Status :
+                            @if ($order->status == 'pending')
+                                <span class="badge text-bg-warning">{{ $order->status }}</span>
+                            @endif
+                            @if ($order->status == 'rejected')
+                                <span class="badge text-bg-danger">{{ $order->status }}</span>
+                            @endif
+                            @if ($order->status == 'accepted')
+                                <span class="badge text-bg-success">{{ $order->status }}</span>
+                            @endif
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row" colspan="2"><span class="fw-bold">Tanggal :</span>
+                            {{ $order->created_at->format('d M Y') }}</td>
+                    </tr>
+                    <tr valign="middle">
+                        <td scope="row"><span class="fw-bold">Metode Pembayaran :</span>
+                            {{ $order->proof_of_payment != null ? 'Transfer' : 'Cash' }}</td>
+                        @if ($order->proof_of_payment != null)
+                            <td scope="row"><span class="fw-bold">Bukti Pembayaran :</span> <button
+                                    class="btn btn-outline-warning" data-bs-toggle="modal"
+                                    data-bs-target="#proof_of_payment_modal"><i
+                                        class="bi bi-file-earmark-image"></i></button>
+                            </td>
+                        @else
+                            <td></td>
                         @endif
-                        @if ($order->status == 'rejected')
-                            <span class="badge text-bg-danger">{{ $order->status }}</span>
+                    </tr>
+                    <tr>
+                        <td scope="row"><span class="fw-bold">Metode Pengiriman :</span>
+                            {{ $order->customer_address != null ? 'Delivery' : 'Non-Delivery' }}</td>
+                        @if ($order->customer_address != null)
+                            <td scope="row"><span class="fw-bold">Alamat Pengiriman :</span>
+                                {{ $order->customer_address }}</td>
+                        @else
+                            <td><span class="fw-bold">Alamat Pengambilan :</span> {{ $order->product->address }}</td>
                         @endif
-                        @if ($order->status == 'accepted')
-                            <span class="badge text-bg-success">{{ $order->status }}</span>
-                        @endif
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td scope="row" colspan="2"><span class="fw-bold">Tanggal :</span>
-                        {{ $order->created_at->format('d M Y') }}</td>
-                </tr>
-                <tr valign="middle">
-                    <td scope="row"><span class="fw-bold">Metode Pembayaran :</span>
-                        {{ $order->proof_of_payment != null ? 'Transfer' : 'Cash' }}</td>
-                    @if ($order->proof_of_payment != null)
-                        <td scope="row"><span class="fw-bold">Bukti Pembayaran :</span> <button
-                                class="btn btn-outline-warning" data-bs-toggle="modal"
-                                data-bs-target="#proof_of_payment_modal"><i class="bi bi-file-earmark-image"></i></button>
+                    </tr>
+                    <tr>
+                        <td scope="row"><span class="fw-bold">Nomor Telepon Pembeli :</span> {{ $order->user->phone }}
                         </td>
-                    @else
-                        <td></td>
-                    @endif
-                </tr>
-                <tr>
-                    <td scope="row"><span class="fw-bold">Metode Pengiriman :</span>
-                        {{ $order->customer_address != null ? 'Delivery' : 'Non-Delivery' }}</td>
-                    @if ($order->customer_address != null)
-                        <td scope="row"><span class="fw-bold">Alamat Pengiriman :</span>
-                            {{ $order->customer_address }}</td>
-                    @else
-                        <td><span class="fw-bold">Alamat Pengambilan :</span> {{ $order->product->address }}</td>
-                    @endif
-                </tr>
-                <tr>
-                    <td scope="row"><span class="fw-bold">Nomor Telepon Pembeli :</span> {{ $order->user->phone }}
-                    </td>
-                    <td scope="row"><span class="fw-bold">Nomor Telepon Penjual :</span>
-                        {{ $order->product->user->phone }}
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2">
-                        <hr>
-                    </th>
-                </tr>
-                <tr>
-                    <th>Nama Produk</th>
-                    <th class="text-end">Jumlah</th>
-                </tr>
-                <tr>
-                    <td scope="col">{{ $order->product->name }}</td>
-                    <td class="text-end">{{ $order->quantity }}</td>
-                </tr>
-                <tr>
-                    <th class="text-end" scope="col" colspan="2">Total : Rp.
-                        {{ number_format($order->quantity * $order->product->price) }}</th>
-                </tr>
-            </tbody>
-        </table>
+                        <td scope="row"><span class="fw-bold">Nomor Telepon Penjual :</span>
+                            {{ $order->product->user->phone }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <hr>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Nama Produk</th>
+                        <th class="text-end">Jumlah</th>
+                    </tr>
+                    <tr>
+                        <td scope="col">{{ $order->product->name }}</td>
+                        <td class="text-end">{{ $order->quantity }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-end" scope="col" colspan="2">Total : Rp.
+                            {{ number_format($order->quantity * $order->product->price) }}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
+        {{-- FARMER ACTION --}}
+        @can('farmer')
+            @if ($order->status == 'pending')
+                <div class="action">
+                    <form action="/dashboard/order/{{ $order->id }}" method="post" class="d-inline">
+                        @method('put')
+                        @csrf
+                        <div class="feedback my-3">
+                            <label for="feedback" class="form-label fw-bold">Tanggapan<span class="text-danger">*</span></label>
+                            <textarea class="form-control @error('feedback') is-invalid @enderror" id="feedback" name="feedback" rows="3"
+                                {{ $order->status == 'pending' ? '' : 'readonly' }} placeholder="Berikan tanggapan anda...." required
+                                oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" oninput="setCustomValidity('')"></textarea>
+                            @error('feedback')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <input type="text" name="status" id="status" hidden>
+                        <div class="action text-end">
+                            <button type="submit" class="btn btn-outline-success" onclick="accept()">
+                                Terima Pemesanan
+                            </button>
+                            <button type="submit" class="btn btn-outline-danger" onclick="reject()">
+                                Tolak Pemesanan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            @else
+                <div class="feedback my-3">
+                    <label for="feedback" class="form-label fw-bold">Tanggapan</label>
+                    <textarea class="form-control text-muted" id="feedback" name="feedback" rows="3" readonly>{{ $order->feedback != null ? $order->feedback : 'Belum ada tanggapan' }}</textarea>
+                </div>
+            @endif
+        @endcan
     </div>
-
-    {{-- FARMER ACTION --}}
-    @can('farmer')
-        @if ($order->status == 'pending')
-            <div class="action my-3">
-                <form action="/dashboard/order/{{ $order->id }}" method="post" class="d-inline">
-                    @method('put')
-                    @csrf
-                    <div class="feedback my-3">
-                        <label for="feedback" class="form-label fw-bold">Tanggapan</label>
-                        <textarea class="form-control @error('feedback') is-invalid @enderror" id="feedback" name="feedback" rows="3"
-                            {{ $order->status == 'pending' ? '' : 'readonly' }} placeholder="Berikan tanggapan anda...."></textarea>
-                        @error('feedback')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <input type="text" name="status" id="status" hidden>
-                    <div class="action text-end">
-                        <button type="submit" class="btn btn-outline-success" onclick="accept()">
-                            Terima Pemesanan
-                        </button>
-                        <button type="submit" class="btn btn-outline-danger" onclick="reject()">
-                            Tolak Pemesanan
-                        </button>
-                    </div>
-                </form>
-            </div>
-        @else
-            <div class="feedback my-3">
-                <label for="feedback" class="form-label fw-bold">Tanggapan</label>
-                <textarea class="form-control text-muted" id="feedback" name="feedback" rows="3" readonly>{{ $order->feedback != null ? $order->feedback : 'Belum ada tanggapan' }}</textarea>
-            </div>
-        @endif
-    @endcan
 
     <script>
         function accept() {
             document.getElementById('status').value = 'accepted'
-            return confirm('Apa anda yakin untuk menerima pemesanan ini?')
+            return confirm('Apakah anda yakin untuk menerima pemesanan ini?')
         }
 
         function reject() {
             document.getElementById('status').value = 'rejected'
-            return confirm('Apa anda yakin untuk menolak pemesanan ini?')
+            return confirm('Apakah anda yakin untuk menolak pemesanan ini?')
         }
     </script>
     {{-- END-FARMENR ACTION --}}

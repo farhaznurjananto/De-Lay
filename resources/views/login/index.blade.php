@@ -36,9 +36,10 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="bi bi-at"></i></span>
                         <div class="form-floating">
-                            <input type="text" class="form-control @error('email') is-invalid @enderror"
+                            <input type="email" class="form-control @error('email') is-invalid @enderror"
                                 id="email" name="email" placeholder="Username" value="{{ old('email') }}"
-                                required />
+                                required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                oninput="setCustomValidity('')" />
                             <label for="email">Masukkan Email</label>
                         </div>
                     </div>
@@ -54,7 +55,9 @@
                         <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
                         <div class="form-floating">
                             <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                id="password" name="password" placeholder="Username" required autocomplete="false" />
+                                id="password" name="password" placeholder="Username" required
+                                oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                oninput="setCustomValidity('')" autocomplete="false" />
                             <label for="password">Masukkan Password</label>
                         </div>
                     </div>
