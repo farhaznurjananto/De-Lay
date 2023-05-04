@@ -12,7 +12,7 @@
                 <div class="weather__card my-4">
                     <div class="d-flex flex-row justify-content-center align-items-center">
                         <div class="p-3">
-                            <img id="Icon" alt="weather-image" style="width:150px">
+                            <img src="/img/hourglass.png" style="width: 50px;height: auto;" id="Icon" alt="weather-image" style="width:150px">
                         </div>
                         <div class="p-3">
                             <h5 id="Date">Tuesday, 10 AM</h5>
@@ -161,8 +161,10 @@
     {{-- END-SCHEDULING --}}
 
     <hr class="featurette-divider" />
+@endsection
 
 
-    {{-- WEATHER JS --}}
+@section('script')
+    {{-- WHEATHER JS --}}
     <script src="/js/weather.js"></script>
 @endsection

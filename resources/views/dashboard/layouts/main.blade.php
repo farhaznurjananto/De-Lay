@@ -44,11 +44,12 @@
     </script>
 
     {{-- JQUERY --}}
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
     {{-- CUSTOM JS --}}
-    <script src="/js/script.js"></script>
+    <script defer src="/js/script.js"></script>
+
+    @yield('script')
 </body>
 
 </html>

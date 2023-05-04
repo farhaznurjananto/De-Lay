@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +17,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get("apicuaca",function(Request $request){
+    if(!$request->get('latitude') || !$request->get('longitude')){
+        return response(['message'=>"Data tidak lengkap"],401);
+    }
+    $apiKey  = "5sjax25qE2xy7YT153ZshTaY7ED6blSO";
+    $latitude = "-8.1733118";
+    $longitude = "113.7009312";
+    $latitude = $request->get('latitude');
+    $longitude = $request->get('longitude');
+    
+    $response = Http::get("http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=$apiKey&q=$latitude%2C$longitude");
+    $jsonData = $response->json();
+
+    $locationKey = $jsonData['Key'];
+    
+    $response2 = Http::get("http://dataservice.accuweather.com/forecasts/v1/daily/5day/$locationKey?apikey=$apiKey");
+    $jsonData2 = $response2->json();
+    
+    // return response()->json($jsonData);
+    return response()->json($jsonData2);
 });
