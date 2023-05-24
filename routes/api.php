@@ -19,11 +19,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/getkey', function () {
+    if (session()->has('weather-key')) {
+        return response()->json(session()->get('weather-key'));
+    }
+    return response()->json(false);
+});
+
 Route::get("apicuaca", function (Request $request) {
     if (!$request->get('latitude') || !$request->get('longitude')) {
         return response(['message' => "Data tidak lengkap"], 401);
     }
-    $apiKey  = "5sjax25qE2xy7YT153ZshTaY7ED6blSO";
+    $apiKey  = "mqUUDsHjHpmZ3ES8TPS9AlmjnPCviALH";
     $latitude = "-8.1733118";
     $longitude = "113.7009312";
     $latitude = $request->get('latitude');
