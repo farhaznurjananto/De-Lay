@@ -92,9 +92,9 @@
                     <form action="/dashboard/product" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="image" class="form-label">Gambar Produk</label>
+                            <label for="image" class="form-label">Gambar Produk<span class="text-danger">*</span></label>
                             <div class="d-flex justify-content-center">
-                                <img class="img-preview img-fluid mb-3" style="max-height: 150px" />
+                                <img class="img-preview img-fluid mb-3 img-thumbnail" style="max-height: 150px" />
                             </div>
                             <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
                                 name="image" placeholder="Gambar produk" required onchange="previewImage()"

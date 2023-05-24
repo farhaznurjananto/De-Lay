@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main') @section('container')
     <div class="container-fluid">
         <div class="header">
-            <h1 class="h2 mt-3">Produk | Edit</h1>
+            <h1 class="h2 mt-3 fw-bold text-success">Produk | Edit</h1>
             <hr class="featurette-divider" />
         </div>
 

@@ -83,7 +83,7 @@
             @foreach ($discussions as $discussion)
                 <div class="card my-3">
                     <div class="card-body p-2 text-end">
-                        <h5 class="card-title fs-6 small m-0">
+                        <h5 class="card-title fs-6 small">
                             {{ $discussion->message }}
                         </h5>
                         <hr class="featurette-divider m-1" />

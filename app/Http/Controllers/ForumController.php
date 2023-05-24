@@ -8,8 +8,28 @@ use App\Models\Discussion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/*
+|--------------------------------------------------------------------------
+| Forum Controller
+|--------------------------------------------------------------------------
+|
+| Controller yang berisi Class ForumController dengan berbagai method 
+| yang menghubungkan antara View dengan Model Forum. 
+|
+*/
+
 class ForumController extends Controller
 {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Index
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view data forum keseluruhan
+    |
+    */
+
     public function index()
     {
         return view('dashboard.forums', [
@@ -17,6 +37,16 @@ class ForumController extends Controller
             'forums' => Forum::with('user', 'forum_category')->latest()->paginate(5),
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Index User
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view data forum milih user 
+    | secara spesifik
+    |
+    */
 
     public function index_user()
     {
@@ -26,6 +56,15 @@ class ForumController extends Controller
             'forums' => Forum::with(['user', 'forum_category'])->where('user_id', auth()->user()->id)->latest()->paginate(5),
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan data analysis baru ke database
+    |
+    */
 
     public function store()
     {
@@ -47,6 +86,16 @@ class ForumController extends Controller
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Show
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view forum secara spesifik
+    | berdasarkan id
+    |
+    */
+
     public function show(Forum $forum)
     {
         return view('dashboard.forum.show', [
@@ -56,6 +105,16 @@ class ForumController extends Controller
         ]);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Edit
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view edit data forum secara
+    | spesifik berdasarkan id untuk diedit
+    |
+    */
+
     public function edit(Forum $forum)
     {
         return view('dashboard.forum.edit', [
@@ -64,6 +123,16 @@ class ForumController extends Controller
             'forum' => $forum,
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan update data yang telah di 
+    | edit untuk diupdate di database
+    |
+    */
 
     public function update(Request $request, Forum $forum)
     {
@@ -79,6 +148,15 @@ class ForumController extends Controller
 
         return redirect('/dashboard/forum')->with('success', 'Forum berhasil diperbarui!');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Destroy
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menghapus data forum dari database
+    |
+    */
 
     public function destroy(Forum $forum)
     {

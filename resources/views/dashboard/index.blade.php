@@ -18,7 +18,7 @@
                                         Pendapatan
                                     </p>
                                     <p class="h5 mb-0 fw-bold text-muted">
-                                        Rp. 100.000
+                                        Rp. {{ number_format($incomes) }}
                                     </p>
                                 </div>
                                 <div class="col-auto">
@@ -36,7 +36,7 @@
                                     <p class="fw-bold text-warning text-uppercase mb-1">
                                         Pemesanan Tertunda
                                     </p>
-                                    <p class="h5 mb-0 fw-bold text-muted">50</p>
+                                    <p class="h5 mb-0 fw-bold text-muted">{{ $orders_produsen }}</p>
                                 </div>
                                 <div class="col-auto">
                                     <i class="bi bi-file-earmark-fill fs-1 text-muted opacity-25"></i>
@@ -51,9 +51,9 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col">
                                     <p class="fw-bold text-info text-uppercase mb-1">
-                                        Produk
+                                        Total Pemesanan
                                     </p>
-                                    <p class="h5 mb-0 fw-bold text-muted">1</p>
+                                    <p class="h5 mb-0 fw-bold text-muted">{{ $total_orders }}</p>
                                 </div>
                                 <div class="col-auto">
                                     <i class="bi bi-cart-fill fs-1 text-muted opacity-25"></i>
@@ -70,7 +70,7 @@
                                     <p class="fw-bold text-primary text-uppercase mb-1">
                                         Forum Diskusi
                                     </p>
-                                    <p class="h5 mb-0 fw-bold text-muted">1</p>
+                                    <p class="h5 mb-0 fw-bold text-muted">{{ $forums }}</p>
                                 </div>
                                 <div class="col-auto">
                                     <i class="bi bi-chat-dots-fill fs-1 text-muted opacity-25"></i>
@@ -81,6 +81,66 @@
                 </div>
             </div>
             {{-- END-INFORMATION CARD --}}
+
+            {{-- WEATHER INFORMATION --}}
+            <div class="rounded-3 border">
+
+                <p class="fs-3 text-center my-3">Keuntugnan Bisnis Anda</p>
+                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+            </div>
+            {{-- END-WEATHER INFORMATION --}}
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+                integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous">
+            </script>
+
+            <script>
+                const ctx = document.getElementById("myChart");
+                // eslint-disable-next-line no-unused-vars
+
+                const labels = {!! json_encode($labels) !!};
+                const keuntungan = {!! json_encode($profit) !!};
+
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                        label: "Keuntungan",
+                        data: keuntungan,
+                        backgroundColor: "rgba(25, 135, 84, 0.2)",
+                        borderColor: "rgba(25, 135, 84, 1)",
+                        borderWidth: 1,
+                        pointRadius: 5,
+                        pointBackgroundColor: function(context) {
+                            var value = context.dataset.data[context.dataIndex];
+                            return value >= 0 ? "rgba(25, 135, 84, 1)" : "rgba(220, 53, 87, 1)";
+                        },
+                        pointBorderColor: '#fff',
+                        pointHoverRadius: 7,
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: function(context) {
+                            var value = context.dataset.data[context.dataIndex];
+                            return value >= 0 ? "rgba(25, 135, 84, 1)" : "rgba(220, 53, 87, 1)";
+                        },
+                    }, ],
+                };
+
+                const config = {
+                    type: "line",
+                    data: data,
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        },
+                    },
+                };
+
+                var myChart = new Chart(ctx, config);
+            </script>
         @endcan
 
         {{-- FARMER DASHBOARD --}}
@@ -96,7 +156,7 @@
                                         Pendapatan
                                     </p>
                                     <p class="h5 mb-0 fw-bold text-muted">
-                                        Rp. 100.000
+                                        Rp. {{ number_format($incomes) }}
                                     </p>
                                 </div>
                                 <div class="col-auto">
@@ -114,7 +174,7 @@
                                     <p class="fw-bold text-warning text-uppercase mb-1">
                                         Pemesanan Tertunda
                                     </p>
-                                    <p class="h5 mb-0 fw-bold text-muted">50</p>
+                                    <p class="h5 mb-0 fw-bold text-muted">{{ $orders }}</p>
                                 </div>
                                 <div class="col-auto">
                                     <i class="bi bi-file-earmark-fill fs-1 text-muted opacity-25"></i>
@@ -131,7 +191,7 @@
                                     <p class="fw-bold text-info text-uppercase mb-1">
                                         Produk
                                     </p>
-                                    <p class="h5 mb-0 fw-bold text-muted">1</p>
+                                    <p class="h5 mb-0 fw-bold text-muted">{{ $products }}</p>
                                 </div>
                                 <div class="col-auto">
                                     <i class="bi bi-cart-fill fs-1 text-muted opacity-25"></i>
@@ -148,7 +208,7 @@
                                     <p class="fw-bold text-primary text-uppercase mb-1">
                                         Forum Diskusi
                                     </p>
-                                    <p class="h5 mb-0 fw-bold text-muted">1</p>
+                                    <p class="h5 mb-0 fw-bold text-muted">{{ $forums }}</p>
                                 </div>
                                 <div class="col-auto">
                                     <i class="bi bi-chat-dots-fill fs-1 text-muted opacity-25"></i>
@@ -163,28 +223,27 @@
             <hr class="featurette-divider" />
 
             {{-- WEATHER INFORMATION --}}
-            <div class="container-fluid">
-                <div class="rounded-3 bg-light shadow-sm">
-                    <div class="d-flex flex-row justify-content-center align-items-center">
-                        <div class="weather__card my-4">
-                            <div class="d-flex flex-row justify-content-center align-items-center">
-                                <div class="p-3">
-                                    <img id="Icon" alt="weather-image" style="width:150px">
-                                </div>
-                                <div class="p-3">
-                                    <h5 id="Date">Tuesday, 10 AM</h5>
-                                    <span class="weather__description" id="IconPhrase">Mostly Cloudy</span>
-                                </div>
+            <div class="rounded-3 border">
+                <div class="d-flex flex-row justify-content-center align-items-center">
+                    <div class="weather__card my-4">
+                        <div class="d-flex flex-row justify-content-center align-items-center">
+                            <div class="p-3">
+                                <img src="/img/hourglass.png" style="width: 50px;height: auto;" id="Icon"
+                                    alt="weather-image" style="width:150px">
                             </div>
-                            <div class="weather__status d-flex flex-row justify-content-center align-items-center mt-3">
-                                <div class="p-4 d-flex justify-content-center align-items-center">
-                                    <i class="bi bi-thermometer-high"></i>
-                                    <span id="Maximum">10%</span>
-                                </div>
-                                <div class="p-4 d-flex justify-content-center align-items-center">
-                                    <i class="bi bi-thermometer-low"></i>
-                                    <span id="Minimum">10 km/h</span>
-                                </div>
+                            <div class="p-3">
+                                <h5 id="Date">Tuesday, 10 AM</h5>
+                                <span class="weather__description" id="IconPhrase">Mostly Cloudy</span>
+                            </div>
+                        </div>
+                        <div class="weather__status d-flex flex-row justify-content-center align-items-center mt-3">
+                            <div class="p-4 d-flex justify-content-center align-items-center">
+                                <i class="bi bi-thermometer-high"></i>
+                                <span id="Maximum">10%</span>
+                            </div>
+                            <div class="p-4 d-flex justify-content-center align-items-center">
+                                <i class="bi bi-thermometer-low"></i>
+                                <span id="Minimum">10 km/h</span>
                             </div>
                         </div>
                     </div>
@@ -235,11 +294,20 @@
                 @endif
             </div>
             {{-- END-SCHEDULING --}}
+        @endcan
 
-            {{-- WHEATHER JS --}}
-            <script src="/js/weather.js"></script>
+        @can('admin')
+            <div class="rounded-3 border main-wrapper d-flex flex-column justify-content-center align-items-center">
+                <p class="fs-3 my-3 fw-bold">Selamat Datang Admin De-Lay</p>
+                <img class="img-fluid" src="/img/admin.png" alt="admin" width="500px">
+            </div>
         @endcan
     </div>
 
     <hr class="featurette-divider" />
+@endsection
+
+@section('script')
+    {{-- WHEATHER JS --}}
+    <script src="/js/weather.js"></script>
 @endsection

@@ -6,8 +6,28 @@ use App\Models\Discussion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/*
+|--------------------------------------------------------------------------
+| Analysis Controller
+|--------------------------------------------------------------------------
+|
+| Controller yang berisi Class AnalysisController dengan berbagai method 
+| yang menghubungkan antara View dengan Model Analysis. 
+|
+*/
+
 class DiscussionController extends Controller
 {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan data discussion baru ke database
+    |
+    */
+
     public function store(Request $request)
     {
         $validateData = $request->validate([
@@ -22,6 +42,15 @@ class DiscussionController extends Controller
 
         return redirect()->back()->with('success', 'Pesan berhasil ditambahkan!');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Destroy
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menghapus data discussion dari database
+    |
+    */
 
     public function destroy(Discussion $discussion)
     {

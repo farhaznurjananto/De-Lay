@@ -5,8 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Analysis;
 use Illuminate\Http\Request;
 
+/*
+|--------------------------------------------------------------------------
+| Analysis Controller
+|--------------------------------------------------------------------------
+|
+| Controller yang berisi Class AnalysisController dengan berbagai method 
+| yang menghubungkan antara View dengan Model Analysis. 
+|
+*/
+
 class AnalysisController extends Controller
 {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Index
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view data analysis keseluruhan
+    |
+    */
+
     public function index()
     {
         $transaction = Analysis::with('user')->where('user_id', '=', auth()->user()->id)->paginate(10);
@@ -24,10 +44,14 @@ class AnalysisController extends Controller
         ]);
     }
 
-    public function create()
-    {
-        //
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Store
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan data analysis baru ke database
+    |
+    */
 
     public function store()
     {
@@ -50,6 +74,16 @@ class AnalysisController extends Controller
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Edit
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view edit data analysis secara
+    | spesifik berdasarkan id untuk diedit
+    |
+    */
+
     public function edit(Analysis $analysis)
     {
         $transaction = Analysis::with('user')->where('id', '=', $analysis->id)->paginate(10);
@@ -69,6 +103,16 @@ class AnalysisController extends Controller
             'income' => $income,
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan update data yang telah di 
+    | edit untuk diupdate di database
+    |
+    */
 
     public function update(Request $request, Analysis $analysis)
     {

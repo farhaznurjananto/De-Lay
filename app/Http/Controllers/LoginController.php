@@ -26,6 +26,8 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
+            // session(['weather-key', '5sjax25qE2xy7YT153ZshTaY7ED6blSO']);
+            // dd(session()->get('weather-key'));
             return redirect()->intended('/dashboard');
         }
 

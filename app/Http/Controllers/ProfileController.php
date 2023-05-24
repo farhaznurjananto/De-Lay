@@ -5,8 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/*
+|--------------------------------------------------------------------------
+| Profile Controller
+|--------------------------------------------------------------------------
+|
+| Controller yang berisi Class ProfileController dengan berbagai method 
+| yang menghubungkan antara View dengan Model Profile. 
+|
+*/
+
 class ProfileController extends Controller
 {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Index
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view profile
+    |
+    */
+
     public function index()
     {
         return view('profile.index', [
@@ -14,6 +34,16 @@ class ProfileController extends Controller
             'user' => User::where('id', auth()->user()->id)->get(),
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan update data yang telah di 
+    | edit untuk diupdate di database
+    |
+    */
 
     public function update(Request $request, User $user)
     {

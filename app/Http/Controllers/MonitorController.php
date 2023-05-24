@@ -5,8 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Monitor;
 use Illuminate\Http\Request;
 
+/*
+|--------------------------------------------------------------------------
+| Monitor Controller
+|--------------------------------------------------------------------------
+|
+| Controller yang berisi Class MonitorController dengan berbagai method 
+| yang menghubungkan antara View dengan Model Monitor. 
+|
+*/
+
 class MonitorController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Index
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view data monitor keseluruhan
+    |
+    */
+
     public function index()
     {
         return view('dashboard.monitor.index', [
@@ -14,6 +33,15 @@ class MonitorController extends Controller
             'monitors' => Monitor::where('user_id', auth()->user()->id)->latest()->paginate(5)->withQueryString(),
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan data monitor baru ke database
+    |
+    */
 
     public function store(Request $request)
     {
@@ -30,6 +58,15 @@ class MonitorController extends Controller
 
         return back()->with('success', 'Jadwal penanaman berhasil ditambahkan!');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Destroy
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menghapus data monitor dari database
+    |
+    */
 
     public function destroy(Monitor $monitor)
     {

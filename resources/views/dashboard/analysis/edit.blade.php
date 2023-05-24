@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="header">
-        <h1 class="h2 mt-3 fw-bold text-success">Edit Analisis Laba Rugi</h1>
+        <h1 class="h2 mt-3 fw-bold text-success">Analisis Laba Rugi | Edit</h1>
         <hr class="featurette-divider" />
     </div>
 
@@ -41,6 +41,7 @@
                 <input type="number" class="form-control" id="profit" name="profit"
                     placeholder="{{ number_format($data->total_income - $data->initial_capital) }}" disabled readonly>
             </div>
+            {{-- keterangan dibikin wajib aja semua --}}
             <div class="mb-3">
                 <label for="description" class="form-label">Keterangan</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description"

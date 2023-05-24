@@ -7,9 +7,29 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+/*
+|--------------------------------------------------------------------------
+| Order Controller
+|--------------------------------------------------------------------------
+|
+| Controller yang berisi Class OrderController dengan berbagai method 
+| yang menghubungkan antara View dengan Model Order. 
+|
+*/
+
 class OrderController extends Controller
 {
     // ALL
+
+    /*
+    |--------------------------------------------------------------------------
+    | Index
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view data order keseluruhan
+    |
+    */
+
     public function index()
     {
         if (auth()->user()->actor_id == 1) {
@@ -27,6 +47,15 @@ class OrderController extends Controller
             'orders' => $orders
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | History
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view data history keseluruhan
+    |
+    */
 
     public function history()
     {
@@ -46,6 +75,16 @@ class OrderController extends Controller
         ]);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Show
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view order secara spesifik
+    | berdasarkan id
+    |
+    */
+
     public function show(Order $order)
     {
         return view('dashboard.order.show', [
@@ -53,6 +92,16 @@ class OrderController extends Controller
             'order' => $order->load(['user', 'product']),
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan update data yang telah di 
+    | edit untuk diupdate di database
+    |
+    */
 
     public function update(Request $request, Order $order)
     {
@@ -101,6 +150,10 @@ class OrderController extends Controller
                     $validatedData['proof_of_payment'] = $request->file('proof_of_payment')->store('proof-of-payment-images');
                 }
 
+                if ($order->status == 'rejected') {
+                    $validatedData['status'] = 'pending';
+                }
+
                 Order::where('id', $order->id)
                     ->update($validatedData);
 
@@ -116,6 +169,15 @@ class OrderController extends Controller
 
     // PRODUSEN
 
+    /*
+    |--------------------------------------------------------------------------
+    | Create
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view create data order
+    |
+    */
+
     public function create(Product $product)
     {
         return view('dashboard.order.create', [
@@ -123,6 +185,15 @@ class OrderController extends Controller
             'product' => $product,
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan data analysis baru ke database
+    |
+    */
 
     public function store(Request $request)
     {
@@ -156,6 +227,16 @@ class OrderController extends Controller
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Edit
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view edit data order secara
+    | spesifik berdasarkan id untuk diedit
+    |
+    */
+
     public function edit(Order $order)
     {
         return view('dashboard.order.edit', [
@@ -163,6 +244,15 @@ class OrderController extends Controller
             'order' => $order
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Destroy
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menghapus data order dari database
+    |
+    */
 
     public function destroy(Order $order)
     {

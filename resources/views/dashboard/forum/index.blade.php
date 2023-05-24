@@ -92,7 +92,8 @@
                     <form action="/dashboard/forum" method="post">
                         @csrf
                         <div class="mb-3">
-                            <label for="question" class="form-label">Tuliskan pertanyaan anda</label>
+                            <label for="question" class="form-label">Tuliskan pertanyaan anda<span
+                                    class="text-danger">*</span></label>
                             <textarea class="form-control @error('question') is-invalid @enderror" name="question" id="question" rows="3"
                                 value="{{ old('question') }}" placeholder="Berikan pertanyaan anda...." required
                                 oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" oninput="setCustomValidity('')"></textarea>
@@ -101,7 +102,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="forum_category_id" class="form-label">Kategori</label>
+                            <label for="forum_category_id" class="form-label">Kategori<span
+                                    class="text-danger">*</span></label>
                             <select class="form-select mb-3" id="forum_category" name="forum_category_id"
                                 aria-label="Default select example">
                                 @foreach ($forum_categories as $category)

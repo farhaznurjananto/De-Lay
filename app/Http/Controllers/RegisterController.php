@@ -7,8 +7,28 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+/*
+|--------------------------------------------------------------------------
+| Register Controller
+|--------------------------------------------------------------------------
+|
+| Controller yang berisi Class RegisterController dengan berbagai method 
+| yang menghubungkan antara View dengan Model Register. 
+|
+*/
+
 class RegisterController extends Controller
 {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Index
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view register
+    |
+    */
+
     public function index()
     {
         return view('register.index', [
@@ -16,6 +36,15 @@ class RegisterController extends Controller
             'actors' => Actor::all()
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan data user baru ke database
+    |
+    */
 
     public function store(Request $request)
     {

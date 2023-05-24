@@ -1,31 +1,19 @@
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-} else {
-    alert("Geolocation is not supported by this browser.");
-}
+(async function () {
+    if (navigator.geolocation) {
+        const position = navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+        return history.go(-1);
+    }
 
-function showPosition(position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    var apiKey = "5sjax25qE2xy7YT153ZshTaY7ED6blSO";
+    async function showPosition(position) {
+        var latitude = await position.coords.latitude;
+        var longitude = await position.coords.longitude;
 
-    var url =
-        "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=" +
-        apiKey +
-        "&q=" +
-        latitude +
-        "%2C" +
-        longitude;
+        var url =
+            "/api/apicuaca?latitude=" + latitude + "&longitude=" + longitude;
 
-    $.get(url, function (data) {
-        var locationKey = data.Key;
-        var forecastUrl =
-            "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
-            locationKey +
-            "?apikey=" +
-            apiKey;
-
-        $.get(forecastUrl, function (data) {
+        $.get(url, function (data) {
             var dailyForecasts = data.DailyForecasts;
 
             // headline weather
@@ -85,5 +73,5 @@ function showPosition(position) {
             $("#weather-forecast").html(forecastHtml);
             // end forecasts weather
         });
-    });
-}
+    }
+})();

@@ -6,9 +6,28 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+/*
+|--------------------------------------------------------------------------
+| Product Controller
+|--------------------------------------------------------------------------
+|
+| Controller yang berisi Class ProductController dengan berbagai method 
+| yang menghubungkan antara View dengan Model Product. 
+|
+*/
+
 class ProductController extends Controller
 {
     // FARMER
+
+    /*
+    |--------------------------------------------------------------------------
+    | Index
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view data product keseluruhan
+    |
+    */
 
     public function index()
     {
@@ -17,6 +36,15 @@ class ProductController extends Controller
             'products' => Product::where('owner_id', auth()->user()->id)->latest()->paginate(6)->withQueryString(),
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan data product baru ke database
+    |
+    */
 
     public function store(Request $request)
     {
@@ -45,6 +73,16 @@ class ProductController extends Controller
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Edit
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan view edit data product secara
+    | spesifik berdasarkan id untuk diedit
+    |
+    */
+
     public function edit(Product $product)
     {
         return view('dashboard.product.edit', [
@@ -52,6 +90,16 @@ class ProductController extends Controller
             'product' => $product
         ]);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Update
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menyimpan update data yang telah di 
+    | edit untuk diupdate di database
+    |
+    */
 
     public function update(Request $request, Product $product)
     {
@@ -82,6 +130,16 @@ class ProductController extends Controller
         return redirect('/dashboard/product')->with('success', 'Produk berhasil diperbaruhi!');
     }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Destroy
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menghapus data product dari database
+    |
+    */
+
     public function destroy(Product $product)
     {
         if ($product->image) {
@@ -93,6 +151,17 @@ class ProductController extends Controller
     }
 
     // PRODUSEN
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Market
+    |--------------------------------------------------------------------------
+    |
+    | Method yang berfungsi untuk menampilkan data product ke seluruhan
+    | view market
+    |
+    */
 
     public function market()
     {

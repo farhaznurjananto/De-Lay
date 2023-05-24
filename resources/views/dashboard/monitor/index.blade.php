@@ -7,12 +7,13 @@
 
     {{-- WEATHER INFORMATION --}}
     <div class="container-fluid border rounded p-3">
-        <div class="rounded-3 bg-light shadow-sm">
+        <div class="rounded-3 border">
             <div class="d-flex flex-row justify-content-center align-items-center">
                 <div class="weather__card my-4">
                     <div class="d-flex flex-row justify-content-center align-items-center">
                         <div class="p-3">
-                            <img id="Icon" alt="weather-image" style="width:150px">
+                            <img src="/img/hourglass.png" style="width: 50px;height: auto;" id="Icon"
+                                alt="weather-image" style="width:150px">
                         </div>
                         <div class="p-3">
                             <h5 id="Date">Tuesday, 10 AM</h5>
@@ -54,10 +55,10 @@
                 <input class="form-control me-2 @error('penanaman') is-invalid @enderror" type="date"
                     placeholder="penanaman" aria-label="penanaman" name="penanaman" id="penanaman" required
                     oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" oninput="setCustomValidity('')">
-                <button class="btn btn-outline-success" type="submit">Tambah</button>
+                {{-- <button class="btn btn-outline-success" type="submit">Tambah</button> --}}
                 {{-- UNCOMMENT AJA BUAT PEMBENANARANNYA --}}
-                {{-- <button class="btn btn-outline-success" type="submit"
-                    onclick="return confirm('Apa data yang dimasukkan sudah benar?')">Tambah</button> --}}
+                <button class="btn btn-outline-success" type="submit"
+                    onclick="return confirm('Apa data yang dimasukkan sudah benar?')">Tambah</button>
             </form>
         </div>
 
@@ -161,8 +162,9 @@
     {{-- END-SCHEDULING --}}
 
     <hr class="featurette-divider" />
+@endsection
 
-
-    {{-- WEATHER JS --}}
+@section('script')
+    {{-- WHEATHER JS --}}
     <script src="/js/weather.js"></script>
 @endsection
