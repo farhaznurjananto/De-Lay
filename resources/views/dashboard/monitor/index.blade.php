@@ -12,7 +12,7 @@
                 <div class="weather__card my-4">
                     <div class="d-flex flex-row justify-content-center align-items-center">
                         <div class="p-3">
-                            <img id="Icon" alt="weather-image" style="width:150px">
+                            <img id="Icon" src="/img/hourglass.png" alt="weather-image" style="width:80px">
                         </div>
                         <div class="p-3">
                             <h5 id="Date">Tuesday, 10 AM</h5>

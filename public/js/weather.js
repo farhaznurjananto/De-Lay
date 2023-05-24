@@ -25,6 +25,7 @@ function showPosition(position) {
                 ? "0" + dailyForecasts[0]["Day"]["Icon"]
                 : dailyForecasts[0]["Day"]["Icon"]) +
             "-s.png";
+        document.getElementById("Icon").style.width = "150px";
         document.getElementById("Maximum").innerHTML =
             dailyForecasts[0]["Temperature"]["Maximum"]["Value"] +
             "°" +
