@@ -19,15 +19,12 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email:dns',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            // session(['weather-key', '5sjax25qE2xy7YT153ZshTaY7ED6blSO']);
-            // dd(session()->get('weather-key'));
             return redirect()->intended('/dashboard');
         }
 

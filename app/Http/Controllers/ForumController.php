@@ -160,8 +160,13 @@ class ForumController extends Controller
 
     public function destroy(Forum $forum)
     {
+        $url = '/dashboard/forum';
         Forum::destroy($forum->id);
 
-        return redirect('/dashboard/forum')->with('success', 'Forum berhasil dihapus!');
+        if (auth()->user()->is_admin == 1) {
+            $url = '/dashboard/forums';
+        }
+
+        return redirect($url)->with('success', 'Forum berhasil dihapus!');
     }
 }

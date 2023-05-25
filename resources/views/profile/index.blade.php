@@ -5,16 +5,16 @@
         <h1 class="h2 mt-3 fw-bold text-success">Profile</h1>
 
         <hr class="featurette-divider" />
-    </div>
 
-    {{-- ALERT --}}
-    @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    {{-- END-ALERT --}}
+        {{-- ALERT --}}
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        {{-- END-ALERT --}}
+    </div>
 
     {{-- PROFILE --}}
     <div class="d-flex justify-content-center">

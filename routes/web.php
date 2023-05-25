@@ -149,8 +149,3 @@ Route::middleware('produsen')->group(function () {
     // ORDER - DESTROY
     Route::delete('/dashboard/order/{order}', [OrderController::class, 'destroy']);
 });
-
-// Route tes api
-Route::get('/tesapi', function () {
-    return view('tes');
-});
