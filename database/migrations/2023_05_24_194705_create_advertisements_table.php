@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('advertising_package', 5);
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->boolean('status')->default(false);
             $table->foreignId('owner_id')->references('id')->on('users');
             $table->dateTime('deleted_at')->nullable();
             $table->timestamps();

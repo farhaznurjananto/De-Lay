@@ -24,11 +24,12 @@
                         <i class="bi bi-globe"></i> Forum Global
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard/forum') ? 'text-success' : '' }}" href="/dashboard/forum">
-                        <i class="bi bi-people"></i> Forum Suspended
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/advertisement*') ? 'text-success' : '' }}"
+                        href="/dashboard/advertisement">
+                        <i class="bi bi-badge-ad"></i> Iklan
                     </a>
-                </li> --}}
+                </li>
             </ul>
         @endcan
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\AnalysisController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
+use App\Models\Advertisement;
 
 /*
 |--------------------------------------------------------------------------
@@ -148,4 +150,19 @@ Route::middleware('produsen')->group(function () {
 
     // ORDER - DESTROY
     Route::delete('/dashboard/order/{order}', [OrderController::class, 'destroy']);
+});
+
+// FOR ADMIN
+Route::middleware('admin')->group(function () {
+    // ADVERTISEMENT
+    Route::get('/dashboard/advertisement', [AdvertisementController::class, 'index']);
+
+    // ADVERTISEMENT - STORE
+    Route::post('/dashboard/advertisement', [AdvertisementController::class, 'store']);
+
+    // ADVERTISEMENT - SHOW
+    Route::get('/dashboard/advertisement/{advertisement}', [AdvertisementController::class, 'show']);
+
+    // ADVERTISEMENT - DESTROY
+    Route::delete('/dashboard/advertisement/{advertisement}', [AdvertisementController::class, 'destroy']);
 });

@@ -298,6 +298,10 @@
                     <p>
                         Bantu industri pertanian dan agrobisnis Indonesia lebih maju!
                     </p>
+                    <div class="bg-success p-2 rounded text-center text-white">
+                        <h6>Hubungi nomor di bawah ini untuk bekerjasama iklan dengan kami.</h6>
+                        <p class="fw-bold">087844510431 (Farhaz Nurjananto)</p>
+                    </div>
                 </div>
             </div>
 

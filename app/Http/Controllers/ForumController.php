@@ -7,6 +7,7 @@ use App\Models\Forum_Category;
 use App\Models\Discussion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ class ForumController extends Controller
         return view('dashboard.forums', [
             'title' => 'Forums',
             'forums' => Forum::with('user', 'forum_category')->latest()->paginate(5),
+            'advertisements' => Advertisement::all()->random(1),
         ]);
     }
 

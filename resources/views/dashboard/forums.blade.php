@@ -57,7 +57,44 @@
         <div class="mt-3">
             {{ $forums->links() }}
         </div>
+
+        {{-- ADVERTISEMENT --}}
+        @if ($advertisements->count())
+            @foreach ($advertisements as $advertisement)
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">{{ $advertisement->title }}</strong>
+                            @if ($advertisement->link != null)
+                                <small>Pergi ke Iklan? <a href="{{ $advertisement->link }}" target="_blank">Klik
+                                        disini!</a></small>
+                            @endif
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <img class="mx-2 mt-2 img-thumbnail w-75"
+                                src="{{ asset('storage/' . $advertisement->image_path) }}" class="rounded me-2"
+                                alt="{{ $advertisement->title }}">
+                        </div>
+                        @if ($advertisement->description != null)
+                            <div class="toast-body">
+                                {{ $advertisement->description }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        @endif
+        {{-- END ADVERTISEMENT --}}
     </div>
 
     <hr class="featurette-divider" />
+
+    {{-- ADVERTISEMENT JS --}}
+    <script>
+        window.addEventListener('load', function() {
+            var toast = new bootstrap.Toast(document.querySelector('.toast'));
+            toast.show();
+        });
+    </script>
 @endsection

@@ -15,7 +15,7 @@ class isProdusen
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || auth()->user()->actor_id !== 2) {
+        if (!auth()->check() || auth()->user()->actor_id !== 2 || auth()->user()->is_admin !== 0) {
             abort(403);
         }
 

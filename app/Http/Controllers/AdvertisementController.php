@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Advertisement;
 use Illuminate\Http\Request;
+use App\Models\Advertisement;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Support\ValidatedData;
 
 class AdvertisementController extends Controller
 {
@@ -12,15 +14,10 @@ class AdvertisementController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('dashboard.advertisement.index', [
+            'title' => 'Iklan',
+            'advertisements' => Advertisement::latest()->paginate(10),
+        ]);
     }
 
     /**
@@ -28,7 +25,33 @@ class AdvertisementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $rules = [
+                'image_path' => 'image|file|max:1024',
+                'title' => 'required|max:255',
+                'link' => 'max:255',
+                'description' => 'max:255',
+                'advertising_package' => 'max:255',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date',
+                // 'status' => 'required',
+            ];
+
+            $validatedData = request()->validate($rules);
+
+            // return $validatedData;
+
+            $validatedData['owner_id'] = auth()->user()->id;
+            if ($request->file('image_path')) {
+                $validatedData['image_path'] = $request->file('image_path')->store('advertisement-images');
+            }
+
+            Advertisement::create($validatedData);
+
+            return back()->with('success', 'Iklan baru berhasil ditambahkan!');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Iklan gagal ditambahkan!') && $validatedData = request()->validate($rules);
+        }
     }
 
     /**
@@ -36,23 +59,11 @@ class AdvertisementController extends Controller
      */
     public function show(Advertisement $advertisement)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Advertisement $advertisement)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Advertisement $advertisement)
-    {
-        //
+        // return $advertisement;
+        return view('dashboard.advertisement.show', [
+            'title' => 'Detail Iklan',
+            'advertisement' => $advertisement,
+        ]);
     }
 
     /**
@@ -60,6 +71,12 @@ class AdvertisementController extends Controller
      */
     public function destroy(Advertisement $advertisement)
     {
-        //
+        if ($advertisement->image_path) {
+            Storage::delete($advertisement->image_path);
+        }
+
+        Advertisement::destroy($advertisement->id);
+
+        return redirect('/dashboard/advertisement')->with('success', 'Iklan berhasil dihapus!');
     }
 }
