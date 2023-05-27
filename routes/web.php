@@ -58,14 +58,23 @@ Route::middleware('auth')->group(function () {
     // FORUM
     Route::get('/dashboard/forums', [ForumController::class, 'index']);
 
+    // FORUM - SHOW
+    Route::get('/dashboard/forum/{forum}', [ForumController::class, 'show']);
+
+    // FORUM - DESTROY
+    Route::delete('/dashboard/forum/{forum}', [ForumController::class, 'destroy']);
+
+    // DISCUSSION - DESTROY
+    Route::delete('/dashboard/discussion/{discussion}', [DiscussionController::class, 'destroy']);
+});
+
+// FOR FARMER & PRODUSEN
+Route::middleware('customer')->group(function () {
     // FORUM - USER
     Route::get('/dashboard/forum', [ForumController::class, 'index_user']);
 
     // FORUM - STORE
     Route::post('/dashboard/forum', [ForumController::class, 'store']);
-
-    // FORUM - SHOW
-    Route::get('/dashboard/forum/{forum}', [ForumController::class, 'show']);
 
     // FORUM - EDIT
     Route::get('/dashboard/forum/{forum}/edit', [ForumController::class, 'edit']);
@@ -73,14 +82,8 @@ Route::middleware('auth')->group(function () {
     // FORUM - UPDATE
     Route::put('/dashboard/forum/{forum}', [ForumController::class, 'update']);
 
-    // FORUM - DESTROY
-    Route::delete('/dashboard/forum/{forum}', [ForumController::class, 'destroy']);
-
     // DISCUSSION - STORE
     Route::post('/dashboard/discussion', [DiscussionController::class, 'store']);
-
-    // DISCUSSION - DESTROY
-    Route::delete('/dashboard/discussion/{discussion}', [DiscussionController::class, 'destroy']);
 
     // ORDER
     Route::get('/dashboard/order', [OrderController::class, 'index']);

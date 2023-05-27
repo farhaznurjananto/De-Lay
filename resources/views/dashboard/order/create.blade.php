@@ -16,7 +16,7 @@
     <div class="container-fluid d-flex justify-content-center">
         <div class="card m-2" style="width: 25rem">
             @if ($product->image)
-                <img class="img-fluid d-inline rounded-top" src="{{ asset('storage/' . $product->image) }}"
+                <img class="img-fluid d-inline h-auto rounded-top" src="{{ asset('storage/' . $product->image) }}"
                     alt="product-image" style="height: 150px" />
             @else
                 <img class="img-fluid d-inline rounded-top" src="https://source.unsplash.com/300x150?soya-bean"
@@ -55,10 +55,13 @@
                     </div>
                     <div class="mb-3 text-center fw-semibold">
                         <label for="metode_delivery" class="form-label">Metode Pengiriman</label>
-                        <select class="form-select" aria-label="Default select example" id="metode_delivery">
-                            <option value="1">Delivery (Diantar)</option>
-                            <option value="2">Non Delivery (Ambil ditempat)</option>
-                        </select>
+                        <div class="input-group">
+                            <span class="input-group-text text-muted"><i class="bi bi-truck"></i></span>
+                            <select class="form-select" aria-label="Default select example" id="metode_delivery">
+                                <option value="1">Delivery (Diantar)</option>
+                                <option value="2">Non Delivery (Ambil ditempat)</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="mb-3 text-center fw-semibold">
                         <div id="customer_address">
@@ -98,10 +101,13 @@
                     </div>
                     <div class="mb-3 text-center fw-semibold">
                         <label for="metode_payment" class="form-label">Metode Pembayaran</label>
-                        <select class="form-select" aria-label="Default select example" id="metode_payment">
-                            <option value="1">Cash</option>
-                            <option value="2">Transfer</option>
-                        </select>
+                        <div class="input-group">
+                            <span class="input-group-text text-muted"><i class="bi bi-credit-card-2-back"></i></span>
+                            <select class="form-select" aria-label="Default select example" id="metode_payment">
+                                <option value="1">Cash</option>
+                                <option value="2">Transfer</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="mb-3 text-center fw-semibold" id="div_metode_payment" style="display: none">
                         <label for="nomor_rekening" class="form-label">No Rekening</label>

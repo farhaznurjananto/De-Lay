@@ -33,10 +33,22 @@ class ForumController extends Controller
 
     public function index()
     {
+        //     @if (now() < $advertisement->end_date && now() > $advertisement->start_date)
+        //     <span class="badge text-bg-success }}">Aktif</span>
+        // @else
+        //     <span class="badge text-bg-danger }}">Tidak Aktif</span>
+        // @endif
+        $advertisement = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()]
+        ])->get();
+        if ($advertisement->count()) {
+            $advertisement->random(1);
+        }
         return view('dashboard.forums', [
             'title' => 'Forums',
             'forums' => Forum::with('user', 'forum_category')->latest()->paginate(5),
-            'advertisements' => Advertisement::all()->random(1),
+            'advertisements' => $advertisement,
         ]);
     }
 

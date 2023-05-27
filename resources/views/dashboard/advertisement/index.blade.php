@@ -72,7 +72,7 @@
                 <tbody>
                     <tr>
                         <td colspan="7">
-                            <p class="text-center text-muted fs-4">Tidak ada produk.</p>
+                            <p class="text-center text-muted fs-4">Tidak ada iklan.</p>
                         </td>
                     </tr>
                 </tbody>

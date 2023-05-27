@@ -3,9 +3,8 @@
         <h1 class="h2 mt-3 fw-bold text-success">Detail Iklan</h1>
         <hr class="featurette-divider" />
     </div>
-    <div class="d-flex flex-row flex-wrap justify-content-between align-content-center">
-        <img class="img-thumbnail h-auto mb-3 m-md-0" src="{{ asset('storage/' . $advertisement->image_path) }}"
-            alt="image_advertisement">
+    <div class="d-flex flex-row flex-wrap justify-content-center gap-4 align-content-center">
+        <img class="img-thumbnail h-auto" src="{{ asset('storage/' . $advertisement->image_path) }}" alt="image_advertisement">
         <div class="border rounded p-2 p-md-5">
             <p class="text-center fw-bold fs-4">Detail Iklan</p>
             <table class="table table-borderless">
