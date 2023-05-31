@@ -1,171 +1,197 @@
-@extends('dashboard.layouts.main') @section('container')
-    <div class="container-fluid">
-        <div class="header">
-            <h1 class="h2 mt-3 fw-bold text-success">Produk | Edit</h1>
-            <hr class="featurette-divider" />
-        </div>
+@extends('dashboard.layouts.main')
+@section('container')
+    <div class="p-4 sm:ml-64 bg-[#F1F8FE] min-h-screen">
+        <div class="p-4">
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="flex rounded">
+                    <a href="#" class="flex items-center text-[#293649] text-2xl font-semibold">
+                        <span class="material-symbols-rounded">
+                            inventory_2
+                        </span>
+                        <span class="ml-3">{{ $title }}</span>
+                    </a>
+                </div>
+            </div>
 
-        <div class="form-edit my-3">
-            <form action="/dashboard/product/{{ $product->id }}" method="post" enctype="multipart/form-data">
-                @method('put') @csrf
-                <div class="mb-3">
-                    <label for="image" class="form-label">Gambar Produk</label>
-                    <input type="hidden" name="oldImage" value="{{ $product->image }}">
-                    <div class="d-flex justify-content-center">
-                        @if ($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}"
-                                class="img-preview img-fluid mb-3 img-thumbnail" style="max-height: 150px" />
-                        @else
-                            <img class="img-preview img-fluid mb-3 img-thumbnail" style="max-height: 150px" />
-                        @endif
-                    </div>
-                    <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
-                        name="image" placeholder="Gambar Produk" onchange="previewImage()" />
-                    <div id="stockHelp" class="form-text">
-                        Upload gambar produk max 1mb.
-                    </div>
-                    @error('image')
-                        <div class="invalid-feedback">
-                            {{ $message }}
+            {{-- FARMER --}}
+            <div class="flex justify-center items-center">
+                <div class="bg-[#F1F8FE] shadow-md m-0 md:m-3 w-full md:w-2/3 flex flex-col justify-center items-center p-5">
+                    <h3 class="mb-4 text-xl text-center font-medium text-[#36BB6A]">UBAH PRODUK</h3>
+                    <img class="rounded-lg" id="img-preview" src="{{ asset('storage/' . $product->image) }}"
+                        alt="display-img">
+                    <form class="space-y-6" action="/dashboard/product/{{ $product->id }}" method="post"
+                        enctype="multipart/form-data">
+                        @method('put')
+                        @csrf
+                        <input type="hidden" name="oldImage" value="{{ $product->image }}">
+                        <div class="w-full mb-3">
+                            <input
+                                class="block w-full text-sm text-[#1B232E] border border-[#1B232E] rounded-lg cursor-pointer bg-[#F1F8FE] focus:outline-none @error('image') invalid:border-[#FF5A8A] @enderror image_path"
+                                aria-describedby="image" id="image" name="image" type="file"
+                                onchange="previewImage()" />
+                            <p class="mt-1 text-sm text-gray-500" id="image">Upload
+                                gambar produk max 1mb.
+                            </p>
+                            @error('image')
+                                <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nama Produk</label>
-                    <div class="input-group">
-                        <span class="input-group-text text-muted"><i class="bi bi-braces"></i></span>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                            name="name" placeholder="Nama Produk" value="{{ old('name', $product->name) }}" required
-                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                            oninput="setCustomValidity('')" />
-                        @error('name')
-                            <div class="invalid-feedback">
-                                {{ $message }}
+                        <div class="w-full mb-3">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        inventory_2
+                                    </span>
+                                </span>
+                                <input type="text" id="name" name="name"
+                                    class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('name') invalid:border-[#FF5A8A] @enderror"
+                                    placeholder="NAMA PRODUK" required
+                                    oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                    oninput="setCustomValidity('')" value="{{ old('name', $product->name) }}">
                             </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="stock" class="form-label">Stok Produk</label>
-                    <div class="input-group">
-                        <span class="input-group-text text-muted"><i class="bi bi-boxes"></i></span>
-                        <input type="number" class="form-control @error('stock') is-invalid @enderror" id="stock"
-                            name="stock" placeholder="Stok Produk" value="{{ old('stock', $product->stock) }}" required
-                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                            oninput="setCustomValidity('')" />
-                        @error('stock')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div id="stockHelp" class="form-text">
-                        Masukkan jumlah stok dalam satuan kg.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label">Harga Produk</label>
-                    <div class="input-group">
-                        <span class="input-group-text">Rp.</span>
-                        <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
-                            name="price" placeholder="Harga Produk" value="{{ old('price', $product->price) }}" required
-                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                            oninput="setCustomValidity('')" />
-                        @error('price')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div id="priceHelp" class="form-text">
-                        Masukkan harga per-kg.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="rekening" class="form-label">Nomor Rekening</label>
-                    <div class="input-group">
-                        <span class="input-group-text text-muted"><i class="bi bi-credit-card"></i></span>
-                        <input type="number" class="form-control @error('rekening') is-invalid @enderror" id="rekening"
-                            name="rekening" placeholder="Nomor rekening anda" value="{{ $product->rekening }}" />
-                        @error('rekening')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div id="rekeningHelp" class="form-text">
-                        Masukkan nomor rekening anda sebagai alternatif pembayaran transfer. <span
-                            class="fw-semibold">Default 0</span> untuk
-                        tidak memilih alternatif pembayaran transfer.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="address" class="form-label">Alamat Pengambilan Produk</label>
-                    <div class="input-group">
-                        <span class="input-group-text text-muted"><i class="bi bi-house"></i></span>
-                        <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
-                            name="address" placeholder="Alamat anda" value="{{ old('address', $product->address) }}" />
-                        @error('address')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div id="addressHelp" class="form-text">
-                        Alamat ini sebagai alternatif pengiriman non-delivery.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Nomor Telepon<span class="text-danger">*</span></label>
-                    <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone"
-                        name="phone" placeholder="Nomor telepon anda" value="{{ auth()->user()->phone }}" required
-                        readonly disabled />
-                    <div id="phoneHelp" class="form-text">
-                        Nomor telephon anda akan digunakan oleh calon pembeli untuk menghubungi anda.
-                    </div>
-                    @error('phone')
-                        <div class="invalid-feedback">
-                            {{ $message }}
+                            @error('name')
+                                <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
-                    @enderror
+                        <div class="w-full mb-3">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        inventory
+                                    </span>
+                                </span>
+                                <input type="number" id="stock" name="stock"
+                                    class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('stock') invalid:border-[#FF5A8A] @enderror"
+                                    placeholder="STOK PRODUK" required
+                                    oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                    oninput="setCustomValidity('')" value="{{ old('stock', $product->stock) }}">
+                            </div>
+                            <p class="mt-1 text-sm text-gray-500" id="file_input_help">Masukkan stok produk dalam
+                                satuan Kilogram.
+                            </p>
+                            @error('stock')
+                                <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+                        <div class="w-full mb-3">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        sell
+                                    </span>
+                                </span>
+                                <input type="text" id="price" name="price"
+                                    class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('price') invalid:border-[#FF5A8A] @enderror"
+                                    placeholder="HARGA PRODUK" required
+                                    oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                    oninput="setCustomValidity('')" value="{{ old('price', $product->price) }}">
+                            </div>
+                            @error('price')
+                                <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+                        <div class="w-full mb-3">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        add_card
+                                    </span>
+                                </span>
+                                <input type="number" id="rekening" name="rekening"
+                                    class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('rekening') invalid:border-[#FF5A8A] @enderror"
+                                    placeholder="NOMOR REKENING" value="{{ $product->rekening }}">
+                            </div>
+                            <p class="mt-1 text-sm text-gray-500" id="file_input_help">Masukkan nomor rekening anda
+                                sebagai alternatif pembayaran transfer. Inputkan nilai 0 untuk pembayaran non-transfer.
+                            </p>
+                            @error('rekening')
+                                <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+                        <div class="w-full mb-3">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        home
+                                    </span>
+                                </span>
+                                <input type="text" id="address" name="address"
+                                    class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('address') invalid:border-[#FF5A8A] @enderror"
+                                    placeholder="ALAMAT PRODUK" value="{{ old('address', $product->address) }}">
+                            </div>
+                            <p class="mt-1 text-sm text-gray-500" id="file_input_help">Masukkan alamat produk sebgai
+                                pengiriman non-delivery.
+                            </p>
+                            @error('address')
+                                <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+                        <div class="w-full mb-3">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        call
+                                    </span>
+                                </span>
+                                <input type="number" id="phone" name="phone"
+                                    class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('phone') invalid:border-[#FF5A8A] @enderror"
+                                    placeholder="NOMOR TELEPON" value="{{ auth()->user()->phone }}" required readonly>
+                            </div>
+                            <p class="mt-1 text-sm text-gray-500" id="file_input_help">Nomor telepon anda akan kami
+                                sertakan untuk jalur komunikasi antar pembeli dan penjual.
+                            </p>
+                            @error('phone')
+                                <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+                        <div class="w-full mb-3">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        info
+                                    </span>
+                                </span>
+                                <select id="status" name="status"
+                                    class="bg-[#F1F8FE] border border-[#1B232E] text-[#1B232E] text-sm rounded-r-lg focus:ring-[#1B232E] focus:border-[#1B232E] block w-full p-2.5"
+                                    required>
+                                    @if ($product->status == 1)
+                                        <option value="1" selected>Buka</option>
+                                        <option value="2">Tutup</option>
+                                    @else
+                                        <option value="1">Buka</option>
+                                        <option value="2" selected>Tutup</option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex flex-row flex-wrap justify-center">
+                            <button type="submit" onclick="return confirm('Apakah ingin memperbarui data?')"
+                                class="text-[#1B232E] bg-[#36BB6A] hover:bg-[#36BB6A]/75 focus:ring-4 focus:outline-none focus:ring-[#36BB6A]/50 m-1 font-medium rounded-full text-sm w-full sm:w-auto px-10 py-2.5 text-center">Perbarui</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="status" class="form-label">Status<span class="text-danger">*</span></label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text"><i class="bi bi-info-circle-fill"></i></i></span>
-                        <select class="form-select" aria-label="Default select example" name="status">
-                            @if ($product->status == 1)
-                                <option value="{{ $product->status }}" selected="selected">
-                                    Open</option>
-                                <option value="2">Close</option>
-                            @else
-                                <option value="1">Open</option>
-                                <option value="{{ $product->status }}" selected="selected">
-                                    Close</option>
-                            @endif
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary"
-                    onclick="return confirm('Apakah ingin memperbarui data?')">Update</button>
-            </form>
+            </div>
         </div>
-
-        <hr class="featurette-divider" />
     </div>
-    <script>
-        function previewImage() {
-            const image = document.querySelector("#image");
-            const imgPreview = document.querySelector(".img-preview");
-
-            imgPreview.style.display = "block";
-
-            const oFReader = new FileReader();
-            oFReader.readAsDataURL(image.files[0]);
-
-            oFReader.onload = function(oFREvent) {
-                imgPreview.src = oFREvent.target.result;
-            };
-        }
-    </script>
 @endsection

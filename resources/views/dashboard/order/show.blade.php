@@ -1,123 +1,153 @@
-@extends('dashboard.layouts.main') @section('container')
-    <div class="header">
-        <h1 class="h2 mt-3 fw-bold text-success">Detai Pemesanan Kedelai</h1>
-        <hr class="featurette-divider" />
-    </div>
+@extends('dashboard.layouts.main')
+@section('container')
+    <div class="p-4 sm:ml-64 bg-[#F1F8FE] min-h-screen">
+        <div class="p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="flex rounded">
+                    <a href="#" class="flex items-center text-[#293649] text-2xl font-semibold">
+                        <span class="material-symbols-rounded">
+                            inventory_2
+                        </span>
+                        <span class="ml-3">{{ $title }}</span>
+                    </a>
+                </div>
+            </div>
 
-    <div class="main-wrapper">
-        <div class="container-fluid border rounded p-3">
-            <p class="text-center fw-bold fs-4">Detail Pemesanan</p>
-            <table class="table table-borderless">
-                <thead>
-                    <tr>
-                        <td class="text-start" scope="col"><span class="fw-bold">Pemesan :</span>
-                            {{ $order->user->name }}</td>
-                        <th class="text-end" scope="col">Status :
+            <div class="mb-4 rounded bg-[#FFFFFF] p-5">
+                <div class="flex flex-col">
+                    <span class="h-full w-60 px-3 rounded-md bg-[#293649] text-[#F1F8FE] text-center">DETAIL
+                        PEMESANAN</span>
+                    <div class="mt-5 grid grid-cols-2 gap-4 font-medium">
+                        <p>Pemesanan : {{ $order->user->name }}</p>
+                        <div class="flex flex-row justify-end">
+                            <p class="mr-3">Status :</p>
                             @if ($order->status == 'pending')
-                                <span class="badge text-bg-warning">{{ $order->status }}</span>
+                                <span
+                                    class="bg-[#FF9E22] text-[#1B232E] text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{{ $order->status }}</span>
                             @endif
                             @if ($order->status == 'rejected')
-                                <span class="badge text-bg-danger">{{ $order->status }}</span>
+                                <span
+                                    class="bg-[#FF5A8A] text-[#1B232E] text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{{ $order->status }}</span>
                             @endif
                             @if ($order->status == 'accepted')
-                                <span class="badge text-bg-success">{{ $order->status }}</span>
+                                <span
+                                    class="bg-[#8ED145] text-[#1B232E] text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{{ $order->status }}</span>
                             @endif
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row" colspan="2"><span class="fw-bold">Tanggal :</span>
-                            {{ $order->created_at->format('d M Y') }}</td>
-                    </tr>
-                    <tr valign="middle">
-                        <td scope="row"><span class="fw-bold">Metode Pembayaran :</span>
-                            {{ $order->proof_of_payment != null ? 'Transfer' : 'Cash' }}</td>
-                        @if ($order->proof_of_payment != null)
-                            <td scope="row"><span class="fw-bold">Bukti Pembayaran :</span> <button
-                                    class="btn btn-outline-warning" data-bs-toggle="modal"
-                                    data-bs-target="#proof_of_payment_modal"><i
-                                        class="bi bi-file-earmark-image"></i></button>
-                            </td>
-                        @else
-                            <td></td>
-                        @endif
-                    </tr>
-                    <tr>
-                        <td scope="row"><span class="fw-bold">Metode Pengiriman :</span>
-                            {{ $order->customer_address != null ? 'Delivery' : 'Non-Delivery' }}</td>
-                        @if ($order->customer_address != null)
-                            <td scope="row"><span class="fw-bold">Alamat Pengiriman :</span>
-                                {{ $order->customer_address }}</td>
-                        @else
-                            <td><span class="fw-bold">Alamat Pengambilan :</span> {{ $order->product->address }}</td>
-                        @endif
-                    </tr>
-                    <tr>
-                        <td scope="row"><span class="fw-bold">Nomor Telepon Pembeli :</span> {{ $order->user->phone }}
-                        </td>
-                        <td scope="row"><span class="fw-bold">Nomor Telepon Penjual :</span>
-                            {{ $order->product->user->phone }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">
-                            <hr>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Nama Produk</th>
-                        <th class="text-end">Jumlah</th>
-                    </tr>
-                    <tr>
-                        <td scope="col">{{ $order->product->name }}</td>
-                        <td class="text-end">{{ $order->quantity }}</td>
-                    </tr>
-                    <tr>
-                        <th class="text-end" scope="col" colspan="2">Total : Rp.
-                            {{ number_format($order->quantity * $order->product->price) }}</th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
 
-        {{-- FARMER ACTION --}}
-        @can('farmer')
-            @if ($order->status == 'pending')
-                <div class="action">
-                    <form action="/dashboard/order/{{ $order->id }}" method="post" class="d-inline">
-                        @method('put')
-                        @csrf
-                        <div class="feedback my-3">
-                            <label for="feedback" class="form-label fw-bold">Tanggapan<span class="text-danger">*</span></label>
-                            <textarea class="form-control @error('feedback') is-invalid @enderror" id="feedback" name="feedback" rows="3"
-                                {{ $order->status == 'pending' ? '' : 'readonly' }} placeholder="Berikan tanggapan anda...." required
-                                oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')" oninput="setCustomValidity('')"></textarea>
-                            @error('feedback')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                        </div>
+                        <p class="col-span-2">Tanggal : {{ $order->created_at->format('d M Y') }}</p>
+                        <p>Metode Pembayaran : {{ $order->proof_of_payment != null ? 'Transfer' : 'Cash' }}</p>
+                        @if ($order->proof_of_payment != null)
+                            <div class="flex flex-row">
+                                <p class="mr-3">Bukti Pembayaran :</p>
+                                <button data-modal-target="large-modal" data-modal-toggle="large-modal" type="submit"
+                                    class="text-[#1B232E] bg-[#FF9E22] hover:bg-[#FF9E22]/75 focus:ring-4 focus:ring-[#FF9E22]/50 font-medium rounded-lg text-sm px-3 py-2 focus:outline-none"><span
+                                        class="material-symbols-rounded">
+                                        receipt_long
+                                    </span></button>
+                            </div>
+                        @endif
+                        <p>Metode Pengiriman : {{ $order->customer_address != null ? 'Delivery' : 'Non-Delivery' }}</p>
+                        @if ($order->customer_address != null)
+                            <p>Alamat Pengiriman : {{ $order->customer_address }}</p>
+                        @else
+                            <p>Alamat Pengambilan : {{ $order->product->address }}</p>
+                        @endif
+                        <p>Nomor Telepon Pembeli : {{ $order->user->phone }}</p>
+                        <p>Nomor Telepon Penjual : {{ $order->product->user->phone }}</p>
+                        <hr class="col-span-2">
+                        <p>Nama Produk</p>
+                        <p class="text-right">Jumlah</p>
+                        <p>{{ $order->product->name }}</p>
+                        <p class="text-right">{{ $order->quantity }}</p>
+                        <p class="col-span-2 text-right">Total : Rp.
+                            {{ number_format($order->quantity * $order->product->price) }}</p>
+                    </div>
+                </div>
+            </div>
+            @can('farmer')
+                <div class="mb-4 rounded bg-[#FFFFFF] p-5">
+                    <div class="flex flex-col">
+                        <span class="h-full w-36 px-3 rounded-md bg-[#293649] text-[#F1F8FE] text-center">TANGGAPAN</span>
+                        @if ($order->status == 'pending')
+                            <form action="/dashboard/order/{{ $order->id }}" method="post">
+                                @method('put')
+                                @csrf
+                                <textarea id="feedback" name="feedback" rows="4"
+                                    class="block my-4 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-[#1B232E] focus:border-[#1B232E] @error('feedback') invalid:border-[#FF5A8A] @enderror"
+                                    placeholder="BELUM ADA TANGGAPAN" required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                    oninput="setCustomValidity('')"></textarea>
+                                @error('feedback')
+                                    <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                                <input type="text" name="status" id="status" hidden>
+                                <div class="flex flex-row justify-end flex-wrap">
+                                    <button type="submit" onclick="reject()"
+                                        class="text-[#1B232E] bg-[#FF5A8A] hover:bg-[#FF5A8A]/75 focus:ring-4 focus:outline-none focus:ring-[#FF5A8A]/50 m-1 font-medium rounded-full text-sm w-full sm:w-auto px-10 py-2.5 text-center">Tolak</button>
+                                    <button type="submit" onclick="accept()"
+                                        class="text-[#1B232E] bg-[#36BB6A] hover:bg-[#36BB6A]/75 focus:ring-4 focus:outline-none focus:ring-[#36BB6A]/50 m-1 font-medium rounded-full text-sm w-full sm:w-auto px-10 py-2.5 text-center">Terima</button>
                                 </div>
-                            @enderror
-                        </div>
-                        <input type="text" name="status" id="status" hidden>
-                        <div class="action text-end">
-                            <button type="submit" class="btn btn-outline-success" onclick="accept()">
-                                Terima Pemesanan
-                            </button>
-                            <button type="submit" class="btn btn-outline-danger" onclick="reject()">
-                                Tolak Pemesanan
-                            </button>
-                        </div>
-                    </form>
+                            </form>
+                        @else
+                            <textarea id="feedback" name="feedback" rows="4"
+                                class="block my-4 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-[#1B232E] focus:border-[#1B232E]"
+                                placeholder="BELUM ADA TANGGAPAN" readonly>{{ $order->feedback != null ? $order->feedback : 'Belum ada tanggapan' }}</textarea>
+                        @endif
+                    </div>
                 </div>
-            @else
-                <div class="feedback my-3">
-                    <label for="feedback" class="form-label fw-bold">Tanggapan</label>
-                    <textarea class="form-control text-muted" id="feedback" name="feedback" rows="3" readonly>{{ $order->feedback != null ? $order->feedback : 'Belum ada tanggapan' }}</textarea>
+            @endcan
+
+            @can('produsen')
+                <div class="mb-4 rounded bg-[#FFFFFF] p-5">
+                    <div class="flex flex-col">
+                        <span class="h-full w-36 px-3 rounded-md bg-[#293649] text-[#F1F8FE] text-center">TANGGAPAN</span>
+                        <textarea id="feedback" name="feedback" rows="4"
+                            class="block my-4 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-[#1B232E] focus:border-[#1B232E]"
+                            placeholder="BELUM ADA TANGGAPAN" readonly>{{ $order->feedback != null ? $order->feedback : 'Belum ada tanggapan' }}</textarea>
+                        @if ($order->status != 'accepted')
+                            <div class="flex flex-row justify-end flex-wrap">
+                                <form action="/dashboard/order/{{ $order->id }}" method="post">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit"
+                                        onclick="return confirm('Apa anda yakin untuk membatalkan pemesanan ini?')"
+                                        class="text-[#1B232E] bg-[#FF5A8A] hover:bg-[#FF5A8A]/75 focus:ring-4 focus:outline-none focus:ring-[#FF5A8A]/50 m-1 font-medium rounded-full text-sm w-full sm:w-auto px-10 py-2.5 text-center">Batalkan
+                                        Pemesanan</button>
+                                </form>
+                                <a href="/dashboard/order/{{ $order->id }}/edit"
+                                    class="text-[#1B232E] bg-[#36BB6A] hover:bg-[#36BB6A]/75 focus:ring-4 focus:outline-none focus:ring-[#36BB6A]/50 m-1 font-medium rounded-full text-sm w-full sm:w-auto px-10 py-2.5 text-center">Ubah
+                                    Pemesanan</a>
+                            </div>
+                        @endif
+                    </div>
                 </div>
-            @endif
-        @endcan
+            @endcan
+
+            <div class="mb-4 rounded bg-[#293649] p-5">
+                <span class="h-full w-36 px-3 rounded-md bg-[#F1F8FE] text-[#293649] text-center">ADS</span>
+            </div>
+        </div>
     </div>
+
+    {{-- MODAL --}}
+    @if ($order->proof_of_payment != null)
+        <div id="large-modal" tabindex="-1" aria-hidden="true"
+            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative w-full max-w-2xl max-h-full">
+                <div class="relative bg-[#F1F8FE] rounded-lg shadow">
+                    <div class="px-6 py-6 lg:px-8 flex flex-col justify-center items-center">
+                        <h3 class="mb-4 text-xl text-center font-medium text-[#36BB6A]">BUKTI TRANSFER PEMBAYARAN</h3>
+                        <img class="w-1/2 rounded-lg my-3" src="{{ asset('storage/' . $order->proof_of_payment) }}"
+                            alt="display-img">
+                        <button type="button" data-modal-hide="large-modal"
+                            class="text-[#F1F8FE] bg-[#1B232E] hover:bg-[#1B232E]/75 focus:ring-4 focus:outline-none focus:ring-[#1B232E]/50 m-1 font-medium rounded-full text-sm w-full sm:w-auto px-10 py-2.5 text-center">Keluar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <script>
         function accept() {
@@ -130,51 +160,4 @@
             return confirm('Apakah anda yakin untuk menolak pemesanan ini?')
         }
     </script>
-    {{-- END-FARMENR ACTION --}}
-
-    {{-- PRODUSEN ACTION --}}
-    @can('produsen')
-        <div class="feedback my-3">
-            <label for="feedback" class="form-label fw-bold">Tanggapan</label>
-            <textarea class="form-control text-muted" id="feedback" name="feedback" rows="3" readonly>{{ $order->feedback != null ? $order->feedback : 'Belum ada tanggapan' }}</textarea>
-        </div>
-        @if ($order->status != 'accepted')
-            <div class="action my-3 text-end">
-                <a href="/dashboard/order/{{ $order->id }}/edit"class="btn btn-outline-primary m-1"><i
-                        class="bi bi-pencil-square"></i> Ubah Pemesanan</a>
-                <form action="/dashboard/order/{{ $order->id }}" method="post" class="d-inline">
-                    @method('delete') @csrf
-                    <button type="submit" class="btn btn-outline-danger"
-                        onclick="return confirm('Apa anda yakin untuk membatalkan pemesanan ini?')">
-                        <i class="bi bi-x-square"></i> Batalkan Pemesanan
-                    </button>
-                </form>
-            </div>
-        @endif
-    @endcan
-    {{-- END-PRODUSEN ACTION --}}
-
-    <hr class="featurette-divider" />
-
-    {{-- PROOF OF PAYMENT MODAL --}}
-    @if ($order->proof_of_payment != null)
-        <div class="modal fade" id="proof_of_payment_modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Bukti Transfer Pembayaran</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex justify-content-center">
-                        <img src="{{ asset('storage/' . $order->proof_of_payment) }}" alt="proof_of_payment">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-    {{-- END-PROOF OF PAYMENT MODAL --}}
 @endsection

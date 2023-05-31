@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Paginator::useBootstrapFive();
+        // Paginator::useBootstrapFive();
 
         Gate::define('auth', function () {
             return auth()->user();

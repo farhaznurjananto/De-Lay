@@ -37,7 +37,7 @@ class AnalysisController extends Controller
             array_push($provit, ($data->total_income - $data->initial_capital));
         }
         return view('dashboard.analysis.index', [
-            'title' => 'Analysis',
+            'title' => 'Analisis',
             'datas' => Analysis::with('user')->where('user_id', '=', auth()->user()->id)->latest()->paginate(10),
             'labels' => $labels,
             'profit' => $provit
@@ -96,7 +96,7 @@ class AnalysisController extends Controller
             array_push($income, $data->total_income);
         }
         return view('dashboard.analysis.edit', [
-            'title' => 'Edit Analysis',
+            'title' => 'Ubah Analisis',
             'data' => $analysis,
             'labels' => $labels,
             'modal' => $modal,

@@ -25,9 +25,10 @@ class AdvertisementController extends Controller
      */
     public function store(Request $request)
     {
+        // ddd($request);
         try {
             $rules = [
-                'image_path' => 'image|file|max:1024',
+                'image_path' => 'required|image|file|max:1024',
                 'title' => 'required|max:255',
                 'link' => 'max:255',
                 'description' => 'max:255',
@@ -38,8 +39,6 @@ class AdvertisementController extends Controller
             ];
 
             $validatedData = request()->validate($rules);
-
-            // return $validatedData;
 
             $validatedData['owner_id'] = auth()->user()->id;
             if ($request->file('image_path')) {

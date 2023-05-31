@@ -1,158 +1,166 @@
 <!DOCTYPE html>
-<html lang="id" class="h-100">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>De-Lay | {{ $title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>De-Lay | Register</title>
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- ICON --}}
     <link rel="icon" type="image/png" href="{{ asset('img/ICON.png') }}">
 
-    {{-- BOOTSTRAP CSS --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous" />
-
-    {{-- BOOTSTRAP ICON --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
-
-    {{-- CUSTOM CSS --}}
-    <link rel="stylesheet" href="css/style.css" />
+    {{-- GOOGLE FONT --}}
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
 </head>
 
-<body class="h-100 d-flex justify-content-center align-content-center">
-    <div class="container m-auto d-flex justify-content-around flex-wrap">
-        {{-- IMG --}}
-        <img class="img-fluid align-middle" src="/img/register.png" alt="register" style="width:600px" />
-        {{-- END-IMG --}}
-
-        {{-- CARD REGISTER --}}
-        <div class="card mb-4 rounded-3 shadow-sm border-success" style="width:500px">
-            <div class="card-header py-3 text-bg-success border-success">
-                <h4 class="my-0 fw-normal text-center fw-bold">Register</h4>
+<body class="min-h-screen bg-[#F1F8FE]">
+    <div class="min-h-screen flex justify-center items-center">
+        <div class="bg-[#F1F8FE] shadow-md m-3 md:m-0 w-full md:w-2/3 xl:w-1/3">
+            <div class="bg-[#1B232E] py-10 flex justify-center items-center">
+                <img src="/img/register.png" alt="register" class="w-60">
             </div>
-            <div class="card-body">
-                <form action="/register" method="post">
-                    @csrf
-                    <ul class="list-unstyled">
-                        <label for="name" class="form-label">Nama<span class="text-danger">*</span></label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                            <div class="form-floating">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    id="name" name="name" placeholder="Username" value="{{ old('name') }}"
-                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                                    oninput="setCustomValidity('')" />
-                                <label for="name">Masukkan Nama</label>
-                            </div>
-                        </div>
-                        @error('name')
-                            <p class="text-danger m-0">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </ul>
-                    <ul class="list-unstyled">
-                        <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="bi bi-at"></i></span>
-                            <div class="form-floating">
-                                <input type="text" class="form-control @error('email') is-invalid @enderror"
-                                    id="email" name="email" placeholder="Username" value="{{ old('email') }}"
-                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                                    oninput="setCustomValidity('')" />
-                                <label for="email">Masukkan Email</label>
-                            </div>
-                        </div>
-                        @error('email')
-                            <p class="text-danger m-0">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </ul>
-                    <ul class="list-unstyled">
-                        <label for="phone" class="form-label">Nomor Telepon<span class="text-danger">*</span></label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
-                            <div class="form-floating">
-                                <input type="number" class="form-control @error('phone') is-invalid @enderror"
-                                    id="phone" name="phone" placeholder="Username" value="{{ old('phone') }}"
-                                    required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                                    oninput="setCustomValidity('')" />
-                                <label for="phone">Masukkan Nomor Telepon</label>
-                            </div>
-                        </div>
-                        @error('phone')
-                            <p class="text-danger m-0">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </ul>
-                    <ul class="list-unstyled">
-                        <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                            <div class="form-floating">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password" placeholder="Username" required
-                                    oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                                    oninput="setCustomValidity('')" autocomplete="false" />
-                                <label for="password">Masukkan Password</label>
-                            </div>
-                        </div>
-                        @error('password')
-                            <p class="text-danger m-0">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </ul>
-                    <ul class="list-unstyled">
-                        <label for="actor" class="form-label">Daftar Sebagai<span
-                                class="text-danger">*</span></label>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text"><i class="bi bi-link"></i></span>
-                            <select class="form-select" aria-label="Default select example" name="actor_id">
-                                @foreach ($actors as $actor)
-                                    @if (old('actor_id') == $actor->id)
-                                        <option value="{{ $actor->id }}" selected="selected"{{ $actor->name }}>
-                                            {{ $actor->name }}</option>
-                                    @else
-                                        <option value="{{ $actor->id }}">{{ $actor->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </ul>
-                    @if (session()->has('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <form action="/register" method="post" class="flex flex-col items-center justify-center px-3 md:px-10">
+                @csrf
+                <p class="text-[#36BB6A] text-2xl font-medium py-5 md:py-10">Daftar</p>
+                <div class="w-full mb-3">
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                            <span class="material-symbols-rounded">
+                                person
+                            </span>
+                        </span>
+                        <input type="text" id="name" name="name" value="{{ old('name') }}"
+                            class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('name') invalid:border-[#FF5A8A] @enderror"
+                            placeholder="NAMA" required
+                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                            oninput="setCustomValidity('')">
+                    </div>
+                    @error('name')
+                        <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+                <div class="w-full mb-3">
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                            <span class="material-symbols-rounded">
+                                alternate_email
+                            </span>
+                        </span>
+                        <input type="email" id="email" name="email" value="{{ old('email') }}"
+                            class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('email') invalid:border-[#FF5A8A] @enderror"
+                            placeholder="EMAIL" required
+                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                            oninput="setCustomValidity('')">
+                    </div>
+                    @error('email')
+                        <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+                <div class="w-full mb-3">
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                            <span class="material-symbols-rounded">
+                                call
+                            </span>
+                        </span>
+                        <input type="number" id="phone" name="phone" value="{{ old('phone') }}"
+                            class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('phone') invalid:border-[#FF5A8A] @enderror"
+                            placeholder="NOMOR TELEPON" required
+                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                            oninput="setCustomValidity('')">
+                    </div>
+                    @error('phone')
+                        <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+                <div class="w-full mb-3">
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                            <span class="material-symbols-rounded">
+                                lock
+                            </span>
+                        </span>
+                        <input type="password" id="password" name="password"
+                            class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('password') invalid:border-[#FF5A8A] @enderror"
+                            placeholder="KATA SANDI" required
+                            oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                            oninput="setCustomValidity('')" autocomplete="false">
+                    </div>
+                    @error('password')
+                        <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+                <div class="w-full mb-3">
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                            <span class="material-symbols-rounded">
+                                link
+                            </span>
+                        </span>
+                        <select id="countries" name="actor_id" id="actor_id"
+                            class="bg-[#F1F8FE] border border-[#1B232E] text-[#1B232E] text-sm rounded-r-lg focus:ring-[#1B232E] focus:border-[#1B232E] block w-full p-2.5">
+                            @foreach ($actors as $actor)
+                                {{-- @if (old('actor_id') == $actor->actor_id)
+                                    <option value="{{ $actor->id }}" selected>{{ $actor->name }}</option>
+                                @else
+                                    <option value="{{ $actor->id }}">{{ $actor->name }}</option>
+                                @endif --}}
+                                <option value="{{ $actor->id }}">{{ $actor->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                @if (session()->has('success'))
+                    <div id="alert" class="flex p-4 w-full text-[#1B232E] rounded-lg bg-[#8ED145]" role="alert">
+                        <span class="material-symbols-rounded">
+                            info
+                        </span>
+                        <span class="sr-only">Info</span>
+                        <div class="ml-3 text-sm font-medium">
                             {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
                         </div>
-                    @endif
-
-                    @if (session()->has('loginError'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session('loginError') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    @endif
-                    <button type="submit" class="w-100 btn btn-lg btn-outline-success"
-                        onclick="return confirm('Apakah data yang dimasukkan sudah benar?')">Daftar</button>
-                    <p class="text-center mt-2">Sudah punya akun? <a href="/login"
-                            class="text-decoration-none">Masuk</a></p>
-                </form>
-            </div>
+                        <button type="button" id="dismiss-btn"
+                            class="ml-auto -mx-1.5 -my-1.5 bg-[#F1F8FE] text-[#1B232E] rounded-lg focus:ring-2 focus:ring-[#36BB6A]/50 p-1.5 hover:bg-[#36BB6A]/75 inline-flex h-8 w-8"
+                            data-dismiss="alert" aria-label="Close">
+                            <span class="sr-only">Close</span>
+                            <span class="material-symbols-rounded">
+                                close
+                            </span>
+                        </button>
+                    </div>
+                @endif
+                <button type="submit"
+                    class="text-[#1B232E] bg-[#36BB6A] hover:bg-[#36BB6A]/75 focus:ring-4 focus:outline-none focus:ring-[#36BB6A]/50 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center my-5"
+                    onclick="return confirm('Apakah data yang dimasukkan sudah benar?')">Daftar</button>
+                <div class="flex items-start mb-10 justify-between">
+                    <p class="text-[#1B232E]">Sudah punya Akun?</p>
+                    <p class="font-semibold"><a href="/login" class="text-[#36BB6A] hover:text-[#36BB6A]/75">
+                            Masuk</a></p>
+                </div>
+            </form>
         </div>
-        {{-- END-CARD REGISTER --}}
     </div>
+    <svg class="fixed bottom-0 -z-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#1B232E" fill-opacity="1" d="M0,192L1440,64L1440,320L0,320Z"></path>
+    </svg>
 
-    {{-- BOOTSTRAP JS --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
-    </script>
+    {{-- JQUERY --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {{-- CUSTOM JS --}}
+    <script src="/js/script.js"></script>
 </body>
 
 </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Monitor;
 use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
 use App\Models\Analysis;
 use App\Models\Product;
 use App\Models\Forum;
@@ -53,6 +54,11 @@ class DashboardController extends Controller
             array_push($provit, ($data->total_income - $data->initial_capital));
         }
 
+        // ADMIN
+        $forums = Forum::all()->count();
+        $forums_deleted = Forum::where('deleted_at', '=', null)->get()->count();
+        $advertisements = Advertisement::latest()->paginate(5);
+
         return view('dashboard.index', [
             'title' => 'Dashboard',
             'monitors' => Monitor::where('user_id', auth()->user()->id)->latest()->paginate(5)->withQueryString(),
@@ -60,7 +66,9 @@ class DashboardController extends Controller
             'orders' => $orders,
             'products' => $porducts,
             'forums' => $forums,
+            'forums_deleted' => $forums_deleted,
             'orders_produsen' => $orders_produsen,
+            'advertisements' => $advertisements,
             'total_orders' => $total_orders,
             'labels' => $labels,
             'profit' => $provit

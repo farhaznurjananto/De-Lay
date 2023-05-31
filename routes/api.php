@@ -30,7 +30,7 @@ Route::get("apicuaca", function (Request $request) {
     if (!$request->get('latitude') || !$request->get('longitude')) {
         return response(['message' => "Data tidak lengkap"], 401);
     }
-    $apiKey  = "cHXaWHvptw3asNQ7DjsirZFejl0AFm0A";
+    $apiKey  = "yAWTwoAF4mBrHGVJG7njXJbpjAPU3tc7";
     $latitude = "-8.1733118";
     $longitude = "113.7009312";
     $latitude = $request->get('latitude');

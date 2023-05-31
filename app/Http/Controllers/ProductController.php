@@ -86,7 +86,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         return view('dashboard.product.edit', [
-            'title' => 'Edit Product',
+            'title' => 'Ubah Product',
             'product' => $product
         ]);
     }
@@ -166,7 +166,7 @@ class ProductController extends Controller
     public function market()
     {
         return view('dashboard.market.index', [
-            'title' => 'Market',
+            'title' => 'Toko',
             'products' => Product::where([['status', 1], ['stock', '<>', 0]])->latest()->paginate(10)->withQueryString(),
         ]);
     }

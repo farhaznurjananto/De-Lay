@@ -18,6 +18,7 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
+        // return $request;
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -29,7 +30,7 @@ class LoginController extends Controller
         }
 
         return back()->with([
-            'loginError' => 'Login Gagal!',
+            'error' => 'Login Gagal!',
         ]);
     }
 

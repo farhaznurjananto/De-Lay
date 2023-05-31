@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 /*
@@ -28,6 +29,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('landing-page');
+        return view('landing-page', [
+            'data' => User::where('is_admin', '=', 1)->get(),
+        ]);
     }
 }

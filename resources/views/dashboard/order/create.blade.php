@@ -1,146 +1,169 @@
-@extends('dashboard.layouts.main') @section('container')
-    <div class="header">
-        <h1 class="h2 mt-3 fw-bold text-success">Pemesanan Kedelai</h1>
-        <hr class="featurette-divider" />
-    </div>
+@extends('dashboard.layouts.main')
+@section('container')
+    <div class="p-4 sm:ml-64 bg-[#F1F8FE] min-h-screen">
+        <div class="p-4">
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="flex rounded">
+                    <a href="#" class="flex items-center text-[#293649] text-2xl font-semibold">
+                        <span class="material-symbols-rounded">
+                            inventory_2
+                        </span>
+                        <span class="ml-3">{{ $title }}</span>
+                    </a>
+                </div>
+            </div>
 
-    {{-- ALERT --}}
-    @if (session()->has('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    {{-- END-ALERT --}}
-
-    <div class="container-fluid d-flex justify-content-center">
-        <div class="card m-2" style="width: 25rem">
-            @if ($product->image)
-                <img class="img-fluid d-inline h-auto rounded-top" src="{{ asset('storage/' . $product->image) }}"
-                    alt="product-image" style="height: 150px" />
-            @else
-                <img class="img-fluid d-inline rounded-top" src="https://source.unsplash.com/300x150?soya-bean"
-                    alt="product-image" style="height: 150px" />
-            @endif
-            <div class="card-body">
-                <h5 class="card-title fw-semibold text-center mb-3">{{ $product->name }}</h5>
-                <p class="card-text mb-2 small">
-                    Stok : {{ $product->stock }} kg
-                </p>
-                <p class="card-text mb-2 small">
-                    Harga : Rp. {{ number_format($product->price) }} / kg
-                </p>
-
-                <hr class="featurette-divider" />
-
-                <form action="/dashboard/market" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="number" class="form-control" id="product_id" name="product_id" value="{{ $product->id }}"
-                        required hidden>
-                    <div class="mb-3 text-center fw-semibold">
-                        <label for="quantity" class="form-label">Kwantitas<span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <span class="input-group-text text-muted">Kg</span>
-                            <input type="number" class="form-control @error('quantity') is-invalid @enderror"
-                                id="quantity" name="quantity" placeholder="Kwantitas pembelian"
-                                value="{{ old('quantity') }}" required
-                                oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                                oninput="totalHarga(); setCustomValidity('')">
+            {{-- FARMER --}}
+            <div class="flex justify-center items-center">
+                <div class="bg-[#F1F8FE] shadow-md m-3 md:m-0 w-full md:w-2/3 rounded-lg">
+                    <form action="/dashboard/market" method="post" enctype="multipart/form-data"
+                        class="flex flex-col items-center justify-center px-3 md:px-10">
+                        @csrf
+                        <p class="text-[#36BB6A] text-2xl font-medium my-5 md:my-5">TAMBAH PEMESANAN</p>
+                        <div
+                            class="bg-[#1B232E] rounded-lg flex flex-row flex-wrap justify-center xl:justify-normal p-2 my-3">
+                            <img class="rounded-lg w-full xl:w-1/2" src="{{ asset('storage/' . $product->image) }}"
+                                alt="produk-img">
+                            <div class="flex flex-col text-[#F1F8FE] justify-center text-center xl:text-left p-3">
+                                <p class="font-medium text-3xl">{{ $product->name }}</p>
+                                <p class="text-xl">Stok: {{ $product->stock }} kg</p>
+                                <p class="text-xl">Harga: Rp. {{ number_format($product->price) }} / kg</p>
+                            </div>
+                        </div>
+                        <input type="number" id="product_id" name="product_id" value="{{ $product->id }}" required hidden>
+                        <div class="w-full mb-3">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        inventory
+                                    </span>
+                                </span>
+                                <input type="number" id="quantity" name="quantity"
+                                    class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('quantity') invalid:border-[#FF5A8A] @enderror"
+                                    placeholder="KWANTITAS PRODUK" value="{{ old('quantity') }}" required
+                                    oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                    oninput="totalHarga(); setCustomValidity('')">
+                            </div>
+                            <p class="mt-1 text-sm text-gray-500" id="file_input_help">Masukkan stok produk dalam
+                                satuan Kilogram.
+                            </p>
                             @error('quantity')
-                                <div class="invalid-feedback">
+                                <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
                                     {{ $message }}
-                                </div>
+                                </p>
                             @enderror
                         </div>
-                    </div>
-                    <div class="mb-3 text-center fw-semibold">
-                        <label for="metode_delivery" class="form-label">Metode Pengiriman</label>
-                        <div class="input-group">
-                            <span class="input-group-text text-muted"><i class="bi bi-truck"></i></span>
-                            <select class="form-select" aria-label="Default select example" id="metode_delivery">
-                                <option value="1">Delivery (Diantar)</option>
-                                <option value="2">Non Delivery (Ambil ditempat)</option>
-                            </select>
+                        <div class="w-full mb-3">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        local_shipping
+                                    </span>
+                                </span>
+                                <select id="metode_delivery"
+                                    class="bg-[#F1F8FE] border border-[#1B232E] text-[#1B232E] text-sm rounded-r-lg focus:ring-[#1B232E] focus:border-[#1B232E] block w-full p-2.5">
+                                    <option value="1">Delivery (Diantar di tempat)</option>
+                                    <option value="2">Non-Delivery (Diambil di tempat)</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mb-3 text-center fw-semibold">
-                        <div id="customer_address">
-                            <label for="customer_address" class="form-label">Alamat Anda</label>
-                            <div class="input-group">
-                                <span class="input-group-text text-muted"><i class="bi bi-house"></i></span>
+                        <div class="w-full mb-3" id="customer_address">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        home
+                                    </span>
+                                </span>
                                 @if ($product->address == null)
-                                    <input type="text"
-                                        class="form-control @error('customer_address') is-invalid @enderror"
-                                        id="customer_address" name="customer_address" placeholder="Alamat pembeli"
-                                        value="{{ old('customer_address') }}" required
+                                    <input type="text" id="customer_address" name="customer_address"
+                                        class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('customer_address') invalid:border-[#FF5A8A] @enderror"
+                                        placeholder="ALAMAT PEMBELI" value="{{ old('customer_address') }}" required
                                         oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
                                         oninput="setCustomValidity('')">
                                 @else
-                                    <input type="text"
-                                        class="form-control @error('customer_address') is-invalid @enderror"
-                                        id="customer_address" name="customer_address" placeholder="Alamat pembeli"
-                                        value="{{ old('customer_address') }}">
+                                    <input type="text" id="customer_address" name="customer_address"
+                                        class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5"
+                                        placeholder="ALAMAT PEMBELI" value="{{ old('customer_address') }}">
                                 @endif
-                                @error('customer_address')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
                             </div>
+                            <p class="mt-1 text-sm text-gray-500" id="file_input_help">Masukkan alamat pembeli sebgai
+                                pengiriman delivery.
+                            </p>
+                            @error('customer_address')
+                                <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
-                        <div id="seller_address" style="display: none">
-                            <label for="seller_address" class="form-label">Alamat Kami</label>
-                            <p class="text-danger small">
+                        <div class="flex flex-col mb-3" id="seller_address" style="display: none">
+                            <p class="text-lg font-semibold text-[#1B232E] text-center">Alamat Penjual.</p>
+                            <p class="text-lg font-semibold text-[#FF5A8A] text-center">
                                 {{ $product->address == null ? 'Tidak menerima pengiriman produk Non-Delivery' : $product->address }}
                             </p>
                         </div>
-                    </div>
-                    <div class="mb-3 text-center fw-semibold">
-                        <p class="mb-1">Total Harga</p>
-                        <p class="text-danger small">Rp. <span id="price"></span></p>
-                    </div>
-                    <div class="mb-3 text-center fw-semibold">
-                        <label for="metode_payment" class="form-label">Metode Pembayaran</label>
-                        <div class="input-group">
-                            <span class="input-group-text text-muted"><i class="bi bi-credit-card-2-back"></i></span>
-                            <select class="form-select" aria-label="Default select example" id="metode_payment">
-                                <option value="1">Cash</option>
-                                <option value="2">Transfer</option>
-                            </select>
+                        <div class="border border-[#1B232E] p-5 rounded-md mb-3">
+                            <p class="text-lg font-semibold text-[#1B232E] text-center">Total Harga</p>
+                            <p class="text-2xl font-semibold text-[#FF5A8A] text-center">Rp. <span id="price"></span>
+                            </p>
                         </div>
-                    </div>
-                    <div class="mb-3 text-center fw-semibold" id="div_metode_payment" style="display: none">
-                        <label for="nomor_rekening" class="form-label">No Rekening</label>
-                        <p class="text-danger small">
-                            {{ $product->rekening == 0 ? 'Tidak menerima pembayaran transfer' : $product->rekening }}
-                        </p>
-                        <label for="proof_of_payment" class="form-label">Bukti Pembayaran</label>
-                        @if ($product->rekening == null)
-                            <input type="file" class="form-control @error('proof_of_payment') is-invalid @enderror"
-                                id="proof_of_payment" name="proof_of_payment" placeholder="bukti pembelian">
-                        @else
-                            <input type="file" class="form-control @error('proof_of_payment') is-invalid @enderror"
-                                id="proof_of_payment" name="proof_of_payment" placeholder="bukti pembelian" required
-                                oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                                oninput="setCustomValidity('')">
-                        @endif
-                        @error('proof_of_payment')
-                            <div class="invalid-feedback">
-                                {{ $message }}
+                        <div class="w-full mb-3">
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#F1F8FE] bg-[#1B232E] rounded-l-lg">
+                                    <span class="material-symbols-rounded">
+                                        add_card
+                                    </span>
+                                </span>
+                                <select id="metode_payment"
+                                    class="bg-[#F1F8FE] border border-[#1B232E] text-[#1B232E] text-sm rounded-r-lg focus:ring-[#1B232E] focus:border-[#1B232E] block w-full p-2.5">
+                                    <option value="1">CASH</option>
+                                    <option value="2">TRANSFER</option>
+                                </select>
                             </div>
-                        @enderror
-                    </div>
-                    <div class="action d-grid">
-                        <button type="submit" class="btn btn-outline-success btn-sm"
-                            onclick="return confirm('Apakah anda yakin ingin membeli?')"><i class="bi bi-basket"></i>
-                            Beli</button>
-                    </div>
-                </form>
+                        </div>
+                        <div class="w-full mb-3" id="div_metode_payment" style="display: none">
+                            <div class="flex flex-col mb-3">
+                                <p class="text-lg font-semibold text-[#1B232E] text-center">Nomor Rekening.</p>
+                                <p class="text-lg font-semibold text-[#FF5A8A] text-center">123.</p>
+                            </div>
+                            @if ($product->rekening == 0)
+                                <input
+                                    class="block w-full text-sm text-[#1B232E] border border-[#1B232E] rounded-lg cursor-pointer bg-[#F1F8FE] focus:outline-none"
+                                    aria-describedby="proof_of_payment" id="proof_of_payment" name="proof_of_payment"
+                                    type="file">
+                            @else
+                                <input
+                                    class="block w-full text-sm text-[#1B232E] border border-[#1B232E] rounded-lg cursor-pointer bg-[#F1F8FE] focus:outline-none @error('proof_of_payment') invalid:border-[#FF5A8A] @enderror"
+                                    aria-describedby="proof_of_payment" id="proof_of_payment" name="proof_of_payment"
+                                    type="file" required
+                                    oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                    oninput="setCustomValidity('')">
+                            @endif
+                            <p class="mt-1 text-sm text-gray-500" id="proof_of_payment">Upload
+                                bukti pembayaran max 1mb.
+                            </p>
+                            @error('proof_of_payment')
+                                <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+                        <p class="text-lg font-semibold text-[#FF5A8A] text-center">Aplikasi kami tidak melayani
+                            sistem
+                            pendistribusian produk harap komunikasikan hal pendistribusian produk bersama pembeli.</p>
+                        <button type="submit" onclick="return confirm('Apakah anda yakin ingin membeli?')"
+                            class="text-[#1B232E] bg-[#36BB6A] hover:bg-[#36BB6A]/75 focus:ring-4 focus:outline-none focus:ring-[#36BB6A]/50 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center my-5 md:my-10 flex flex-row justify-center">Beli
+                            <span class="material-symbols-rounded mx-2">
+                                shopping_cart
+                            </span></button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
-    <hr class="featurette-divider" />
 
     <script>
         // FOR PRICE
@@ -155,11 +178,9 @@
             if (eSelect1.selectedIndex === 0) {
                 optDeliver1.style.display = 'block';
                 optDeliver2.style.display = 'none';
-                deliveryPrice = 5000;
             } else {
                 optDeliver1.style.display = 'none';
                 optDeliver2.style.display = 'block';
-                deliveryPrice = 0;
             }
         }
 
@@ -176,7 +197,7 @@
 
         function totalHarga() {
             price = document.getElementById("quantity").value;
-            document.getElementById("price").innerHTML = (price * {{ $product->price }}) + deliveryPrice;
+            document.getElementById("price").innerHTML = (price * {{ $product->price }});
         }
     </script>
 @endsection

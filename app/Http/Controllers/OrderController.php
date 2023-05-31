@@ -70,7 +70,7 @@ class OrderController extends Controller
         }
 
         return view('dashboard.order.history', [
-            'title' => 'History',
+            'title' => 'Riwayat Pemesanan',
             'orders' => $orders,
         ]);
     }
@@ -150,6 +150,11 @@ class OrderController extends Controller
                     $validatedData['proof_of_payment'] = $request->file('proof_of_payment')->store('proof-of-payment-images');
                 }
 
+                if ($request->metode_payment == 1) {
+                    Storage::delete($request->oldImage);
+                    $validatedData['proof_of_payment'] = '';
+                }
+
                 if ($order->status == 'rejected') {
                     $validatedData['status'] = 'pending';
                 }
@@ -181,7 +186,7 @@ class OrderController extends Controller
     public function create(Product $product)
     {
         return view('dashboard.order.create', [
-            'title' => 'Order',
+            'title' => 'Pemesanan',
             'product' => $product,
         ]);
     }
@@ -240,7 +245,7 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         return view('dashboard.order.edit', [
-            'title' => 'Edit Pemesanan',
+            'title' => 'Ubah Pemesanan',
             'order' => $order
         ]);
     }

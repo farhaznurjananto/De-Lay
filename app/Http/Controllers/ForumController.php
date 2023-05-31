@@ -46,8 +46,8 @@ class ForumController extends Controller
             $advertisement->random(1);
         }
         return view('dashboard.forums', [
-            'title' => 'Forums',
-            'forums' => Forum::with('user', 'forum_category')->latest()->paginate(5),
+            'title' => 'Forum Global',
+            'forums' => Forum::with('user', 'forum_category')->latest()->paginate(6),
             'advertisements' => $advertisement,
         ]);
     }
@@ -67,7 +67,7 @@ class ForumController extends Controller
         return view('dashboard.forum.index', [
             'title' => 'Forum',
             'forum_categories' => Forum_Category::all(),
-            'forums' => Forum::with(['user', 'forum_category'])->where('user_id', auth()->user()->id)->latest()->paginate(5),
+            'forums' => Forum::with(['user', 'forum_category'])->where('user_id', auth()->user()->id)->latest()->paginate(6),
         ]);
     }
 
@@ -132,7 +132,7 @@ class ForumController extends Controller
     public function edit(Forum $forum)
     {
         return view('dashboard.forum.edit', [
-            'title' => 'Edit Forum',
+            'title' => 'Ubah Forum',
             'forum_categories' => Forum_Category::all(),
             'forum' => $forum,
         ]);

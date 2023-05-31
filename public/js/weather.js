@@ -57,14 +57,22 @@ function showPosition(position) {
             var minTemp = forecast.Temperature.Minimum.Value;
 
             forecastHtml +=
-                '<div class="px-4 mx-1 pt-1 d-flex flex-column justify-content-center align-items-center border rounded-3 text-center">';
-            forecastHtml += "<span>" + dayOfWeek + "</span>";
+                '<div class="border-2 border-[#293649] rounded-lg p-5 flex flex-col mt-5 items-center text-center justify-between w-full md:w-52 lg:w-60 mr-2">';
             forecastHtml +=
-                "<img src='https://developer.accuweather.com/sites/default/files/" +
+                '<p class="text-2xl font-semibold text-[#293649] mb-2">' +
+                dayOfWeek +
+                "</p>";
+            // forecastHtml += '<div class="p-3">';
+            forecastHtml +=
+                "<img class='w-12' src='https://developer.accuweather.com/sites/default/files/" +
                 weatherIcon +
                 "-s.png'>";
-            forecastHtml += "<span>" + weatherDescription + "</span>";
-            forecastHtml += "<span>" + minTemp + "°F</span>";
+            // forecastHtml += "</div>";
+            forecastHtml +=
+                '<p class="text-sm text-[#293649] mb-3">' +
+                weatherDescription +
+                "</p>";
+            forecastHtml += minTemp + "°F";
             forecastHtml += "</div>";
         });
 
