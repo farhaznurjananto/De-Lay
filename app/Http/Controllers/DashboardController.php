@@ -54,6 +54,25 @@ class DashboardController extends Controller
             array_push($provit, ($data->total_income - $data->initial_capital));
         }
 
+        // ADVERTISEMENT
+        $advertisement1 = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()],
+            ['advertising_package', '=', 'I']
+        ])->get();
+        if ($advertisement1->count()) {
+            $advertisement1->random(1);
+        }
+
+        $advertisement2 = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()],
+            ['advertising_package', '=', 'II']
+        ])->get();
+        if ($advertisement2->count()) {
+            $advertisement2->random(1);
+        }
+
         // ADMIN
         $forums = Forum::all()->count();
         $forums_deleted = Forum::where('deleted_at', '=', null)->get()->count();
@@ -71,7 +90,9 @@ class DashboardController extends Controller
             'advertisements' => $advertisements,
             'total_orders' => $total_orders,
             'labels' => $labels,
-            'profit' => $provit
+            'profit' => $provit,
+            'advertisement1' => $advertisement1,
+            'advertisement2' => $advertisement2,
         ]);
     }
 }

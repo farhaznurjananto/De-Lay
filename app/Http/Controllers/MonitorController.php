@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Monitor;
+use App\Models\Advertisement;
 use Illuminate\Http\Request;
 
 /*
@@ -28,9 +29,30 @@ class MonitorController extends Controller
 
     public function index()
     {
+        // ADVERTISEMENT
+        $advertisement1 = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()],
+            ['advertising_package', '=', 'I']
+        ])->get();
+        if ($advertisement1->count()) {
+            $advertisement1->random(1);
+        }
+
+        $advertisement2 = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()],
+            ['advertising_package', '=', 'II']
+        ])->get();
+        if ($advertisement2->count()) {
+            $advertisement2->random(1);
+        }
+
         return view('dashboard.monitor.index', [
-            'title' => 'Monitoring',
+            'title' => 'Penjadwalan',
             'monitors' => Monitor::where('user_id', auth()->user()->id)->latest()->paginate(5)->withQueryString(),
+            'advertisement1' => $advertisement1,
+            'advertisement2' => $advertisement2,
         ]);
     }
 

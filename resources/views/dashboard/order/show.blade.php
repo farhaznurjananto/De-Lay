@@ -126,7 +126,15 @@
             @endcan
 
             <div class="mb-4 rounded bg-[#293649] p-5">
-                <span class="h-full w-36 px-3 rounded-md bg-[#F1F8FE] text-[#293649] text-center">ADS</span>
+                @if ($advertisement2->count())
+                    <div class="flex flex-row justify-center items-center w-full">
+                        <img src="{{ asset('storage/' . $advertisement2[0]->image_path) }}" alt="ads">
+                    </div>
+                @else
+                    <div class="p-1">
+                        <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

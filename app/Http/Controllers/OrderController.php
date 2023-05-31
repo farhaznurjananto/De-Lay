@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Advertisement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -87,9 +88,29 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        // ADVERTISEMENT
+        $advertisement1 = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()],
+            ['advertising_package', '=', 'I']
+        ])->get();
+        if ($advertisement1->count()) {
+            $advertisement1->random(1);
+        }
+
+        $advertisement2 = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()],
+            ['advertising_package', '=', 'II']
+        ])->get();
+        if ($advertisement2->count()) {
+            $advertisement2->random(1);
+        }
         return view('dashboard.order.show', [
             'title' => 'Detail Pemesanan',
             'order' => $order->load(['user', 'product']),
+            'advertisement1' => $advertisement1,
+            'advertisement2' => $advertisement2,
         ]);
     }
 

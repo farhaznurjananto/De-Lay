@@ -232,7 +232,7 @@
                                         class="bg-[#F1F8FE] border border-[#1B232E] text-[#1B232E] text-sm rounded-r-lg focus:ring-[#1B232E] focus:border-[#1B232E] block w-full p-2.5">
                                         <option value="I">Paket I</option>
                                         <option value="II">Paket II</option>
-                                        <option value="III">Paket III</option>
+                                        {{-- <option value="III">Paket III</option> --}}
                                     </select>
                                 </div>
                             </div>

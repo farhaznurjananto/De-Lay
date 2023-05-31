@@ -84,9 +84,18 @@
                             <span class="h-full w-36 px-3 rounded-md bg-[#293649] text-[#F1F8FE] text-center">PENJADWALAN</span>
                             <div class="flex flex-col justify-between h-full">
                                 <div class="flex items-center justify-center rounded mt-5">
-                                    <div class="bg-[#1B232E] w-full rounded-lg flex h-40">
-                                        <div class="p-1">
-                                            <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>
+                                    <div class="bg-[#1B232E] w-full rounded-lg flex">
+                                        <div class="p-1 w-full">
+                                            @if ($advertisement2->count())
+                                                <div class="flex flex-row justify-center items-center w-full">
+                                                    <img src="{{ asset('storage/' . $advertisement2[0]->image_path) }}"
+                                                        alt="ads">
+                                                </div>
+                                            @else
+                                                <div class="p-1">
+                                                    <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -247,9 +256,15 @@
                         </div>
                     </div>
                     <div class="rounded bg-[#1B232E] col-span-2 xl:col-auto p-2">
-                        <div class="p-1">
-                            <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>
-                        </div>
+                        @if ($advertisement1->count())
+                            <div class="flex justify-center items-center h-full">
+                                <img src="{{ asset('storage/' . $advertisement1[0]->image_path) }}" alt="ads">
+                            </div>
+                        @else
+                            <div class="p-1">
+                                <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
 

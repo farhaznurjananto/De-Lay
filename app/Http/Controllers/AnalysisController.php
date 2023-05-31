@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Analysis;
+use App\Models\Advertisement;
 use Illuminate\Http\Request;
 
 /*
@@ -29,6 +30,25 @@ class AnalysisController extends Controller
 
     public function index()
     {
+        // ADVERTISEMENT
+        $advertisement1 = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()],
+            ['advertising_package', '=', 'I']
+        ])->get();
+        if ($advertisement1->count()) {
+            $advertisement1->random(1);
+        }
+
+        $advertisement2 = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()],
+            ['advertising_package', '=', 'II']
+        ])->get();
+        if ($advertisement2->count()) {
+            $advertisement2->random(1);
+        }
+
         $transaction = Analysis::with('user')->where('user_id', '=', auth()->user()->id)->paginate(10);
         $labels = [];
         $provit = [];
@@ -40,7 +60,9 @@ class AnalysisController extends Controller
             'title' => 'Analisis',
             'datas' => Analysis::with('user')->where('user_id', '=', auth()->user()->id)->latest()->paginate(10),
             'labels' => $labels,
-            'profit' => $provit
+            'profit' => $provit,
+            'advertisement1' => $advertisement1,
+            'advertisement2' => $advertisement2,
         ]);
     }
 
