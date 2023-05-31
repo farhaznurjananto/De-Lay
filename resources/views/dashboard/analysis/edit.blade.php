@@ -25,9 +25,15 @@
                     </div>
                 </div>
                 <div class="rounded bg-[#1B232E] col-span-2 xl:col-auto p-2">
-                    <div class="p-1">
-                        <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>
-                    </div>
+                    @if ($advertisement1->count())
+                        <div class="flex justify-center items-center h-full">
+                            <img src="{{ asset('storage/' . $advertisement1[0]->image_path) }}" alt="ads">
+                        </div>
+                    @else
+                        <div class="p-1">
+                            <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>
+                        </div>
+                    @endif
                 </div>
             </div>
             {{-- END FARMER --}}
@@ -92,9 +98,15 @@
                     </form>
                 </div>
                 <div class="rounded bg-[#1B232E] col-span-2 xl:col-auto p-2">
-                    <div class="p-1">
-                        <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>
-                    </div>
+                    @if ($advertisement1->count())
+                        <div class="flex justify-center items-center h-full">
+                            <img src="{{ asset('storage/' . $advertisement1[0]->image_path) }}" alt="ads">
+                        </div>
+                    @else
+                        <div class="p-1">
+                            <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>
+                        </div>
+                    @endif
                 </div>
             </div>
             {{-- END FARMER --}}

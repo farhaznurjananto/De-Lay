@@ -108,6 +108,25 @@ class AnalysisController extends Controller
 
     public function edit(Analysis $analysis)
     {
+        // ADVERTISEMENT
+        $advertisement1 = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()],
+            ['advertising_package', '=', 'I']
+        ])->get();
+        if ($advertisement1->count()) {
+            $advertisement1->random(1);
+        }
+
+        $advertisement2 = Advertisement::where([
+            ['end_date', '>', now()],
+            ['start_date', '<', now()],
+            ['advertising_package', '=', 'II']
+        ])->get();
+        if ($advertisement2->count()) {
+            $advertisement2->random(1);
+        }
+
         $transaction = Analysis::with('user')->where('id', '=', $analysis->id)->paginate(10);
         $labels = [];
         $modal = [];
@@ -123,6 +142,8 @@ class AnalysisController extends Controller
             'labels' => $labels,
             'modal' => $modal,
             'income' => $income,
+            'advertisement1' => $advertisement1,
+            'advertisement2' => $advertisement2,
         ]);
     }
 

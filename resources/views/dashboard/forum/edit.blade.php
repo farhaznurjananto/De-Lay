@@ -62,9 +62,16 @@
                     </div>
                 </div>
                 <div class="rounded bg-[#1B232E] p-5">
-                    <span class="h-full px-3 rounded-md bg-[#F1F8FE] text-[#1B232E] text-center">ADS</span>
-                    <div class="flex flex-col justify-center mt-3">
-                    </div>
+                    @if ($advertisement1->count())
+                        <div class="flex justify-center items-center h-full">
+                            <img class="max-h-80" src="{{ asset('storage/' . $advertisement1[0]->image_path) }}"
+                                alt="ads">
+                        </div>
+                    @else
+                        <div class="p-1">
+                            <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>
+                        </div>
+                    @endif
                 </div>
             </div>
             {{-- END FARMER --}}
