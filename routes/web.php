@@ -165,6 +165,9 @@ Route::middleware('admin')->group(function () {
     // ADVERTISEMENT - SHOW
     Route::get('/dashboard/advertisement/{advertisement}', [AdvertisementController::class, 'show']);
 
+    // ADVERTISEMENT - UPDATE
+    Route::put('/dashboard/advertisement/{advertisement}', [AdvertisementController::class, 'update']);
+
     // ADVERTISEMENT - DESTROY
     Route::delete('/dashboard/advertisement/{advertisement}', [AdvertisementController::class, 'destroy']);
 });

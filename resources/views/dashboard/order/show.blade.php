@@ -127,9 +127,11 @@
 
             <div class="mb-4 rounded bg-[#293649] p-5">
                 @if ($advertisement2->count())
-                    <div class="flex flex-row justify-center items-center w-full">
-                        <img src="{{ asset('storage/' . $advertisement2[0]->image_path) }}" alt="ads">
-                    </div>
+                    <a href="{{ $advertisement2[0]->link }}" target="_blank">
+                        <div class="flex flex-row justify-center items-center w-full">
+                            <img src="{{ asset('storage/' . $advertisement2[0]->image_path) }}" alt="ads">
+                        </div>
+                    </a>
                 @else
                     <div class="p-1">
                         <span class="h-full px-3 rounded-lg bg-[#F1F8FE]">ADS</span>

@@ -65,6 +65,40 @@ class AdvertisementController extends Controller
         ]);
     }
 
+    public function update(Request $request, Advertisement $advertisement)
+    {
+        try {
+            $rules = [
+                'image_path' => 'image|file|max:1024',
+                'title' => 'required|max:255',
+                'link' => 'max:255',
+                'description' => 'max:255',
+                'advertising_package' => 'max:255',
+                'start_date' => 'required|date',
+                'end_date' => 'required|date',
+                // 'status' => 'required',
+            ];
+
+            $validatedData = request()->validate($rules);
+
+            $validatedData['owner_id'] = auth()->user()->id;
+
+            if ($request->file('image_path')) {
+                if ($request->oldImage) {
+                    Storage::delete($request->oldImage);
+                }
+                $validatedData['image_path'] = $request->file('image_path')->store('advertisement-images');
+            }
+
+            Advertisement::where('id', $advertisement->id)
+                ->update($validatedData);
+
+            return redirect('/dashboard/advertisement')->with('success', 'Iklan baru berhasil ditambahkan!');
+        } catch (\Throwable $th) {
+            return redirect('/dashboard/advertisement')->with('error', 'Iklan gagal ditambahkan!') && $validatedData = request()->validate($rules);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
