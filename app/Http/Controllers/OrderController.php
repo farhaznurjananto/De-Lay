@@ -172,8 +172,10 @@ class OrderController extends Controller
                 }
 
                 if ($request->metode_payment == 1) {
-                    Storage::delete($request->oldImage);
-                    $validatedData['proof_of_payment'] = '';
+                    if ($order->proof_of_payment != null) {
+                        Storage::delete($request->oldImage);
+                        $validatedData['proof_of_payment'] = '';
+                    }
                 }
 
                 if ($order->status == 'rejected') {
