@@ -288,6 +288,9 @@
                                     @endif
                                 </table>
                             </div>
+                            <div class="mt-5">
+                                {{ $monitors->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>

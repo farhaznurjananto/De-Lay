@@ -51,6 +51,7 @@
                                     @can('admin')
                                         <form action="/dashboard/forum/{{ $forum->id }}" method="post">
                                             @method('delete')
+                                            @csrf
                                             <button type="submit"
                                                 onclick="return confirm('Apakah anda yakin ingin menghapus ini?')"
                                                 class="text-[#1B232E] bg-[#FF5A8A] hover:bg-[#FF5A8A]/75 focus:ring-4 focus:outline-none focus:ring-[#FF5A8A]/50 font-medium rounded-full text-sm w-full sm:w-auto px-3 py-2 text-center m-1"><span
@@ -70,9 +71,8 @@
                         <p class="text-center">Tidak ada forum.</p>
                     </div>
                 @endif
-
-                {{ $forums->links() }}
             </div>
+            {{ $forums->links() }}
         </div>
     </div>
 

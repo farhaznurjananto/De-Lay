@@ -50,7 +50,7 @@ class MonitorController extends Controller
 
         return view('dashboard.monitor.index', [
             'title' => 'Penjadwalan',
-            'monitors' => Monitor::where('user_id', auth()->user()->id)->latest()->paginate(5)->withQueryString(),
+            'monitors' => Monitor::where('user_id', auth()->user()->id)->latest()->paginate(5),
             'advertisement1' => $advertisement1,
             'advertisement2' => $advertisement2,
         ]);

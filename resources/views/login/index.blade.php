@@ -82,6 +82,24 @@
                             </span>
                         </button>
                     </div>
+                @elseif (session()->has('success'))
+                    <div id="alert" class="flex p-4 w-full text-[#1B232E] rounded-lg bg-[#8ED145]" role="alert">
+                        <span class="material-symbols-rounded">
+                            info
+                        </span>
+                        <span class="sr-only">Info</span>
+                        <div class="ml-3 text-sm font-medium">
+                            {{ session('success') }}
+                        </div>
+                        <button type="button" id="dismiss-btn"
+                            class="ml-auto -mx-1.5 -my-1.5 bg-[#F1F8FE] text-[#1B232E] rounded-lg focus:ring-2 focus:ring-[#36BB6A]/50 p-1.5 hover:bg-[#36BB6A]/75 inline-flex h-8 w-8"
+                            data-dismiss="alert" aria-label="Close">
+                            <span class="sr-only">Close</span>
+                            <span class="material-symbols-rounded">
+                                close
+                            </span>
+                        </button>
+                    </div>
                 @endif
                 <button type="submit"
                     class="text-[#1B232E] bg-[#36BB6A] hover:bg-[#36BB6A]/75 focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center my-5">Masuk</button>

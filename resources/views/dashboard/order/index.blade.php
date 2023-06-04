@@ -86,8 +86,17 @@
                                         {{ $order->created_at->format('d M Y') }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span
-                                            class="bg-[#FF9E22] text-[#1B232E] text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{{ $order->status }}</span>
+                                        @if ($order->status == 'pending')
+                                            <span
+                                                class="bg-[#FF9E22] text-[#1B232E] text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{{ $order->status }}</span>
+                                        @elseif($order->status == 'rejected')
+                                            <span
+                                                class="bg-[#FF5A8A] text-[#1B232E] text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{{ $order->status }}</span>
+                                        @else
+                                            {{-- ini kalau mau ada riwayat hapus aja --}}
+                                            <span
+                                                class="bg-[#8ED145] text-[#1B232E] text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">{{ $order->status }}</span>
+                                        @endif
                                     </td>
                                     <td class="flex px-6 py-4">
                                         <a href="/dashboard/order/{{ $order->id }}"

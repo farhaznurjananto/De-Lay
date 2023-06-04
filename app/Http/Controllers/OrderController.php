@@ -36,9 +36,15 @@ class OrderController extends Controller
         if (auth()->user()->actor_id == 1) {
             $value = auth()->user()->id;
 
+            // kalau mau pakai riwayat ini coment
             $orders = Order::with(['product' => function ($q) use ($value) {
                 $q->where('owner_id', '=', $value);
-            }])->where('status', '<>', 'accepted')->latest()->paginate(10);
+            }])->latest()->paginate(10);
+
+            // kalau mau pakai riwayat ini uncoment
+            // $orders = Order::with(['product' => function ($q) use ($value) {
+            //     $q->where('owner_id', '=', $value);
+            // }])->where('status', '<>', 'accepted')->latest()->paginate(10);
         } elseif (auth()->user()->actor_id == 2) {
             $orders = Order::with('product')->where([['customer_id', '=', auth()->user()->id], ['status', '<>', 'accepted']])->latest()->paginate(10);
         }
@@ -60,15 +66,16 @@ class OrderController extends Controller
 
     public function history()
     {
-        if (auth()->user()->actor_id == 1) {
-            $value = auth()->user()->id;
+        // kalau mau pakai riwayat ini uncoment semua
+        // if (auth()->user()->actor_id == 1) {
+        // $value = auth()->user()->id;
 
-            $orders = Order::with(['product' => function ($q) use ($value) {
-                $q->where('owner_id', '=', $value);
-            }])->where('status', '=', 'accepted')->latest()->paginate(10);
-        } elseif (auth()->user()->actor_id == 2) {
-            $orders = Order::with('product')->where([['customer_id', '=', auth()->user()->id], ['status', '=', 'accepted']])->latest()->paginate(10);
-        }
+        // $orders = Order::with(['product' => function ($q) use ($value) {
+        //     $q->where('owner_id', '=', $value);
+        // }])->where('status', '=', 'accepted')->latest()->paginate(10);
+        // } elseif (auth()->user()->actor_id == 2) {
+        $orders = Order::with('product')->where([['customer_id', '=', auth()->user()->id], ['status', '=', 'accepted']])->latest()->paginate(10);
+        // }
 
         return view('dashboard.order.history', [
             'title' => 'Riwayat Pemesanan',
@@ -129,7 +136,7 @@ class OrderController extends Controller
         if (auth()->user()->actor_id == 1) {
             $validatedData = $request->validate([
                 'status' => 'required|max:255',
-                'feedback' => 'required|max:255'
+                'feedback' => 'max:255'
             ]);
 
             if ($request->status == 'accepted') {

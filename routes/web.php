@@ -93,9 +93,6 @@ Route::middleware('customer')->group(function () {
     // ORDER - UPDATE
     Route::put('/dashboard/order/{order}', [OrderController::class, 'update']);
 
-    // ORDER - HISTORIES
-    Route::get('/dashboard/history', [OrderController::class, 'history']);
-
     // ANALYSIS
     Route::get('/dashboard/analysis', [AnalysisController::class, 'index']);
 
@@ -138,6 +135,10 @@ Route::middleware('farmer')->group(function () {
 
 // FOR PRODUSEN
 Route::middleware('produsen')->group(function () {
+    // balikin ke customer kalau mau pakai riwayat di petani
+    // ORDER - HISTORIES
+    Route::get('/dashboard/history', [OrderController::class, 'history']);
+
     // PRODUCT - MARKET
     Route::get('/dashboard/market', [ProductController::class, 'market']);
 

@@ -77,17 +77,17 @@
                                         home
                                     </span>
                                 </span>
-                                @if ($product->address == null)
-                                    <input type="text" id="customer_address" name="customer_address"
-                                        class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('customer_address') invalid:border-[#FF5A8A] @enderror"
-                                        placeholder="ALAMAT PEMBELI" value="{{ old('customer_address') }}" required
-                                        oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                                        oninput="setCustomValidity('')">
-                                @else
-                                    <input type="text" id="customer_address" name="customer_address"
-                                        class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5"
-                                        placeholder="ALAMAT PEMBELI" value="{{ old('customer_address') }}">
-                                @endif
+                                {{-- @if ($product->address == null) --}}
+                                {{-- <input type="text" id="customer_address" name="customer_address"
+                                    class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5 @error('customer_address') invalid:border-[#FF5A8A] @enderror"
+                                    placeholder="ALAMAT PEMBELI" value="{{ old('customer_address') }}" required
+                                    oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
+                                    oninput="setCustomValidity('')"> --}}
+                                {{-- @else --}}
+                                <input type="text" id="customer_address" name="customer_address"
+                                    class="rounded-none rounded-r-lg bg-[#F1F8FE] border-[#1B232E] text-[#1B232E] focus:ring-[#1B232E] focus:border-[#1B232E] block flex-1 min-w-0 w-full text-sm p-2.5"
+                                    placeholder="ALAMAT PEMBELI" value="{{ old('customer_address') }}">
+                                {{-- @endif --}}
                             </div>
                             <p class="mt-1 text-sm text-gray-500" id="file_input_help">Masukkan alamat pembeli sebgai
                                 pengiriman delivery.
@@ -129,19 +129,19 @@
                                 <p class="text-lg font-semibold text-[#1B232E] text-center">Nomor Rekening.</p>
                                 <p class="text-lg font-semibold text-[#FF5A8A] text-center">123.</p>
                             </div>
-                            @if ($product->rekening == 0)
-                                <input
-                                    class="block w-full text-sm text-[#1B232E] border border-[#1B232E] rounded-lg cursor-pointer bg-[#F1F8FE] focus:outline-none"
-                                    aria-describedby="proof_of_payment" id="proof_of_payment" name="proof_of_payment"
-                                    type="file">
-                            @else
+                            {{-- @if ($product->rekening == 0) --}}
+                            <input
+                                class="block w-full text-sm text-[#1B232E] border border-[#1B232E] rounded-lg cursor-pointer bg-[#F1F8FE] focus:outline-none"
+                                aria-describedby="proof_of_payment" id="proof_of_payment" name="proof_of_payment"
+                                type="file">
+                            {{-- @else
                                 <input
                                     class="block w-full text-sm text-[#1B232E] border border-[#1B232E] rounded-lg cursor-pointer bg-[#F1F8FE] focus:outline-none @error('proof_of_payment') invalid:border-[#FF5A8A] @enderror"
                                     aria-describedby="proof_of_payment" id="proof_of_payment" name="proof_of_payment"
                                     type="file" required
                                     oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
                                     oninput="setCustomValidity('')">
-                            @endif
+                            @endif --}}
                             <p class="mt-1 text-sm text-gray-500" id="proof_of_payment">Upload
                                 bukti pembayaran max 1mb.
                             </p>

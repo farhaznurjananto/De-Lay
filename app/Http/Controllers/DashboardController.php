@@ -75,7 +75,7 @@ class DashboardController extends Controller
 
         // ADMIN
         $forums = Forum::all()->count();
-        $forums_deleted = Forum::where('deleted_at', '=', null)->get()->count();
+        $forums_deleted = Forum::where('deleted_at', '<>', null)->get()->count();
         $advertisements = Advertisement::latest()->paginate(5);
 
         return view('dashboard.index', [

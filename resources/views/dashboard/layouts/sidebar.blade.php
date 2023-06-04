@@ -71,10 +71,11 @@
                             <a href="/dashboard/order"
                                 class="flex items-center w-full p-2 text-[#F1F8FE] transition duration-75 rounded-lg pl-11 group hover:bg-[#293649]">Pemesanan</a>
                         </li>
-                        <li>
+                        {{-- ini uncomment kalau mau pakai riwayat --}}
+                        {{-- <li>
                             <a href="/dashboard/history"
                                 class="flex items-center w-full p-2 text-[#F1F8FE] transition duration-75 rounded-lg pl-11 group hover:bg-[#293649]">Riwayat</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             @endcan

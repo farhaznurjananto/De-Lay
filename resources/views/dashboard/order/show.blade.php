@@ -75,8 +75,7 @@
                                 @csrf
                                 <textarea id="feedback" name="feedback" rows="4"
                                     class="block my-4 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-[#1B232E] focus:border-[#1B232E] @error('feedback') invalid:border-[#FF5A8A] @enderror"
-                                    placeholder="BELUM ADA TANGGAPAN" required oninvalid="this.setCustomValidity('Silahkan isi form dengan lengkap.')"
-                                    oninput="setCustomValidity('')"></textarea>
+                                    placeholder="BELUM ADA TANGGAPAN"></textarea>
                                 @error('feedback')
                                     <p class="text-[#FF5A8A] mt-2 text-sm font-medium">
                                         {{ $message }}
