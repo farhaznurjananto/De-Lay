@@ -143,7 +143,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <p class="text-sm font-semibold">Tidak Ada Jadwal Penanaman</p>
+                                    <p class="text-sm font-semibold text-center my-5">Tidak Ada Jadwal Penanaman</p>
                                 @endif
                                 <div class="flex flex-row">
                                     <div class="bg-[#FF5A8A] h-5 w-5 rounded-full mr-2"></div>
